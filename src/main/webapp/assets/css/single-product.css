@@ -1,0 +1,149 @@
+
+  
+.ux-swatch--color .ux-swatch__text,.ux-swatch--image .ux-swatch__text {
+    display: none
+}
+
+.ux-swatches {
+    --swatch-size-x-small: 15px;
+    --swatch-size-small: 20px;
+    --swatch-size-medium: 30px;
+    --swatch-size-large: 45px;
+    --swatch-size-x-large: 70px;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 5px 0
+}
+
+.ux-swatches--rounded * {
+    border-radius: 2px
+}
+
+.ux-swatches--circle * {
+    border-radius: 50%
+}
+
+.ux-swatches--circle .ux-swatch--label,.ux-swatches--circle .ux-swatches__limiter {
+    border-radius: 100px
+}
+
+.ux-swatches--circle .ux-swatch__color--dual-color {
+    background: linear-gradient(180deg,var(--swatch-color) 50%,var(--swatch-color-secondary) 50%)
+}
+
+.ux-swatches--x-small .ux-swatch--color,.ux-swatches--x-small .ux-swatch--image {
+    height: var(--swatch-size-x-small);
+    width: var(--swatch-size-x-small)
+}
+
+.ux-swatches--small .ux-swatch--color,.ux-swatches--small .ux-swatch--image {
+    height: var(--swatch-size-small);
+    width: var(--swatch-size-small)
+}
+
+.ux-swatches--large .ux-swatch--color,.ux-swatches--large .ux-swatch--image {
+    height: var(--swatch-size-large);
+    width: var(--swatch-size-large)
+}
+
+.ux-swatches--x-large .ux-swatch--color,.ux-swatches--x-large .ux-swatch--image {
+    height: var(--swatch-size-x-large);
+    width: var(--swatch-size-x-large)
+}
+
+.ux-swatches--x-small .ux-swatch--label {
+    min-height: var(--swatch-size-x-small);
+    min-width: var(--swatch-size-x-small);
+    padding: 2px 8px
+}
+
+.ux-swatches--small .ux-swatch--label {
+    min-height: var(--swatch-size-small);
+    min-width: var(--swatch-size-small);
+    padding: 2px 8px
+}
+
+.ux-swatches--large .ux-swatch--label {
+    min-height: var(--swatch-size-large);
+    min-width: var(--swatch-size-large);
+    padding: 0 10px
+}
+
+.ux-swatches--x-large .ux-swatch--label {
+    min-height: var(--swatch-size-x-large);
+    min-width: var(--swatch-size-x-large);
+    padding: 0 15px
+}
+
+.ux-swatches__limiter {
+    font-size: .8rem;
+    line-height: unset;
+    margin: 0;
+    min-height: unset;
+    padding: 2px
+}
+
+.ux-swatches.ux-swatches-in-loop {
+    gap: 8px;
+    margin-bottom: .7em;
+    width: 100%
+}
+
+.ux-swatch-active .box-image .back-image {
+    display: none!important
+}
+
+.has-hover .ux-swatch-active [class*=image-] img,.has-hover:hover .ux-swatch-active [class*=image-] img {
+    filter: none;
+    opacity: 1;
+    transform: none
+}
+
+.text-center .ux-swatches,.text-center .variations .label {
+    justify-content: center
+}
+
+.text-right .ux-swatches,.text-right .variations .label {
+    justify-content: flex-end
+}
+
+.text-center .ux-swatch+.ux-swatches__limiter,.text-center .ux-swatches-in-loop .ux-swatch,.text-right .ux-swatch+.ux-swatches__limiter,.text-right .ux-swatches-in-loop .ux-swatch {
+    margin-left: 0;
+    margin-right: 0
+}
+
+.ux-swatch-widget-layered-nav-list__graphic {
+    display: flex;
+    height: 20px;
+    margin-right: 10px;
+    padding: 0;
+    position: relative;
+    width: 20px
+}
+
+.chosen .ux-swatch-widget-layered-nav-list__graphic:before,.woocommerce-widget-layered-nav-list__item:hover .ux-swatch-widget-layered-nav-list__graphic:before {
+    align-items: center;
+    bottom: 0;
+    color: #fff;
+    content: "";
+    display: flex;
+    font-family: fl-icons;
+    font-size: 10px;
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 2px
+}
+.mo-ta-san-pham {
+    display: -webkit-box;        /* cần cho line-clamp */
+    -webkit-line-clamp: 2;       /* số dòng hiển thị */
+    -webkit-box-orient: vertical; /* cần cho line-clamp */
+    overflow: hidden;            /* ẩn phần dư thừa */
+    text-overflow: ellipsis;     /* thêm dấu ... */
+}
+.show{
+	display: table-row;
+}

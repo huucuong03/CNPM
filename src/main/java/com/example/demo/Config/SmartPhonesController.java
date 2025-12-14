@@ -1,0 +1,753 @@
+package com.example.demo.Config;
+
+import com.example.demo.Dto.*;
+import com.example.demo.Dto.Response.DetailSanPhamResponse;
+import com.example.demo.Entity.*;
+import com.example.demo.Repository.*;
+import com.example.demo.Service.ChiTietSanPhamService;
+import com.example.demo.Service.KhachHangService;
+import com.example.demo.Service.NSXService;
+import com.example.demo.Service.SanPhamService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.*;
+import java.util.stream.Collectors;
+
+@Controller
+public class SmartPhonesController {
+    @Autowired
+    private ChiTietSanPhamService service;
+
+    @Autowired
+    private SanPhamService sanPhamService;
+
+    @Autowired
+    private ChiTietSanPhamRepository chiTietSanPhamRepository;
+
+    @Autowired
+    private KhachHangService khachHangService;
+
+    @Autowired
+    private NSXRepository nsxRepository;
+
+    @Autowired
+    private GioHangChiTietRepository gioHangChiTietRepository;
+
+    @Autowired
+    private GioHangRepository gioHangRepository;
+
+    @Autowired
+    private DanhGiaRepository danhGiaRepository;
+
+    @Autowired
+    private MauSacRepository mauSacRepository;
+    @Autowired
+    private NSXService nSXService;
+
+    @Autowired
+    private DungLuongRepository dungLuongRepository;
+
+    @Autowired
+    private SanPhamViewRepository sanPhamViewRepository;
+
+    @Autowired
+    private SanPhamRepository sanPhamRepository;
+
+
+    @GetMapping("/hien-thi-shop/{maKhachHang}")
+    public String hienThi(Model model,
+                          @PathVariable(name = "maKhachHang") Long maKhachHang,
+                          @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                          @RequestParam(value = "type", required = false) Long type,
+                          @RequestParam(value = "range", required = false) String range
+    ) {
+        int limit = 9; // Số lượng sản phẩm trên mỗi trang
+        int offset = (page - 1) * limit; // Offset để truy vấn từ bản ghi nào
+
+
+        KhachHang khachHangs = khachHangService.getByMa(maKhachHang);
+        model.addAttribute("kh", khachHangs);
+
+        int totalItem = service.getTotalItem(type, range, null, null); // Số lượng sản phẩm trong cơ sở dữ liệu (tổng số)
+        int totalPage = (int) Math.ceil((double) totalItem / limit); // Tính tổng số trang dựa trên tổng số sản phẩm và số lượng sản phẩm trên mỗi trang
+        List<SanPhamHTDTO> chiTietSanPhamList;
+
+
+        if (range != null && !range.isEmpty()) {
+            // Xử lý khi có range từ URL
+            String[] priceRange = range.split("-");
+
+            if (priceRange.length == 2) {
+                try {
+                    BigDecimal minPrice = new BigDecimal(priceRange[0]);
+                    BigDecimal maxPrice = new BigDecimal(priceRange[1]);
+
+                    if (type != null) {
+                        // Lọc sản phẩm theo nhà sản xuất và khoảng giá
+                        if (range.equals("0-11000")) {
+                            chiTietSanPhamList = sanPhamViewRepository.fetchSanPhamHTDTO(type, BigDecimal.valueOf(0), BigDecimal.valueOf(10999999), offset, limit);
+                        } else if (range.equals("11000-15000")) {
+                            chiTietSanPhamList = sanPhamViewRepository.fetchSanPhamHTDTO(type, BigDecimal.valueOf(11000000), BigDecimal.valueOf(15000000), offset, limit);
+                        } else if (range.equals("15000-999999999")) {
+                            chiTietSanPhamList = sanPhamViewRepository.fetchSanPhamHTDTO(type, BigDecimal.valueOf(15000000), BigDecimal.valueOf(999999999), offset, limit);
+                        } else {
+                            chiTietSanPhamList = sanPhamViewRepository.fetchSanPhamHTDTO(type, null, null, offset, limit);
+                        }
+                    } else {
+                        // Lọc sản phẩm chỉ theo khoảng giá
+                        if (range.equals("0-11000")) {
+                            chiTietSanPhamList = sanPhamViewRepository.fetchSanPhamHTDTO(null, BigDecimal.valueOf(0), BigDecimal.valueOf(10999999), offset, limit);
+                        } else if (range.equals("11000-15000")) {
+                            chiTietSanPhamList = sanPhamViewRepository.fetchSanPhamHTDTO(null, BigDecimal.valueOf(11000000), BigDecimal.valueOf(15000000), offset, limit);
+                        } else if (range.equals("15000-999999999")) {
+                            chiTietSanPhamList = sanPhamViewRepository.fetchSanPhamHTDTO(null, BigDecimal.valueOf(15000000), BigDecimal.valueOf(999999999), offset, limit);
+                        } else {
+                            chiTietSanPhamList = sanPhamViewRepository.fetchSanPhamHTDTO(null, null, null, offset, limit);
+                        }
+                    }
+                } catch (NumberFormatException e) {
+                    // Xử lý nếu giá không đúng định dạng số
+                    e.printStackTrace();
+                    chiTietSanPhamList = new ArrayList<>(); // hoặc xử lý khác theo yêu cầu
+                }
+            } else {
+                // Xử lý nếu range không hợp lệ
+                chiTietSanPhamList = new ArrayList<>(); // hoặc xử lý khác theo yêu cầu
+            }
+        } else {
+            // Xử lý khi không có range từ URL
+            if (type != null) {
+                chiTietSanPhamList = sanPhamViewRepository.fetchSanPhamHTDTO(type, null, null, offset, limit);
+            } else {
+                chiTietSanPhamList = sanPhamViewRepository.fetchSanPhamHTDTO(null, null, null, offset, limit);
+            }
+        }
+
+        model.addAttribute("ctsps", chiTietSanPhamList);
+
+        List<NSX> nsxList = nsxRepository.findAll();
+        model.addAttribute("listNSX", nsxList);
+
+        List<DungLuong> dungLuongList = dungLuongRepository.findAll();
+        model.addAttribute("listDungLuong", dungLuongList);
+
+        List<MauSac> mauSacList = mauSacRepository.findAll();
+        model.addAttribute("listMS", mauSacList);
+
+        model.addAttribute("page", page);
+        model.addAttribute("totalPage", totalPage); // Truyền tổng số trang vào view
+          model.addAttribute("bodyPage", "/WEB-INF/views/shop.jsp");
+        model.addAttribute("pageTitle", "Trang chủ");
+        return "/layout/layout";
+    }
+
+
+        @GetMapping("/{tenNsx}")
+        public String hienThiTheoNsx(
+                @PathVariable String tenNsx,
+                @RequestParam(defaultValue = "0") int page,
+                Model model
+        ) {
+            Long maNsx = nSXService.getbyTenNsx(tenNsx);
+            Page<SanPhamViewDTO> pageSanPham = sanPhamService.getSanPhamByNsx(maNsx, page);
+            Map<String, Long> minMaxGia = sanPhamService.getMinMaxGia(maNsx);
+            Long maxGia = minMaxGia.get("max")/1000;
+            NumberFormat nf = NumberFormat.getInstance(new Locale("vi", "VN"));
+            String maxGiashow = nf.format(maxGia);
+            String maxGiaFormatted = nf.format(maxGia);
+
+            // Add vào model
+            model.addAttribute("maxGia", maxGia);
+            model.addAttribute("maxGiaFormatted", maxGiaFormatted);
+            model.addAttribute("maxGiashow", maxGiashow);
+            model.addAttribute("pageSanPham", pageSanPham.getContent());
+            model.addAttribute("totalPages", pageSanPham.getTotalPages());
+            model.addAttribute("currentPage", page);
+            model.addAttribute("tenNsx", tenNsx);
+            model.addAttribute("bodyPage", "/WEB-INF/views/shop.jsp");
+            model.addAttribute("pageTitle", "Trang chủ");
+            return "/layout/layout";
+        }
+
+        @GetMapping("/nsx/{tenNsx}/sort")
+        @ResponseBody
+        public List<SanPhamViewDTO> sortTheoGia(
+                @PathVariable String tenNsx,
+                @RequestParam(defaultValue = "0") int page,
+                @RequestParam("type") String type
+        ) {
+            Long maNsx = nSXService.getbyTenNsx(tenNsx);
+
+            Page<SanPhamViewDTO> pageData;
+
+            switch (type) {
+                case "asc":
+                    pageData = sanPhamService.getSanPhamGiaTangDan(maNsx, page);
+                    break;
+                case "desc":
+                    pageData = sanPhamService.getSanPhamGiaGiamDan(maNsx, page);
+                    break;
+                default:
+                    return List.of();
+            }
+
+            return pageData.getContent();
+        }
+
+    @GetMapping("nsx/{tenNsx}/load")
+    @ResponseBody
+    public Map<String, Object> loadSanPham(
+            @PathVariable String tenNsx,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(required = false) Long min,
+            @RequestParam(required = false) Long max,
+            @RequestParam(required = false) String sort
+    ) {
+        Long maNsx = nSXService.getbyTenNsx(tenNsx);
+        Page<SanPhamViewDTO> pageSanPham;
+
+        if (min != null && max != null) {
+            pageSanPham = sanPhamService.getSanPhamTheoKhoangGia(maNsx, min, max, page);
+        } else if ("asc".equals(sort)) {
+            pageSanPham = sanPhamService.getSanPhamGiaTangDan(maNsx, page);
+        } else if ("desc".equals(sort)) {
+            pageSanPham = sanPhamService.getSanPhamGiaGiamDan(maNsx, page);
+        } else {
+            pageSanPham = sanPhamService.getSanPhamByNsx(maNsx, page);
+        }
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("sanPhams", pageSanPham.getContent());
+        response.put("totalPages", pageSanPham.getTotalPages());
+        response.put("currentPage", page);
+
+        return response;
+    }
+
+
+
+    @GetMapping("/nsx/{tenNsx}/price-range")
+    @ResponseBody
+    public Map<String, Long> getPriceRange(@PathVariable String tenNsx) {
+        Long maNsx = nSXService.getbyTenNsx(tenNsx);
+        return sanPhamService.getMinMaxGia(maNsx);
+    }
+
+    @GetMapping("/san-pham/{tenSanPham}")
+    public String viewSanPham(
+            Model model,
+            HttpSession session,
+            @PathVariable("tenSanPham") String tenSanPham
+    ) {
+        // Lấy thông tin khách hàng
+        KhachHang khachHang = (KhachHang) session.getAttribute("khachHang");
+        Long maKhachHang = (khachHang != null) ? khachHang.getMaKhachHang() : null;
+        String tenKhachHang = (khachHang != null) ? khachHang.getTen() : null;
+        model.addAttribute("kh", khachHang);
+        model.addAttribute("maKhachHang", maKhachHang);
+        model.addAttribute("tenKhachHang", tenKhachHang);
+        // Lấy thông tin sản phẩm
+        DetailSanPhamResponse sanPham = service.detailSanPhamByTenSanPham(tenSanPham);
+        model.addAttribute("sanPham", sanPham);
+        Long maSP = sanPham.getMaSanPham();
+        NSX maNSX =service.getSanPhamByNSX(maSP);
+        List<DetailSanPhamResponse> sanPhamGanNhat = service.findTop5SanPhamGanNhat(maSP,maNSX.getMaNSX());
+        model.addAttribute("sanPhamGanNhat", sanPhamGanNhat);
+        // Lấy danh sách dung lượng của sản phẩm
+        List<ListDungLuongOfSanPhamDTO> listDungLuong = sanPham.getListDungLuongOfSanPhamDTOS();
+        ListDungLuongOfSanPhamDTO dungLuongDefault = listDungLuong.get(0); // Dung lượng mặc định
+
+        // Lấy danh sách màu theo dung lượng mặc định
+        List<ListMauSacOfSanPhamDTO> listMauSac = service.getListMauSacOfSanPhamByDungLuong(
+                tenSanPham, dungLuongDefault.getMaDungLuong()
+        );
+        // Gán hinhAnhURL cho từng màu (nếu service chưa set)
+        for (ListMauSacOfSanPhamDTO mauSac : listMauSac) {
+            String hinhAnh = chiTietSanPhamRepository.getHinhAnhOfMauSac(
+                    tenSanPham,
+                    dungLuongDefault.getMaDungLuong(),
+                    mauSac.getMaMauSac()
+            );
+            mauSac.setHinhAnhURL(hinhAnh);
+        }
+
+
+// Chọn màu mặc định để hiển thị ảnh lớn
+        ListMauSacOfSanPhamDTO mauSacDefault = listMauSac.get(0);
+        model.addAttribute("mauSacDefault", mauSacDefault);
+        model.addAttribute("listMauSac", listMauSac);
+        model.addAttribute("tenDungLuongCheck", dungLuongDefault.getTenDungLuong());
+
+        // Lấy giá theo từng dung lượng
+        List<Map<String, Object>> variantsDungLuong = new ArrayList<>();
+        for (ListDungLuongOfSanPhamDTO dl : listDungLuong) {
+            ListDungLuongOfSanPhamDTO giaSP = chiTietSanPhamRepository.getGiaBanOfSP(
+                    tenSanPham, dl.getMaDungLuong()
+            );
+
+            // Cập nhật giá giảm cho từng dung lượng
+            dl.setGiaBanSauKhiGG(giaSP != null ? giaSP.getGiaBanSauKhiGG() : null);
+
+            Map<String, Object> variant = new HashMap<>();
+            variant.put("tenDungLuong", dl.getTenDungLuong());
+            variant.put("maDungLuong", dl.getMaDungLuong());
+            variant.put("giaBan", dl.getGiaBan());
+            variant.put("giaBanGG", dl.getGiaBanSauKhiGG());
+            variantsDungLuong.add(variant);
+        }
+        model.addAttribute("variantsDungLuong", variantsDungLuong);
+
+        // Giá mặc định hiển thị
+        if (!variantsDungLuong.isEmpty()) {
+            Map<String, Object> firstVariant = variantsDungLuong.get(0);
+            model.addAttribute("giaBan", firstVariant.get("giaBan"));
+            model.addAttribute("giaBanGG", firstVariant.get("giaBanGG") != null ? firstVariant.get("giaBanGG") : "");
+        }
+
+        // Lấy danh sách đánh giá
+        List<DanhGia> danhGiaList = danhGiaRepository.findAllBySanPham(
+                sanPhamRepository.findByTenSanPham(tenSanPham)
+        );
+        model.addAttribute("danhGiaList", danhGiaList);
+
+        // Định dạng ngày đánh giá
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        if (!danhGiaList.isEmpty()) {
+            // Lấy ngày của đánh giá mới nhất (hoặc bạn có thể map từng đánh giá)
+            model.addAttribute("ngayDanhGia", sdf.format(danhGiaList.get(0).getNgayDanhGia()));
+        }
+        String tenNsx =maNSX.getTenNSX();
+        // Các attribute khác cho layout
+        model.addAttribute("tenNsx", tenNsx);
+        model.addAttribute("kh", maKhachHang);
+        model.addAttribute("bodyPage", "/WEB-INF/views/single-product.jsp");
+        model.addAttribute("pageTitle", "Trang chủ");
+
+        return "/layout/layout";
+    }
+
+    @GetMapping("/view/{maKhachHang}/{tenSanPham}/{tenDungLuong}")
+    public String viewListMauSac(Model model, @PathVariable(name = "tenSanPham") String tenSanPham,
+                                 @PathVariable(name = "tenDungLuong") String tenDungLuong,
+                                 @PathVariable(name = "maKhachHang") Long maKhachHang) {
+        DetailSanPhamResponse sanPham = service.detailSanPhamByTenSanPham(tenSanPham);
+        KhachHang khachHangs = khachHangService.getByMa(maKhachHang);
+        List<ListDungLuongOfSanPhamDTO> dungLuong = dungLuongRepository.findByTenSanPhamAndTenDL(tenSanPham, tenDungLuong);
+        List<ListMauSacOfSanPhamDTO> listMauSacOfSanPhamDTOS = service.getListMauSacOfSanPhamByDungLuong(tenSanPham, dungLuong.get(0).getMaDungLuong());
+        ListDungLuongOfSanPhamDTO giaSPViewTong = chiTietSanPhamRepository.getGiaBanOfSP(tenSanPham, listMauSacOfSanPhamDTOS.get(0).getMaDungLuong());
+        model.addAttribute("listMauSac", listMauSacOfSanPhamDTOS);
+        model.addAttribute("tenDungLuongCheck", tenDungLuong);
+        for (ListDungLuongOfSanPhamDTO luongOfSanPhamDTO : sanPham.getListDungLuongOfSanPhamDTOS()) {
+            ListDungLuongOfSanPhamDTO giaSP = chiTietSanPhamRepository.getGiaBanOfSP(tenSanPham, luongOfSanPhamDTO.getMaDungLuong());
+            if (giaSP == null) {
+                luongOfSanPhamDTO.setGiaBanSauKhiGG(null);
+            } else {
+                luongOfSanPhamDTO.setGiaBanSauKhiGG(giaSP.getGiaBanSauKhiGG());
+            }
+        }
+        if (giaSPViewTong == null) {
+            model.addAttribute("giaBan", dungLuong.get(0).getGiaBan());
+            model.addAttribute("giaBanGG", "");
+        } else {
+            model.addAttribute("giaBan", giaSPViewTong.getGiaBan());
+            model.addAttribute("giaBanGG", giaSPViewTong.getGiaBanSauKhiGG());
+        }
+        model.addAttribute("sanPham", sanPham);
+        model.addAttribute("dungLuong", dungLuong);
+//        model.addAttribute("listDungLuongOfSanPhamDTOS", chiTietSanPham);
+        List<DanhGia> danhGiaList = danhGiaRepository.findAllBySanPham(sanPhamRepository.findByTenSanPham(tenSanPham));
+        model.addAttribute("danhGiaList", danhGiaList);
+        for (DanhGia danhGia : danhGiaList) {
+            Date date = danhGia.getNgayDanhGia();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            String ngayDanhGia = sdf.format(date);
+            model.addAttribute("ngayDanhGia", ngayDanhGia);
+        }
+
+        model.addAttribute("kh", khachHangs);
+        return "single-product";
+    }
+
+//    @GetMapping("/getSoLuongTon")
+//    public Map<String, Integer> getSoLuongTon(@RequestParam String tenSanPham, @RequestParam String tenDungLuong, @RequestParam String tenMauSac) {
+//        Integer soLuongNhap = chiTietSanPhamRepository.countSoLuongNhapByTenSanPhamAndDungLuongAndMauSac(tenSanPham, tenDungLuong, tenMauSac);
+//        Integer soLuongBan = chiTietSanPhamRepository.countSoLuongBanByTenSanPhamAndDungLuongAndMauSac(tenSanPham, tenDungLuong, tenMauSac);
+//
+//        Integer soLuongTon =soLuongNhap-soLuongBan;
+//
+//        Map<String, Integer> response = new HashMap<>();
+//        response.put("soLuongTon", soLuongTon);
+//        return response;
+//    }
+
+    @PostMapping("/add_danh_gia")
+    public String add_Danh_Gia(HttpServletRequest request) {
+
+        String idKh = request.getParameter("maKhachHang");
+        String tenSanPham = request.getParameter("san-pham");
+        String binhLuan = request.getParameter("comment");
+
+//        ChiTietSanPham chiTietSanPham = chiTietSanPhamRepository.getReferenceById(Long.parseLong(tenSanPham));
+        KhachHang khachHang = khachHangService.getByMa(Long.parseLong(idKh));
+
+        DanhGia danhGia = new DanhGia();
+        danhGia.setKhachHang(khachHang);
+//        danhGia.setChiTietSanPham(chiTietSanPham);
+        danhGia.setSanPham(sanPhamRepository.findByTenSanPham(tenSanPham));
+        danhGia.setDanhGia(binhLuan);
+        ZoneOffset zoneOffset = ZoneOffset.of("+07:00");
+        danhGia.setNgayDanhGia(new Date(LocalDateTime.now().toInstant(zoneOffset).toEpochMilli()));
+        danhGia.setTrangThai(1);
+
+        danhGiaRepository.save(danhGia);
+
+        return "redirect:/view/" + idKh + "/" + tenSanPham;
+    }
+
+    @PostMapping("/home_clients/{maKhachHang}")
+    public String timKiem(@PathVariable("maKhachHang") Long maKhachHang, Model model, @RequestParam("tenSanPham") String tenSanPham) {
+        KhachHang kh = khachHangService.getByMa(maKhachHang);
+        List<ChiTietSanPham> danhSachTimKiem = chiTietSanPhamRepository.findByTenSanPhamContaining(tenSanPham);
+        model.addAttribute("kh", kh);
+        model.addAttribute("ctsps", danhSachTimKiem);
+        return "shop";
+    }
+
+    //Chưa đăng nhập
+//    @GetMapping("/hien-thi-shop")
+//    public String hienThi1(Model model,
+//                           @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+//                           @RequestParam(value = "type", required = false) Long type,
+//                           @RequestParam(value = "range", required = false) String range) {
+//        int limit = 9; // Số lượng sản phẩm trên mỗi trang
+//        int offset = (page - 1) * limit; // Offset để truy vấn từ bản ghi nào
+//
+//
+//        int totalItem = service.getTotalItem(type, range, null, null); // Số lượng sản phẩm trong cơ sở dữ liệu (tổng số)
+//        int totalPage = (int) Math.ceil((double) totalItem / limit);
+//
+//
+//        List<SanPhamHTDTO> chiTietSanPhamList;
+//
+//        if (range != null && !range.isEmpty()) {
+//            // Xử lý khi có range từ URL
+//            String[] priceRange = range.split("-");
+//
+//            if (priceRange.length == 2) {
+//                try {
+//                    BigDecimal minPrice = new BigDecimal(priceRange[0]);
+//                    BigDecimal maxPrice = new BigDecimal(priceRange[1]);
+//
+//                    if (type != null) {
+//                        // Lọc sản phẩm theo nhà sản xuất và khoảng giá
+//                        if (range.equals("0-11000")) {
+//                            chiTietSanPhamList = sanPhamViewRepository.fetchSanPhamHTDTO(type, BigDecimal.valueOf(0), BigDecimal.valueOf(10999999), offset, limit);
+//                        } else if (range.equals("11000-15000")) {
+//                            chiTietSanPhamList = sanPhamViewRepository.fetchSanPhamHTDTO(type, BigDecimal.valueOf(11000000), BigDecimal.valueOf(15000000), offset, limit);
+//                        } else if (range.equals("15000-999999999")) {
+//                            chiTietSanPhamList = sanPhamViewRepository.fetchSanPhamHTDTO(type, BigDecimal.valueOf(15000000), BigDecimal.valueOf(999999999), offset, limit);
+//                        } else {
+//                            chiTietSanPhamList = sanPhamViewRepository.fetchSanPhamHTDTO(type, null, null, offset, limit);
+//                        }
+//                    } else {
+//                        // Lọc sản phẩm chỉ theo khoảng giá
+//                        if (range.equals("0-11000")) {
+//                            chiTietSanPhamList = sanPhamViewRepository.fetchSanPhamHTDTO(null, BigDecimal.valueOf(0), BigDecimal.valueOf(10999999), offset, limit);
+//                        } else if (range.equals("11000-15000")) {
+//                            chiTietSanPhamList = sanPhamViewRepository.fetchSanPhamHTDTO(null, BigDecimal.valueOf(11000000), BigDecimal.valueOf(15000000), offset, limit);
+//                        } else if (range.equals("15000-999999999")) {
+//                            chiTietSanPhamList = sanPhamViewRepository.fetchSanPhamHTDTO(null, BigDecimal.valueOf(15000000), BigDecimal.valueOf(999999999), offset, limit);
+//                        } else {
+//                            chiTietSanPhamList = sanPhamViewRepository.fetchSanPhamHTDTO(null, null, null, offset, limit);
+//                        }
+//                    }
+//                } catch (NumberFormatException e) {
+//                    // Xử lý nếu giá không đúng định dạng số
+//                    e.printStackTrace();
+//                    chiTietSanPhamList = new ArrayList<>(); // hoặc xử lý khác theo yêu cầu
+//                }
+//            } else {
+//                // Xử lý nếu range không hợp lệ
+//                chiTietSanPhamList = new ArrayList<>(); // hoặc xử lý khác theo yêu cầu
+//            }
+//        } else {
+//            // Xử lý khi không có range từ URL
+//            if (type != null) {
+//                chiTietSanPhamList = sanPhamViewRepository.fetchSanPhamHTDTO(type, null, null, offset, limit);
+//            } else {
+//                chiTietSanPhamList = sanPhamViewRepository.fetchSanPhamHTDTO(null, null, null, offset, limit);
+//            }
+//        }
+//
+//
+//        model.addAttribute("ctsps", chiTietSanPhamList);
+//
+//        List<NSX> nsxList = nsxRepository.findAll();
+//        model.addAttribute("listNSX", nsxList);
+//
+//        List<DungLuong> dungLuongList = dungLuongRepository.findAll();
+//        model.addAttribute("listDungLuong", dungLuongList);
+//
+//        List<MauSac> mauSacList = mauSacRepository.findAll();
+//        model.addAttribute("listMS", mauSacList);
+//
+//        model.addAttribute("page", page);
+//        model.addAttribute("totalItems", totalItem);
+//        model.addAttribute("totalPage", totalPage); // Truyền tổng số trang vào view
+//        model.addAttribute("bodyPage", "/WEB-INF/views/chuadn/shopchuadn.jsp");
+//        model.addAttribute("pageTitle", "Trang chủ");
+//        return "/layout/layout";
+//    }
+
+    @PostMapping("/hien-thi-shop")
+    public String timKiemSanPham1(@RequestParam("tenSanPham") String tenSanPham,
+                                  @RequestParam(defaultValue = "0") int page,
+                                  Model model) {
+        int size = 20; // số lượng bản ghi hiển thị mỗi trang
+        List<SanPhamHTDTO> danhSachSanPham = sanPhamViewRepository.findSanPhamPaginated(tenSanPham, page, size);
+        Long totalCount = sanPhamViewRepository.countSanPham(tenSanPham);
+        int remaining = Math.toIntExact(totalCount - (page * size + danhSachSanPham.size()));
+        List<NSX> nsxList = nsxRepository.findAll();
+        String keytimkiem = tenSanPham;
+        model.addAttribute("remaining", remaining);
+        model.addAttribute("keytimkiem", keytimkiem);
+        model.addAttribute("listNSX", nsxList);
+        model.addAttribute("ctsps", danhSachSanPham);
+        model.addAttribute("totalCount", totalCount);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("pageSize", size);
+        model.addAttribute("bodyPage", "/WEB-INF/views/chuadn/shopchuadn.jsp");
+        model.addAttribute("pageTitle", "Trang chủ");
+        return "/layout/layout";
+    }
+
+    @GetMapping("/hien-thi-shop")
+    public String hienThiShop(@RequestParam(required = false) String tenSanPham,
+                              @RequestParam(defaultValue = "0") int page,
+                              Model model) {
+        int size = 20; // số lượng bản ghi hiển thị mỗi trang
+        List<SanPhamHTDTO> danhSachSanPham = sanPhamViewRepository.findSanPhamPaginated(tenSanPham, page, size);
+        Long totalCount = sanPhamViewRepository.countSanPham(tenSanPham);
+        int remaining = Math.toIntExact(totalCount - (page * size + danhSachSanPham.size()));
+        List<NSX> nsxList = nsxRepository.findAll();
+        String keytimkiem = tenSanPham;
+        model.addAttribute("remaining", remaining);
+        model.addAttribute("keytimkiem", keytimkiem);
+        model.addAttribute("listNSX", nsxList);
+        model.addAttribute("ctsps", danhSachSanPham);
+        model.addAttribute("totalCount", totalCount);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("pageSize", size);
+        model.addAttribute("bodyPage", "/WEB-INF/views/chuadn/shopchuadn.jsp");
+        model.addAttribute("pageTitle", "Trang chủ");
+        return "/layout/layout";
+    }
+    @GetMapping("/api/tim-kiem-san-pham")
+    @ResponseBody
+    public List<SanPhamHTDTO> timKiemSanPham(@RequestParam("keyword") String keyword) {
+        // Tìm 10 kết quả đầu tiên
+        return sanPhamViewRepository.findSanPhamPaginated(keyword, 0, 10);
+    }
+
+    @GetMapping("/hien-thi-shop/load-more")
+    @ResponseBody
+    public Map<String, Object> loadMoreSanPham(
+            @RequestParam String tenSanPham,
+            @RequestParam int page,
+            @RequestParam int size,
+            @RequestParam(required = false) String sort) {
+
+        List<SanPhamHTDTO> products;
+
+        // Kiểm tra sort
+        if ("asc".equalsIgnoreCase(sort)) {
+            products = sanPhamViewRepository.findSanPhamPaginatedSorted(tenSanPham, page, size, true); // true = tăng dần
+        } else if ("desc".equalsIgnoreCase(sort)) {
+            products = sanPhamViewRepository.findSanPhamPaginatedSorted(tenSanPham, page, size, false); // false = giảm dần
+        } else {
+            products = sanPhamViewRepository.findSanPhamPaginated(tenSanPham, page, size); // không sort
+        }
+
+        long totalCount = sanPhamViewRepository.countSanPham(tenSanPham);
+        long remaining = totalCount - ((page + 1) * size);
+        if (remaining < 0) remaining = 0;
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("products", products);
+        response.put("remaining", remaining);
+
+        return response;
+    }
+
+
+    @GetMapping("/viewCDN/{tenSanPham}")
+    public String ViewUpdateChuaDangNhap(Model model, @PathVariable(name = "tenSanPham") String tenSanPham) {
+        DetailSanPhamResponse sanPham = service.detailSanPhamByTenSanPham(tenSanPham);
+        List<ListDungLuongOfSanPhamDTO> listDungLuongOfSanPhamDTOS = sanPham.getListDungLuongOfSanPhamDTOS();
+        ListDungLuongOfSanPhamDTO listDungLuongOfSanPhamDTO = listDungLuongOfSanPhamDTOS.get(0);
+        ListDungLuongOfSanPhamDTO giaSP = chiTietSanPhamRepository.getGiaBanOfSP(tenSanPham, listDungLuongOfSanPhamDTO.getMaDungLuong());
+        List<ListMauSacOfSanPhamDTO> listMauSacOfSanPhamDTOS = service.getListMauSacOfSanPhamByDungLuong(tenSanPham, listDungLuongOfSanPhamDTO.getMaDungLuong());
+        model.addAttribute("listMauSac", listMauSacOfSanPhamDTOS);
+        model.addAttribute("tenDungLuongCheck", listDungLuongOfSanPhamDTO.getTenDungLuong());
+        for (ListDungLuongOfSanPhamDTO luongOfSanPhamDTO : sanPham.getListDungLuongOfSanPhamDTOS()) {
+            ListDungLuongOfSanPhamDTO giaSPCheck = chiTietSanPhamRepository.getGiaBanOfSP(tenSanPham, luongOfSanPhamDTO.getMaDungLuong());
+            if (giaSPCheck == null) {
+                luongOfSanPhamDTO.setGiaBanSauKhiGG(null);
+            } else {
+                luongOfSanPhamDTO.setGiaBanSauKhiGG(giaSPCheck.getGiaBanSauKhiGG());
+            }
+        }
+        if (giaSP == null) {
+            model.addAttribute("giaBan", listDungLuongOfSanPhamDTO.getGiaBan());
+            model.addAttribute("giaBanGG", "");
+        } else {
+            model.addAttribute("giaBan", listDungLuongOfSanPhamDTO.getGiaBan());
+            model.addAttribute("giaBanGG", giaSP.getGiaBanSauKhiGG());
+        }
+        model.addAttribute("sanPham", sanPham);
+
+        List<DanhGia> danhGiaList = danhGiaRepository.findAllBySanPham(sanPhamRepository.findByTenSanPham(tenSanPham));
+        model.addAttribute("danhGiaList", danhGiaList);
+        for (DanhGia danhGia : danhGiaList) {
+            Date date = danhGia.getNgayDanhGia();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            String ngayDanhGia = sdf.format(date);
+            model.addAttribute("ngayDanhGia", ngayDanhGia);
+        }
+//        if (check > 0) {
+//            model.addAttribute("check", 1);
+//        } else {
+//            model.addAttribute("check", 0);
+//        }
+//        ChiTietSanPham chiTietSanPham = service.getByMa(maChiTietSanPham);
+//        SanPhamGiamGiaDTO sanPhamGiamGiaDTO = chiTietSanPhamRepository.detailSanPhamGiamGia(maChiTietSanPham);
+//        model.addAttribute("maChiTietSanPham", chiTietSanPham);
+//        model.addAttribute("maChiTietSanPhamGG", sanPhamGiamGiaDTO);
+        return "/chuadn/single-product_chuadn";
+    }
+
+    @GetMapping("/viewCDN/{tenSanPham}/{tenDungLuong}")
+    public String viewListMauSac(Model model, @PathVariable(name = "tenSanPham") String tenSanPham,
+                                 @PathVariable(name = "tenDungLuong") String tenDungLuong) {
+        DetailSanPhamResponse sanPham = service.detailSanPhamByTenSanPham(tenSanPham);
+        List<ListDungLuongOfSanPhamDTO> dungLuong = dungLuongRepository.findByTenSanPhamAndTenDL(tenSanPham, tenDungLuong);
+        ListDungLuongOfSanPhamDTO giaSP = chiTietSanPhamRepository.getGiaBanOfSP(tenSanPham, dungLuong.get(0).getMaDungLuong());
+        List<ListMauSacOfSanPhamDTO> listMauSacOfSanPhamDTOS = service.getListMauSacOfSanPhamByDungLuong(tenSanPham, dungLuong.get(0).getMaDungLuong());
+        for (ListDungLuongOfSanPhamDTO luongOfSanPhamDTO : sanPham.getListDungLuongOfSanPhamDTOS()) {
+            ListDungLuongOfSanPhamDTO giaSPCheck = chiTietSanPhamRepository.getGiaBanOfSP(tenSanPham, luongOfSanPhamDTO.getMaDungLuong());
+            if (giaSPCheck == null) {
+                luongOfSanPhamDTO.setGiaBanSauKhiGG(null);
+            } else {
+                luongOfSanPhamDTO.setGiaBanSauKhiGG(giaSPCheck.getGiaBanSauKhiGG());
+            }
+        }
+        if (giaSP == null) {
+            model.addAttribute("giaBan", dungLuong.get(0).getGiaBan());
+            model.addAttribute("giaBanGG", "");
+        } else {
+            model.addAttribute("giaBan", giaSP.getGiaBan());
+            model.addAttribute("giaBanGG", giaSP.getGiaBanSauKhiGG());
+        }
+        model.addAttribute("sanPham", sanPham);
+        model.addAttribute("listMauSac", listMauSacOfSanPhamDTOS);
+        model.addAttribute("dungLuong", dungLuong);
+        model.addAttribute("tenDungLuongCheck", tenDungLuong);
+//        model.addAttribute("listDungLuongOfSanPhamDTOS", chiTietSanPham);
+        List<DanhGia> danhGiaList = danhGiaRepository.findAllBySanPham(sanPhamRepository.findByTenSanPham(tenSanPham));
+        model.addAttribute("danhGiaList", danhGiaList);
+        for (DanhGia danhGia : danhGiaList) {
+            Date date = danhGia.getNgayDanhGia();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            String ngayDanhGia = sdf.format(date);
+            model.addAttribute("ngayDanhGia", ngayDanhGia);
+        }
+        return "/chuadn/single-product_chuadn";
+    }
+
+
+    @PostMapping("/home")
+    public String timKiem1(Model model, @RequestParam("tenSanPham") String tenSanPham) {
+        List<ChiTietSanPham> chiTietSanPhamList = service.hienThi();
+        model.addAttribute("ctsps", chiTietSanPhamList);
+        List<ChiTietSanPham> danhSachTimKiem = chiTietSanPhamRepository.findByTenSanPhamContaining(tenSanPham);
+        model.addAttribute("ctsps", danhSachTimKiem);
+        return "/chuadn/shopchuadn";
+//        return "home";
+    }
+
+    @GetMapping("/soluongton")
+    public ResponseEntity<Integer> getStock(
+            @RequestParam String tenSanPham,
+            @RequestParam String tenDungLuong,
+            @RequestParam String tenMauSac,
+            @CookieValue("makhachhang") Long maKhachHang
+    ) {
+        ChiTietSanPham chiTietSanPham = chiTietSanPhamRepository.getCTSPByMauSacAndDungLuongAndTen(tenSanPham, tenDungLuong, tenMauSac);
+
+        GioHangChiTiet gioHangChiTiet = gioHangChiTietRepository.getByChiTietSanPhamAndGioHang(chiTietSanPham, gioHangRepository.getByKhachHang(khachHangService.getByMa(maKhachHang)));
+
+        if (gioHangChiTiet != null) {
+            Integer soLuongNhap = chiTietSanPhamRepository.findSoLuongNhapBySanPham_TenSanPhamAndDungLuong_TenDungLuongAndMauSac_TenMauSac(
+                    tenSanPham, tenDungLuong, tenMauSac
+            );
+            Integer soLuongBan = chiTietSanPhamRepository.findSoLuongBanBySanPham_TenSanPhamAndDungLuong_TenDungLuongAndMauSac_TenMauSac(
+                    tenSanPham, tenDungLuong, tenMauSac
+            );
+            Integer soLuongTon = 0;
+            if (gioHangChiTiet.getSoLuong() != null) {
+                soLuongTon = soLuongNhap - soLuongBan - gioHangChiTiet.getSoLuong();
+            } else {
+                soLuongTon = soLuongNhap - soLuongBan;
+            }
+            return ResponseEntity.ok().body(soLuongTon);
+        }
+
+        Integer soLuongNhap = chiTietSanPhamRepository.findSoLuongNhapBySanPham_TenSanPhamAndDungLuong_TenDungLuongAndMauSac_TenMauSac(
+                tenSanPham, tenDungLuong, tenMauSac
+        );
+        Integer soLuongBan = chiTietSanPhamRepository.findSoLuongBanBySanPham_TenSanPhamAndDungLuong_TenDungLuongAndMauSac_TenMauSac(
+                tenSanPham, tenDungLuong, tenMauSac
+        );
+        Integer soLuongTon = soLuongNhap - soLuongBan;
+
+        return ResponseEntity.ok().body(soLuongTon);
+    }
+    @GetMapping("/soluongtonChuaDangNhap")
+    public ResponseEntity<Integer> getStock(
+            @RequestParam String tenSanPham,
+            @RequestParam String tenDungLuong,
+            @RequestParam String tenMauSac
+    ) {
+        Integer soLuongNhap = chiTietSanPhamRepository.findSoLuongNhapBySanPham_TenSanPhamAndDungLuong_TenDungLuongAndMauSac_TenMauSac(
+                tenSanPham, tenDungLuong, tenMauSac
+        );
+        Integer soLuongBan = chiTietSanPhamRepository.findSoLuongBanBySanPham_TenSanPhamAndDungLuong_TenDungLuongAndMauSac_TenMauSac(
+                tenSanPham, tenDungLuong, tenMauSac
+        );
+        Integer soLuongTon = soLuongNhap - soLuongBan;
+
+        return ResponseEntity.ok().body(soLuongTon);
+    }
+    @GetMapping("/hinhAnhURL")
+    public ResponseEntity<String> getImagePathByColor(@RequestParam String tenSanPham,
+                                                      @RequestParam String tenDungLuong,
+                                                      @RequestParam String tenMauSac) {
+
+        String hinhAnhURL = chiTietSanPhamRepository.findHinhAnhURLBySanPham_TenSanPhamAndDungLuong_TenDungLuongAndMauSac_TenMauSac(tenSanPham, tenDungLuong, tenMauSac); // Thay thế bằng phương thức thực tế của bạn
+
+        return ResponseEntity.ok().body(hinhAnhURL);
+    }
+
+}

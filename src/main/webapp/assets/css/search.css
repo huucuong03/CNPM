@@ -1,0 +1,778 @@
+.search-result-count{
+    text-align: center !important;
+    font-size: 16px;
+}
+.cps-page .cps-body {
+    min-height: calc(100vh - 600px);
+    padding-bottom: 20px;
+}
+.cps-container {
+    box-sizing: border-box;
+    display: block;
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+    width: 1200px;
+}
+#productListSearch.block-product-list-filter {
+    max-width: 75%;
+    min-width: 75%;
+    padding-top: 0;
+    position: relative;
+}
+#search-catalog-page .search-result-content {
+    display: flex;
+    padding-top: 10px;
+}
+.block-product-list-filter .product-list-filter {
+    display: flex;
+    margin-bottom: 24px;
+}
+.product-info-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .1), 0 2px 6px 2px rgba(60, 64, 67, .15);
+    display: flex;
+    flex-flow: column;
+    height: auto;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    min-height: 202px;
+    padding: 10px;
+    position: relative;
+    width: auto;
+    margin-bottom: 20px;
+}
+.block-product-list-filter .product-list-filter .product-item {
+    border-radius: 16px;
+    box-shadow: 0 4px 20px -8px rgba(0, 0, 0, .11), 0 0 32px 0 rgba(0, 0, 0, .059);
+    box-sizing: border-box;
+    flex: 0 0 calc(20% - 12.8px);
+    max-width: none;
+}
+#productListSearch.block-product-list-filter .product-list-filter .product-item {
+    flex: 0 0 calc(25% - 12px);
+}
+.product-info-container .product-info {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+.product-info-container .bottom-div {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+.product-info-container .install-0-tag {
+    align-items: center;
+    background: url(https://cdn2.cellphones.com.vn/x/media/wysiwyg/zero-ins-badge-ui-2025.png) 50% no-repeat;
+    display: flex;
+    font-weight: 500;
+    height: 29px;
+    justify-content: center;
+    padding: 0;
+    position: absolute;
+    right: -5px;
+    top: 0;
+    width: 75px;
+}
+.product-info-container .product-info a {
+    color: #181818;
+}
+.product-info-container .bottom-div {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+.product-info-container .install-0-tag {
+    align-items: center;
+    background: url(https://cdn2.cellphones.com.vn/x/media/wysiwyg/zero-ins-badge-ui-2025.png) 50% no-repeat;
+    display: flex;
+    font-weight: 500;
+    height: 29px;
+    justify-content: center;
+    padding: 0;
+    position: absolute;
+    right: -5px;
+    top: 0;
+    width: 75px;
+}
+.product-info-container .install-0-tag span {
+    color: #3b82f6;
+    font-size: 10px;
+    font-weight: 400;
+    margin: auto;
+    transform: translateY(-5px);
+}
+.product-info-container .install-0-tag span strong {
+    color: #3b82f6;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+
+.product-info-container:hover .product-info a .product__image img {
+    transform: scale(1.03)
+}
+
+.product-info-container .product-info {
+    display: flex;
+    flex-flow: column;
+    height: 100%
+}
+
+.product-info-container .product-info a {
+    color: #181818
+}
+
+.product-info-container .product-info a .product__name {
+    margin-bottom: 4px
+}
+
+.product-info-container .product-info a .product__name h3,.product-info-container .product-info a .product__name p {
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    font-size: 14px;
+    font-weight: 700;
+    height: 42px;
+    overflow: hidden;
+    position: relative;
+    z-index: 9;
+    margin: 0;
+}
+
+.product-info-container .product-info a .product__badge {
+    display: flex;
+    margin-bottom: 10px
+}
+
+.product-info-container .product-info a .product__badge p {
+    border: 1px solid #d1d5db;
+    border-radius: 5px;
+    color: #3a3a3a;
+    font-size: 11px;
+    margin-right: 10px;
+    padding: 1px 5px
+}
+
+.product-info-container .product-info a .product__image {
+    text-align: center
+}
+
+.product-info-container .product-info a .product__image img {
+    aspect-ratio: 1/1;
+    display: block;
+    margin: 12px auto;
+    transition: .3s;
+    width: 160px
+}
+
+.product-info-container .product-info a .product__more-info .product__more-info__item {
+    border-radius: 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    margin-bottom: 4px;
+    padding: 2px 5px;
+    text-transform: uppercase
+}
+
+.product-info-container .product-info a .product__more-info .product__more-info__item.is-danger {
+    background: #ffe6e1;
+    color: #832b19;
+    padding: 2px 8px;
+    text-transform: inherit
+}
+
+.product-info-container .product-info a .product__more-info .product__more-info__item.new-arrival {
+    background: #dff9e8;
+    color: #1b4c2f;
+    padding: 2px 8px;
+    text-transform: inherit
+}
+
+.product-info-container .product-info a .product__more-info .product__more-info__item:nth-of-type(odd) {
+    margin-right: 5px
+}
+
+.product-info-container .product-info a .block-smem-price {
+    align-items: baseline;
+    background-color: #dbe8fe;
+    border-radius: 4px;
+    color: #1e478a;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 11px;
+    font-size: 10px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    padding: 2px 4px
+}
+
+.product-info-container .product-info a .block-smem-price span {
+    color: #1e478a
+}
+
+.product-info-container .product-info a .block-smem-price.edu {
+    background-color: #efe9fe;
+    color: #421d95
+}
+
+.product-info-container .product-info a .block-smem-price.edu span {
+    color: #421d95
+}
+
+.product-info-container .product-info a .product__promotions {
+    margin-bottom: 10px
+}
+
+.product-info-container .product-info a .product__promotions .normal-price {
+    color: #707070;
+    font-size: 12px;
+    margin-bottom: 4px
+}
+
+.product-info-container .product-info a .product__promotions .discount-price {
+    background: #d70018;
+    border-radius: 5px;
+    color: #fff;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    padding: 4px 5px
+}
+
+.product-info-container .product-info a .product__promotions .promotion {
+    align-items: flex-start;
+    background: #f2f2f3;
+    border-radius: 5px;
+    color: #18181b;
+    display: flex;
+    font-size: 12px;
+    font-weight: 400;
+    gap: 5px;
+    line-height: 1.5;
+    margin-left: 0;
+    overflow: hidden;
+    padding: 5px;
+    text-transform: none;
+    width: auto
+}
+
+.product-info-container .product-info a .product__promotions .promotion .promo-list {
+    border-radius: 3px;
+    color: #fff;
+    font-size: 8px;
+    font-weight: 700;
+    height: 35px;
+    overflow: hidden;
+    text-align: center;
+    width: 50px
+}
+
+.product-info-container .product-info a .product__promotions .promotion .promo-list>ul {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%
+}
+
+.product-info-container .product-info a .product__promotions .promotion .promo-list>ul li {
+    align-items: center;
+    display: flex;
+    height: 50%;
+    justify-content: center;
+    line-height: 1;
+    width: 100%
+}
+
+.product-info-container .product-info a .product__promotions .promotion .promo-list>ul li.pmh-title {
+    background: #2b2b30;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 2px 0 0
+}
+
+.product-info-container .product-info a .product__promotions .promotion .promo-list>ul li.pmh-content {
+    background: #d70018
+}
+
+.product-info-container .product-info a .product__promotions .promotion .promo-list:empty {
+    display: none
+}
+
+.product-info-container .product-info a .product__promotions .promotion .promo-list+p {
+    -webkit-line-clamp: 2;
+    width: calc(100% - 45px)
+}
+
+.product-info-container .product-info a .product__promotions .promotion .coupon-price,.product-info-container .product-info a .product__promotions .promotion .gift-cont {
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin-bottom: 0;
+    display: -webkit-box;
+    overflow: hidden
+}
+
+.product-info-container .product-info a .block-box-price .box-info__box-price {
+    align-items: center;
+    color: #444;
+    display: flex;
+    font-family: Inter,sans-serif;
+    font-weight: 700;
+    line-height: 1.5;
+    margin-bottom: 4px
+}
+
+.product-info-container .product-info a .block-box-price .box-info__box-price .product__price--show {
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.product-info-container .product-info a .block-box-price .box-info__box-price .product__price--through {
+    color: #a1a1aa;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.product-info-container .product-info a .block-box-price .box-info__box-price .product__price--percent {
+    background: url(https://cdn2.cellphones.com.vn/x/media/wysiwyg/discount-badge-ui-2025.png) 50% no-repeat;
+    height: 22px;
+    left: 4px;
+    margin: auto;
+    position: absolute;
+    top: -17px;
+    width: 78px
+}
+
+.product-info-container .product-info a .block-box-price .box-info__box-price .product__price--percent-detail {
+    align-items: center;
+    color: #fff;
+    display: flex;
+    font-size: 10px;
+    font-weight: 500;
+    height: 100%;
+    justify-content: center;
+    margin: auto;
+    text-align: center;
+    width: 100%
+}
+
+.product-info-container .product-info a .block-box-price .box-info__box-price .product__price--percent-detail span {
+    font-size: 12px;
+    font-weight: 600
+}
+
+.product-info-container .product-info a .product__sticker-doc-quyen {
+    background: 50% no-repeat;
+    background-size: cover;
+    height: 70px;
+    left: 0;
+    position: absolute;
+    top: 115px;
+    width: 70px;
+    z-index: 1
+}
+
+.product-info-container .product-info .compare {
+    border: 1px solid #c52927;
+    border-radius: 10px;
+    color: #c52927;
+    display: flex;
+    font-size: 12px;
+    font-weight: 600;
+    height: 25px;
+    margin: 4px auto;
+    width: 95%
+}
+
+.product-info-container .product-info .compare:hover {
+    background-color: #faf2f2
+}
+
+.product-info-container .product-info .old-product-parent-price {
+    color: #9c9c9c;
+    font-size: 12px
+}
+
+.product-info-container .product-info .old-product-parent-price span {
+    font-weight: 600
+}
+
+.product-info-container .product-info .old-product-calculate {
+    background-color: #d70018;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    width: -moz-fit-content;
+    width: fit-content
+}
+
+.product-info-container .product-info .block-popup-product {
+    margin-top: auto
+}
+
+.product-info-container .product-info .block-popup-product .block-combo {
+    margin-bottom: 15px
+}
+
+.product-info-container .product-info .block-popup-product .block-combo .block-combo__price {
+    color: #9f9d9d;
+    font-size: 12px
+}
+
+.product-info-container .product-info .block-popup-product .block-combo .block-combo__special-price {
+    color: #e11b1e;
+    font-size: 12px;
+    font-weight: 600
+}
+
+.product-info-container .product-info .block-popup-product .block-combo__product-color {
+    gap: 5px;
+    margin: 5px 0 10px
+}
+
+.product-info-container .product-info .block-popup-product .block-combo__product-color .img-container {
+    border: 1px solid hsla(0,1%,62%,.588);
+    border-radius: 50%;
+    cursor: pointer;
+    height: 35px;
+    padding: 6px;
+    width: 35px
+}
+
+.product-info-container .product-info .block-popup-product .block-combo__product-color .img-container.active-color {
+    border: 1px solid #e11b1e
+}
+
+.product-info-container .product-info .block-popup-product .block-combo__product-color .img-container:hover {
+    background-color: #fff1f1
+}
+
+.product-info-container .product-info .block-popup-product .group-option {
+    width: 100%
+}
+
+.product-info-container .bottom-div {
+    align-items: center;
+    display: flex;
+    justify-content: space-between
+}
+
+.product-info-container .bottom-div .add-to-cart-button-upsell {
+    align-items: center;
+    background: #d70018;
+    border: 0;
+    border-radius: 5px;
+    color: #fff;
+    display: flex;
+    gap: 5px;
+    height: 24px;
+    justify-content: center;
+    padding: 5px 0;
+    width: 100%
+}
+
+.product-info-container .bottom-div .add-to-cart-button-upsell svg {
+    height: 20px
+}
+
+.product-info-container .bottom-div .add-to-cart-button-upsell span {
+    font-size: 14px
+}
+
+.product-info-container .bottom-div .add-to-cart-button-upsell.is-loading:after {
+    border-radius: 50%;
+    height: 20px;
+    left: calc(50% - 10px);
+    top: calc(50% - 10px);
+    width: 20px
+}
+
+.product-info-container .bottom-div .product__box-rating {
+    align-items: center;
+    color: #18181b;
+    display: flex;
+    font-size: 16px;
+    font-weight: 600;
+    gap: 4px;
+    justify-content: space-between
+}
+
+.product-info-container .bottom-div .product__box-rating .icon-star {
+    align-items: center;
+    display: inline-flex
+}
+
+.product-info-container .bottom-div .product__box-rating .icon-star svg {
+    height: 15px
+}
+
+.product-info-container .bottom-div .product__box-rating .icon-star.is-active svg {
+    fill: #ffd530
+}
+
+.product-info-container .bottom-div .product__box-rating span {
+    font-size: 12px
+}
+
+.product-info-container .bottom-div .btn-wish-list {
+    align-items: center;
+    border-radius: 8px;
+    display: flex;
+    padding: 8px 16px
+}
+
+.product-info-container .bottom-div .btn-wish-list:hover {
+    background-color: #f7f7f8
+}
+
+.product-info-container .bottom-div .btn-wish-list span {
+    color: #3b82f6;
+    font-size: 14px
+}
+
+.product-info-container .install-0-tag {
+    align-items: center;
+    background: url(https://cdn2.cellphones.com.vn/x/media/wysiwyg/zero-ins-badge-ui-2025.png) 50% no-repeat;
+    display: flex;
+    font-weight: 500;
+    height: 29px;
+    justify-content: center;
+    padding: 0;
+    position: absolute;
+    right: -5px;
+    top: 0;
+    width: 75px
+}
+
+.product-info-container .install-0-tag span {
+    color: #3b82f6;
+    font-size: 10px;
+    font-weight: 400;
+    margin: auto;
+    transform: translateY(-5px)
+}
+
+.product-info-container .install-0-tag span strong {
+    color: #3b82f6;
+    font-size: 12px;
+    font-weight: 500
+}
+
+.product-info-container .tet-promotion {
+    position: absolute;
+    right: 0;
+    top: 0
+}
+
+.product-info-container .tet-promotion .tet-promotion-img,.product-info-container .tet-promotion img {
+    height: 24px;
+    width: auto
+}
+
+@media screen and (max-width: 768px) {
+    .product-info-container .product-info a .block-smem-price {
+        font-size:11px
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .product-info-container {
+        padding:5px
+    }
+
+    .product-info-container .product-info a .product__name {
+        margin-bottom: 4px
+    }
+
+    .product-info-container .product-info a .product__name h3,.product-info-container .product-info a .product__name p {
+        font-size: 12px;
+        height: 36px
+    }
+
+    .product-info-container .product-info a .block-smem-price,.product-info-container .product-info a .product__more-info .product__more-info__item {
+        font-size: 10px
+    }
+
+    .product-info-container .product-info a .product__badge p {
+        font-size: 8.5px;
+        margin-right: 3px
+    }
+
+    .product-info-container .bottom-div .product__box-rating {
+        font-size: 14px
+    }
+
+    .product-info-container .bottom-div .product__box-rating .icon-star svg {
+        height: 16px
+    }
+
+    .product-info-container .bottom-div .btn-wish-list {
+        padding: 4px
+    }
+
+    .product-info-container .tet-promotion .tet-promotion-img,.product-info-container .tet-promotion img {
+        height: 21px
+    }
+}
+
+@media screen and (max-width: 440px) {
+    .product-info-container .product-info a .product__promotions .promotion {
+        font-size:10px
+    }
+
+    .product-info-container .product-info a .block-box-price .box-info__box-price .product__price--show {
+        font-size: 14px
+    }
+
+    .product-info-container .product-info a .block-box-price .box-info__box-price .product__price--through {
+        font-size: 12px
+    }
+
+    .product-info-container .product-info a .product__sticker-doc-quyen {
+        height: 40px;
+        top: 100px;
+        width: 40px
+    }
+
+    .product-info-container .product-info .product__box-rating .icon-star svg {
+        height: 10px
+    }
+
+    .product-info-container .product-info .product__box-rating span {
+        font-size: 9px;
+        line-height: 10px
+    }
+}
+
+@media screen and (max-width: 390px) {
+    .product-info-container .product-info a .block-box-price .box-info__box-price .product__price--show {
+        font-size:12px
+    }
+
+    .product-info-container .product-info a .block-box-price .box-info__box-price .product__price--through {
+        font-size: 10px
+    }
+
+    .product-info-container .product-info a .block-smem-price {
+        font-size: 8px
+    }
+
+    .product-info-container .product-info a .block-smem-price span {
+        font-size: 10px
+    }
+}
+.block-hot-sale .box-content .swiper-slide .product-info-container {
+    background-color: #fff;
+    margin-bottom: 0
+}
+
+.block-hot-sale .box-content .swiper-slide .product-info-container .product__name {
+    -webkit-line-clamp: 3
+}
+.box-product-variants .list-variants .item-variant:not(:nth-child(3n)) {
+    margin-right: 10px
+}
+.placeholderProductList .place-item:not(:last-child) {
+    margin-right: 10px
+}
+.has-text-centered {
+    text-align: center !important;
+}
+.category-123 .block-product-list-filter .product-list-filter .product-item.product-info-container .product-info a .product__image img {
+    margin: 8px 0 0;
+    width: 100%
+}
+.product-info-container.product-item:not(:nth-of-type(5n)) {
+    margin-right: 10px;
+}
+.search-categories-list {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+.search-sort {
+    width: 100%;
+}
+.search-sort p {
+    font-size: 18px;
+    font-weight: 600;
+}
+.search-sort .search-sort-list {
+    gap: 10px;
+    width: 100%;
+}
+.is-flex {
+    display: flex !important;
+}
+.search-sort .search-sort-list .is-active {
+    background-color: #fcf2f2;
+    border: 1px solid #d7000f;
+    color: #d7000f;
+}
+.search-sort .search-sort-list .search-sort-item {
+    background-color: #f3f3f3;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 5px 10px;
+    align-items: center;
+}
+.block-box-price .box-info__box-price .product__price--through {
+    color: #707070;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1rem;
+    position: relative;
+    -webkit-text-decoration: line-through;
+    text-decoration: line-through
+}
+.block-box-price .box-info__box-price .product__price--show {
+    color: #d70018;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1rem;
+}
+
+.block-box-price .box-info__box-price .product__price--percent {
+    background-color: #d70018;
+    border-radius: 3px;
+    height: 26px;
+    margin: 0 0 10px 10px;
+    width: 80px;
+}
+
+.block-box-price .box-info__box-price .product__price--percent p {
+    color: #fff;
+    font-family: Inter, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 5px 0 0;
+    text-align: center;
+    width: 100%;
+}
+.load-more-btn {
+    align-items: center;
+    background: #eff5ff;
+    border: none;
+    border-radius: 8px;
+    color: #3b82f6;
+    display: flex;
+    font-size: 16px;
+    height: 48px;
+    justify-content: center;
+    margin: 0 auto 24px;
+    padding: 12px 16px;
+    transition: .3s;
+    width: -moz-fit-content;
+    width: fit-content;
+}
