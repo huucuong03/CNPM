@@ -13,7 +13,9 @@ import com.example.demo.Entity.*;
 import com.example.demo.Repository.*;
 import com.example.demo.Service.*;
 import com.example.demo.Service.giamGia.*;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -95,35 +97,46 @@ public class HomeAdminController {
         return "Admin/DangNhap";
     }
     @PostMapping("/login")
-    public String doLogin(@RequestParam("username") String username,
-                          @RequestParam("password") String password,
-                          HttpSession session,
-                          Model model) {
+    public String doLogin(@RequestParam("username") String email,
+                          @RequestParam("password") String pass,
+                          Model model,
+                          HttpServletResponse response,
+                          HttpSession session) {
 
-        NhanVien tk = nhanVienService.getByEmailAndMatKhau(username, password);
-        System.out.println(tk);
-        if (tk != null) {
-            session.setAttribute("admin", tk);
-            return "redirect:/admin/doc/home";
+        NhanVien nhanVien = nhanVienRepository.getByEmailAndMatKhau(email, pass);
+
+        if (nhanVien == null) {
+            model.addAttribute("error", "Sai tài khoản hoặc mật khẩu");
+            return "Admin/DangNhap";
         }
 
-        model.addAttribute("error", "Sai tài khoản hoặc mật khẩu!");
-        return "Admin/DangNhap";
+        session.setAttribute("admin", nhanVien);
+
+        Cookie cookie = new Cookie("manhanvien",
+                String.valueOf(nhanVien.getMaNhanVien()));
+        cookie.setMaxAge(36000);
+        response.addCookie(cookie);
+
+        return "redirect:/admin/home";
+    }
+    @GetMapping("/home")
+    public String adminHome(HttpSession session, Model model) {
+
+        NhanVien admin = (NhanVien) session.getAttribute("admin");
+        if (admin == null) {
+            return "redirect:/admin-login";
+        }
+
+        model.addAttribute("nhanVien", admin);
+        return "Admin/doc/Home";
     }
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/login";
+        return "redirect:/admin-login";
     }
-    @GetMapping("{maNhanVien}/home")
-    public String home(Model model, @PathVariable(name = "maNhanVien") Long maNhanVien) {
 
-        //Lấy nhân viên theo mã
-        NhanVien nhanVien = nhanVienRepository.getReferenceById(maNhanVien);
-        model.addAttribute("nhanVien", nhanVien);
-        return "/doc/Home";
-    }
 
     @GetMapping("{maNhanVien}/pos_banHang")
     public String homeaa(Model model, @PathVariable(name = "maNhanVien") Long maNhanVien) {
