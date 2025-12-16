@@ -4,11 +4,13 @@ import com.example.demo.Dto.DanhSachSanPhamHoaDonDTO;
 import com.example.demo.Dto.SanPhamBaoHanhDTO;
 import com.example.demo.Entity.HoaDon;
 import com.example.demo.Entity.HoaDonChiTiet;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
+import org.springframework.data.domain.Pageable;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -59,4 +61,14 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, Lo
                                                  @Param("imei") String imei,
                                                  @Param("ngayBatDau") Date ngayBatDau,
                                                  @Param("ngayKetThuc") Date ngayKetThuc);
+
+    @Query("""
+        SELECT ct
+        FROM HoaDonChiTiet ct
+        WHERE ct.hoaDon.khachHang.maKhachHang = :maKH
+          AND ct.hoaDon.trangThai = :trangThai
+    """)
+    Page<HoaDonChiTiet> findByKhachHangHoanTat(@Param("maKH") Long maKH,
+                                               @Param("trangThai") Integer trangThai,
+                                               Pageable pageable);
 }

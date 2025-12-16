@@ -1,10 +1,10 @@
 package com.example.demo.Controller.Api;
 
-import com.example.demo.Entity.ChiTietSanPham;
-import com.example.demo.Entity.GiamGiaChiTietSanPham;
+import com.example.demo.Dto.ChiTietSanPhamDTO;
+import com.example.demo.Entity.*;
 import com.example.demo.Repository.ColorDetailResponse;
 import com.example.demo.Repository.ProductDetailResponse;
-import com.example.demo.Service.ChiTietSanPhamService;
+import com.example.demo.Service.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpSession;
@@ -15,10 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -27,8 +25,16 @@ public class ProductApiController {
     @Autowired
     private final ChiTietSanPhamService chiTietSanPhamService;
     @Autowired
-    public ProductApiController(ChiTietSanPhamService chiTietSanPhamService) {
+    private final HoaDonService hoaDonService;
+    @Autowired
+    private final HoaDonChiTietService hoaDonChiTietService;
+    @Autowired
+    private DiaChiService diaChiService;
+    @Autowired
+    public ProductApiController(ChiTietSanPhamService chiTietSanPhamService, HoaDonChiTietService hoaDonChiTietService, HoaDonService hoaDonService) {
         this.chiTietSanPhamService = chiTietSanPhamService;
+        this.hoaDonChiTietService = hoaDonChiTietService;
+        this.hoaDonService = hoaDonService;
     }
     private final RestTemplate restTemplate = new RestTemplate();
     private static final String BASE_URL = "https://production.cas.so/address-kit/2025-07-01";
@@ -79,6 +85,72 @@ public class ProductApiController {
 
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/getProductsByHoaDon")
+    public ResponseEntity<List<Map<String, Object>>> getProductsByCart(@RequestParam Long maHoaDon) {
+        try {
+            HoaDon hoaDon = hoaDonService.getByMa(maHoaDon);
+            List<HoaDonChiTiet> products = hoaDonChiTietService.getByHoaDon(hoaDon);
+
+            List<Map<String, Object>> result = products.stream().map(p -> {
+                Map<String, Object> map = new HashMap<>();
+                map.put("soLuongMua", p.getSoLuongMua());
+                map.put("giaTien", p.getGiaTien());
+                map.put("maHoaDonChiTiet", p.getMaHoaDonChiTiet());
+                map.put("hinhAnhURL", p.getChiTietSanPham().getHinhAnhURL());
+                Map<String, Object> chiTiet = new HashMap<>();
+                chiTiet.put("tenSanPham", p.getChiTietSanPham().getSanPham().getTenSanPham());
+                chiTiet.put("id", p.getChiTietSanPham().getMaChiTietSanPham());
+                chiTiet.put("mauSac", p.getChiTietSanPham().getMauSac().getTenMauSac());
+                chiTiet.put("dungLuong", p.getChiTietSanPham().getDungLuong().getTenDungLuong());
+                chiTiet.put("nsx", p.getChiTietSanPham().getNsx().getTenNSX());
+
+                map.put("chiTietSanPham", chiTiet);
+                return map;
+            }).collect(Collectors.toList());
+
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Collections.emptyList());
+        }
+    }
+
+    @GetMapping("/getDiaChiByCustomer")
+    public ResponseEntity<List<DiaChi>> getDiaChiByCustomer(HttpSession session) {
+        KhachHang kh = (KhachHang) session.getAttribute("khachHang");
+        try {
+            List<DiaChi> diaChiList = diaChiService.getByCustomerId(kh.getMaKhachHang());
+            return ResponseEntity.ok(diaChiList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Collections.emptyList());
+        }
+    }
+
+        @GetMapping("/getReasons")
+        public List<String> getReasons(@RequestParam String type) {
+            if ("return".equalsIgnoreCase(type)) {
+                return List.of(
+                        "Hỏng / lỗi khi nhận",
+                        "Sản phẩm sai / lỗi",
+                        "Khác"
+                );
+            } else if ("warranty".equalsIgnoreCase(type)) {
+                return List.of(
+                        "Lỗi kỹ thuật / hỏng hóc",
+                        "Sản phẩm không hoạt động / không bật được",
+                        "Pin / ắc quy nhanh hết",
+                        "Màn hình / cảm ứng hỏng",
+                        "Phần mềm / firmware lỗi",
+                        "Sản phẩm bị vỡ / hư hỏng khi vận chuyển",
+                        "Khác"
+                );
+            }
+            return List.of(); // default empty
+        }
 
     // API lấy danh sách màu theo dung lượng
     @GetMapping("/getColorsByCapacity")

@@ -121,7 +121,7 @@
         <input type="hidden" name="maGHCTs" id="maGHCTs">
         </form>
          <button disabled="disabled" class="btn-action disabled" data-id="" id="btn-thanh-toan">
-         Mua ngay
+            Mua ngay
          </button>
       </div>
       <div id="viewProductStudent" style="display:none;">
@@ -144,4 +144,4 @@
         </div>
     </div>
 </div>
-<script src="/assets/js/cart.js"></script>
+

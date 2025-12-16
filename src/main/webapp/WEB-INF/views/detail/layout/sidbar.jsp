@@ -31,7 +31,7 @@
                                     </span>
                                  </div>
                               </a>
-                              <a class="text-base laptop:text-medium items-center group hover:bg-primary-50 hover:text-primary-500 relative menu-item" target="_self" href="/detailKh/warranty">
+                              <a class="text-base laptop:text-medium items-center group hover:bg-primary-50 hover:text-primary-500 relative menu-item ${currentTab == 'warranty' ? 'active' : ''}" target="_self" href="/detailKh/warranty">
                                  <div class="absolute top-0 left-0 w-[4px] h-full shrink-0 bg-transparent rounded-r-full group-hover:bg-primary-500"></div>
                                  <div class="w-full px-1x-large py-medium flex items-center gap-1x-small">
                                     <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="shrink-0" height="24" width="24" xmlns="http://www.w3.org/2000/svg">

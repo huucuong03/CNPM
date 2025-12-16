@@ -13,3 +13,4 @@
 <script src="/assets/js/sidebar.js"></script>
 <script src="/assets/js/shop.js"></script>
 <script src="/assets/js/search.js"></script>
+<script src="/assets/js/cart.js"></script>

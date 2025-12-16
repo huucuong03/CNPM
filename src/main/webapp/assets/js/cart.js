@@ -152,7 +152,6 @@ $("#confirmYes").click(function () {
 
 document.querySelector("#btn-thanh-toan").addEventListener("click", function () {
     const selectedMaGHCT = getSelectedMaGHCT();
-    console.log(selectedMaGHCT);
     if (selectedMaGHCT.length === 0) {
         alert("Vui lòng chọn sản phẩm trước khi thanh toán!");
         return;

@@ -2,9 +2,9 @@ package com.example.demo.Config;
 
 import com.example.demo.Dto.HoaDonChiTietDTO;
 import com.example.demo.Dto.Request.KhachHangRequest;
+import com.example.demo.Dto.SupportOrderItemDTO;
 import com.example.demo.Entity.*;
-import com.example.demo.Repository.GioHangRepository;
-import com.example.demo.Repository.KhachHangRepository;
+import com.example.demo.Repository.*;
 import com.example.demo.Repository.vi.GiaoDichViRepository;
 import com.example.demo.Repository.vi.ViShopRepository;
 import com.example.demo.Service.*;
@@ -12,14 +12,24 @@ import com.oracle.wls.shaded.org.apache.xpath.operations.Equals;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.Principal;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -38,6 +48,12 @@ public class register {
     private KhachHangRepository khachHangRepository;
 
     @Autowired
+    private SupportService supportService;
+
+    @Autowired
+    private WarrantyImageRepository warrantyImageRepository;
+
+    @Autowired
     private GioHangRepository gioHangRepository;
 
     @Autowired
@@ -52,6 +68,13 @@ public class register {
     @Autowired
     private GiaoDichViRepository giaoDichViRepository;
 
+    @Autowired
+    private WarrantyRequestRepository warrantyRequestRepository;
+
+    @Autowired
+    private WarrantyRequestLogRepository warrantyRequestLogRepository;
+    @Autowired
+    private WarrantyStatusRepository warrantyStatusRepository;
     @Autowired
     private HoaDonChiTietService hoaDonChiTietService;
 
@@ -97,7 +120,7 @@ public class register {
         khachHang.setGioiTinh(true);
 
         // Ngày tạo tài khoản = thời gian hiện tại
-        khachHang.setCreatedDate(new java.sql.Timestamp(System.currentTimeMillis()));
+        khachHang.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 
         // Lưu DB
         khachHangRepository.save(khachHang);
@@ -251,9 +274,171 @@ public class register {
 
         return "detail/detailKH";
     }
+
+    @GetMapping("detailKh/warranty")
+    public String hoTroSauMua(HttpSession session, Model model,
+                              @RequestParam(defaultValue = "0") int page,       // trang hiện tại
+                              @RequestParam(defaultValue = "15") int size ) {
+
+        KhachHang kh = (KhachHang) session.getAttribute("khachHang");
+        if (kh == null) {
+            return "redirect:/login";
+        }
+        Pageable pageable = PageRequest.of(0, 15, Sort.by("hoaDon.ngayTao").descending());
+        List<SupportOrderItemDTO> items = supportService.getHoTro(kh.getMaKhachHang(),pageable);
+
+
+        for (SupportOrderItemDTO item : items) {
+
+            boolean daGuiDoiTra =
+                    warrantyRequestRepository.existsByMaHoaDonChiTietAndMaType(
+                            item.getMaHoaDonChiTiet(), 1L
+                    );
+
+            boolean daGuiBaoHanh =
+                    warrantyRequestRepository.existsByMaHoaDonChiTietAndMaType(
+                            item.getMaHoaDonChiTiet(), 2L
+                    );
+            WarrantyRequest doiTra = warrantyRequestRepository
+                    .findByMaHoaDonChiTietAndMaType(item.getMaHoaDonChiTiet(), 1L)
+                    .orElse(null);
+
+            WarrantyRequest baoHanh = warrantyRequestRepository
+                    .findByMaHoaDonChiTietAndMaType(item.getMaHoaDonChiTiet(), 2L)
+                    .orElse(null);
+
+            item.setMoTaTrangThaiDoiTra(doiTra != null ? doiTra.getTrangThai().getMoTa() : null);
+            item.setMoTaTrangThaiBaoHanh(baoHanh != null ? baoHanh.getTrangThai().getMoTa() : null);
+
+            // QUYỀN CUỐI CÙNG
+            item.setDaGuiDoiTra(daGuiDoiTra);
+            item.setDaGuiBaoHanh(daGuiBaoHanh);
+        }
+        // Nhóm theo hóa đơn
+        Map<Long, List<SupportOrderItemDTO>> mapHD = items.stream()
+                .collect(Collectors.groupingBy(SupportOrderItemDTO::getMaHoaDon));
+
+        model.addAttribute("mapHD", mapHD);
+        model.addAttribute("currentTab", "warranty");
+        model.addAttribute("bodyPage","/WEB-INF/views/detail/body/bodyWarranty.jsp");
+
+        return "detail/detailKH";
+    }
+
+    @PostMapping("/detailKh/warranty/return")
+    public String createWarrantyRequest(
+            @RequestParam Long maHoaDonChiTiet,
+            @RequestParam Long maChiTietSanPham,
+            @RequestParam Long maDiaChi,
+            @RequestParam Long type,
+            @RequestParam String phuongThuc,
+            @RequestParam String tenKhachHang,
+            @RequestParam String sdtKhachHang,
+            @RequestParam String reason,
+            HttpSession session,
+            RedirectAttributes redirectAttributes,
+            @RequestParam("images") MultipartFile[] images
+    ) {
+        boolean existed = warrantyRequestRepository
+                .existsByMaHoaDonChiTietAndMaType(maHoaDonChiTiet, type);
+
+        if (existed) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Yêu cầu đã được gửi trước đó");
+            return "redirect:/detailKh/warranty";
+        }
+        if (tenKhachHang == null || tenKhachHang.isEmpty()) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Tên khách hàng không được để trống");
+            return "redirect:/detailKh/warranty";
+        }
+        if (images == null || images.length == 0) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng chọn ảnh sản phẩm lỗi");
+            return "redirect:/detailKh/warranty";
+        }
+        if (sdtKhachHang == null || sdtKhachHang.isEmpty()) {
+            redirectAttributes.addFlashAttribute("errorMessage", "So dien thoai hàng không được để trống");
+            return "redirect:/detailKh/warranty";
+        }
+        if (phuongThuc == null || phuongThuc.isEmpty()) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Phương thức không được để trống");
+            return "redirect:/detailKh/warranty";
+        }
+        if (reason == null || reason.isEmpty()) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Lý do không được để trống");
+            return "redirect:/detailKh/warranty";
+        }
+
+        try {
+            KhachHang kh = (KhachHang) session.getAttribute("khachHang");
+            WarrantyStatus status = warrantyStatusRepository.findById(1L).orElseThrow(() -> new RuntimeException("Không tìm thấy trạng thái với id 1"));
+            // 1️⃣ Tạo đối tượng WarrantyRequest
+            WarrantyRequest wr = new WarrantyRequest();
+            wr.setMaHoaDonChiTiet(maHoaDonChiTiet);
+            wr.setMaChiTietSanPham(maChiTietSanPham);
+            wr.setMaKhachHang(kh.getMaKhachHang());
+            wr.setMaType(type); // 1 = đổi trả
+            wr.setTrangThai(status);
+            wr.setMaDiaChi(maDiaChi);
+            wr.setPhuongThuc(phuongThuc);
+            wr.setTenKhachHang(tenKhachHang);
+            wr.setSdtKhachHang(sdtKhachHang);
+            wr.setReason(reason);
+            WarrantyRequest savedWr = warrantyRequestRepository.save(wr);
+            if (images != null && images.length > 0) {
+                for (MultipartFile file : images) {
+                    if (file.isEmpty()) continue;
+
+                    // 1️⃣ Tạo tên file
+                    String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+
+                    // 2️⃣ Xác định thư mục lưu (theo type)
+                    String folder = (type == 1) ? "return" : "";
+                    Path uploadPath = Paths.get("uploads/warranty", folder);
+
+                    // 3️⃣ Tạo thư mục nếu chưa tồn tại
+                    if (!Files.exists(uploadPath)) {
+                        Files.createDirectories(uploadPath);
+                    }
+
+                    // 4️⃣ Copy file vào thư mục
+                    Path filePath = uploadPath.resolve(fileName);
+                    Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+                    // 5️⃣ Tạo entity ảnh và lưu vào DB
+                    WarrantyImage img = new WarrantyImage();
+                    img.setDuongDan("src/main/webapp/img/uploads/warranty/" + (folder.isEmpty() ? "" : folder + "/") + fileName);
+                    img.setWarrantyRequest(wr); // wr là đối tượng WarrantyRequest
+                    warrantyImageRepository.save(img);
+                }
+            }
+            // 4️⃣ Tạo log sau khi đã có MaBaoHanh
+            WarrantyRequestLog log = new WarrantyRequestLog();
+            log.setWarrantyRequest(savedWr); // savedWr là entity đã save
+            log.setOldTrangThai(null); // lần đầu tạo
+            log.setNewTrangThai(savedWr.getTrangThai()); // lấy từ WarrantyRequest
+            if(type==1){
+                log.setGhiChu("Khách hàng tạo yêu cầu đổi trả");
+                redirectAttributes.addFlashAttribute("successMessage", "Tạo yêu cầu đổi trả thành công!");
+            }
+            else {
+                log.setGhiChu("Khách hàng tạo yêu cầu bảo hành");
+                redirectAttributes.addFlashAttribute("successMessage", "Tạo yêu cầu bảo hành thành công!");
+            }
+            log.setLoaiNguoiXuLy("KHACHHANG");
+            log.setMaNguoiXuLy(savedWr.getMaKhachHang());
+            warrantyRequestLogRepository.save(log);
+
+            return "redirect:/detailKh/warranty";
+        } catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("errorMessage", "Tạo yêu cầu đổi trả thất bại!");
+            return "redirect:/detailKh/warranty";
+        }
+    }
+
+
+
     @GetMapping("/detailKh/hoadon/{maHoaDon}")
     public String chiTietHoaDon(@PathVariable("maHoaDon") Long maHoaDon, Model model) {
-
         HoaDonChiTietDTO hoaDonChiTiet = hoaDonService.detailHoaDon(maHoaDon);
         System.out.println(hoaDonChiTiet);
         model.addAttribute("hoaDonChiTiet", hoaDonChiTiet);

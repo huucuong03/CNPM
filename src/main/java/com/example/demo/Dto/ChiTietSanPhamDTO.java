@@ -63,7 +63,7 @@ public class ChiTietSanPhamDTO {
         this.maMS = maMS;
     }
 
-    public ChiTietSanPhamDTO(String tenSanPham, BigDecimal giaBan, String hinhAnhURL, String dungLuong, String mauSac) {
+    public ChiTietSanPhamDTO(String tenSanPham, Integer soLuongMua, BigDecimal giaBan, String hinhAnhURL, String dungLuong, String mauSac) {
         this.tenSanPham = tenSanPham;
         this.giaBan = giaBan;
         this.hinhAnhURL = hinhAnhURL;
