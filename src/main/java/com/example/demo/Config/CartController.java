@@ -181,10 +181,7 @@ public class CartController {
                 gioHangChiTiet.setSoLuong(gioHangChiTiet.getSoLuong() + quantity);
                 gioHangChiTietRepository.save(gioHangChiTiet);
             }
-
-            // Tổng số lượng sản phẩm trong giỏ hàng
-            int cartSize = gioHangChiTietRepository.getByGioHang_KhachHang(user)
-                    .stream().mapToInt(GioHangChiTiet::getSoLuong).sum();
+            int cartSize = gioHangChiTietRepository.getByGioHang_KhachHang(user).stream().mapToInt(GioHangChiTiet::getSoLuong).sum();
             result.put("maGHCT", gioHangChiTiet.getMagiohangchitiet());
             result.put("success", true);
             result.put("cartSize", cartSize);
@@ -200,9 +197,7 @@ public class CartController {
             return ResponseEntity.status(500).body(result);
         }
     }
-
-
-
+    
     @PostMapping("/cart/{maKhachHang}/add-san-pham2/{maChiTietSanPham}")
     public ResponseEntity<String> addToCart2(
             @PathVariable(name = "maKhachHang") Long maKhachHang,

@@ -11,7 +11,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 btnAddcart.addEventListener("click", async (e) => {
     e.preventDefault();
-
+    const loginRes = await checkLogin();
+    if (!loginRes.loggedIn) {
+        showErrorToast("Bạn cần đăng nhập trước khi mua hàng");
+        return;
+    }
     const productDetail = await getSelectedProductDetail();
     if (!productDetail) return;
 
@@ -66,7 +70,7 @@ async function addToCart(maChiTietSanPham, quantity = 1) {
     return await resCart.json();
 }
 async function checkLogin() {
-    const res = await fetch('/account/check-login', {
+    const res = await fetch('/api/account/check-login', {
         method: 'GET',
         credentials: 'same-origin'
     });

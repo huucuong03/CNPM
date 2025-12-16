@@ -155,7 +155,7 @@
                <div class="flex items-stretch relative">
                   <jsp:include page="/WEB-INF/views/detail/layout/sidbar.jsp" />
                   <div id="bodyContent" style="min-width: 1025px;">
-                  <jsp:include page="${bodyPage}" />
+                  <jsp:include page="${bodyPage}" flush="true"/>
                   </div>
                </div>
                <!--$--><!--/$--><!--$--><!--/$-->

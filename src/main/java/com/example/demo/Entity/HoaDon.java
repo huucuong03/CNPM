@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -90,4 +91,22 @@ public class HoaDon {
 
     @Column(name = "mavoucher")
     private Long maVoucher;
+
+    public class SupportUtils {
+
+        public static boolean conDoiTra(Date ngayTao) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(ngayTao);
+            cal.add(Calendar.DAY_OF_MONTH, 7);
+            return new Date().before(cal.getTime());
+        }
+
+        public static boolean conBaoHanh(Date ngayTao) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(ngayTao);
+            cal.add(Calendar.MONTH, 12);
+            return new Date().before(cal.getTime());
+        }
+    }
+
 }

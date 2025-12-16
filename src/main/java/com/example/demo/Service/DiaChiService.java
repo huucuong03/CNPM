@@ -3,6 +3,8 @@ package com.example.demo.Service;
 import com.example.demo.Entity.DiaChi;
 import com.example.demo.Repository.DiaChiRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -54,5 +56,9 @@ public class DiaChiService {
                 .orElseThrow(() -> new RuntimeException("Địa chỉ không tồn tại với id: " + maDiaChi));
     }
 
+    public List<DiaChi> getByCustomerId(Long customerId) {
+        List<DiaChi> diaChis = diaChiRepository.findByKhachHang_MaKhachHang(customerId);
+        return diaChis != null ? diaChis : Collections.emptyList();
+    }
 }
 
