@@ -7,14 +7,24 @@ import com.example.demo.Repository.ProductDetailResponse;
 import com.example.demo.Service.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.core.io.Resource;
 import jakarta.servlet.http.HttpSession;
+import org.docx4j.Docx4J;
+import org.docx4j.convert.out.HTMLSettings;
+
+import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -151,6 +161,26 @@ public class ProductApiController {
             }
             return List.of(); // default empty
         }
+    @GetMapping("/view-word")
+    public String viewWord(Model model) throws Exception {
+
+        Resource resource = new ClassPathResource("uploads/Giaychungnhan.docx");
+        File file = resource.getFile();
+        WordprocessingMLPackage wordMLPackage =
+                WordprocessingMLPackage.load(file);
+
+        // Convert DOCX -> HTML (CÁCH ĐÚNG)
+        HTMLSettings settings = Docx4J.createHTMLSettings();
+        settings.setWmlPackage(wordMLPackage);
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        Docx4J.toHTML(settings, out, Docx4J.FLAG_EXPORT_PREFER_XSL);
+
+        String htmlContent = out.toString(StandardCharsets.UTF_8);
+
+        model.addAttribute("wordContent", htmlContent);
+        return "word-view";
+    }
 
     // API lấy danh sách màu theo dung lượng
     @GetMapping("/getColorsByCapacity")

@@ -493,8 +493,6 @@ public class VnpayController {
         }
 
     }
-
-
     @PostMapping("/cart/submit-order")
     public String thanhToanVNPay(
             @RequestParam String email,
@@ -565,10 +563,10 @@ public class VnpayController {
             return "/layout/layoutcart";
         }
 
-        int paymentStatus = vnPayService.orderReturn(request);
-        if (paymentStatus != 1) {
-            return "/VNP/orderfaildn";
-        }
+//        int paymentStatus = vnPayService.orderReturn(request);
+//        if (paymentStatus != 1) {
+//            return "/VNP/orderfaildn";
+//        }
 
         List<Long> listMaGHCT = Arrays.stream(maGHCTs.split(","))
                 .map(Long::parseLong)
