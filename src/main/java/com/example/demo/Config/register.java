@@ -8,11 +8,9 @@ import com.example.demo.Repository.*;
 import com.example.demo.Repository.vi.GiaoDichViRepository;
 import com.example.demo.Repository.vi.ViShopRepository;
 import com.example.demo.Service.*;
-import com.oracle.wls.shaded.org.apache.xpath.operations.Equals;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,14 +26,20 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.security.Principal;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
-
+import org.springframework.core.io.ClassPathResource;
+import org.docx4j.Docx4J;
+import org.docx4j.convert.out.HTMLSettings;
+import org.springframework.core.io.Resource;
+import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.nio.charset.StandardCharsets;
 //@RestController
 @Controller
 //@RequestMapping("/dang-ky")
@@ -697,6 +701,67 @@ public class register {
                 "data", listHD,
                 "sanPhamMax", sanPhamDacNhat
         );
+    }
+    @GetMapping("/detailKh/support")
+    public String support(
+            @RequestParam(defaultValue = "4") int section,
+            Model model
+    ) {
+        String view;
+
+        switch (section) {
+            case 1:
+                view = "/WEB-INF/views/warranty/section1.jsp";
+                model.addAttribute("index", 1);
+                break;
+            case 2:
+                view = "/WEB-INF/views/warranty/section2.jsp";
+                model.addAttribute("index", 2);
+                break;
+            case 3:
+                view = "/WEB-INF/views/warranty/section3.jsp";
+                model.addAttribute("index", 3);
+                break;
+            case 4:
+                view = "/WEB-INF/views/warranty/section4.jsp";
+                model.addAttribute("index", 4);
+                break;
+            case 5:
+                try {
+                    String htmlContent = loadWordHtml();
+                    model.addAttribute("wordContent", htmlContent);
+                    model.addAttribute("index", 5);
+                    view = "/WEB-INF/views/warranty/word-view.jsp";
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    model.addAttribute("error", "Không thể tải nội dung Word");
+                    view = "/WEB-INF/views/404.jsp";
+                }
+                break;
+            default:
+                view = "/WEB-INF/views/warranty/section1.jsp";
+        }
+        model.addAttribute("contentView", view);
+        model.addAttribute("bodyPage", "/WEB-INF/views/support.jsp");
+        model.addAttribute("pageTitle", "Ho tro");
+        return "/layout/layout";
+    }
+    private String loadWordHtml() throws Exception {
+
+        Resource resource = new ClassPathResource("doc/Giaychungnhan.docx");
+
+        File file = resource.getFile();
+
+        WordprocessingMLPackage wordMLPackage =
+                WordprocessingMLPackage.load(file);
+
+        HTMLSettings settings = Docx4J.createHTMLSettings();
+        settings.setWmlPackage(wordMLPackage);
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        Docx4J.toHTML(settings, out, Docx4J.FLAG_EXPORT_PREFER_XSL);
+
+        return out.toString(StandardCharsets.UTF_8);
     }
 
 //    @PostMapping("/order/buy-again")
