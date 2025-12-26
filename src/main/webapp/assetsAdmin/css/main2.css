@@ -310,12 +310,12 @@ input[type=submit]{
   font-family: var(--font_family);
   font-size: var(--font_15);
   line-height: 1.5;
-  color: var(--black_color);
+  color: #ffffff;
   text-transform: uppercase;
   width: var(--onehundred_percent);
   height: 50px;
   border-radius: 25px;
-  background: #0251b9;
+  background: #001C40;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
