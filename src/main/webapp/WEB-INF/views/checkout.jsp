@@ -112,12 +112,13 @@
             <p  class="block-payment-info__title">Thông tin nhận hàng</p>
             <div  class="block-payment-info__main">
                <div  class="payment-info-method">
-                  <div style="background-color:#fff">
-                     <input  id="payment-info-method-pickup" value="pickup" type="radio" checked>  
-                     <label  class="mb-0" style="font-weight: 400;">Giao hàng tận nơi</label>
+                  <div>
+                     <input  id="pickup" value="pickup" name="delivery" type="radio" checked>  
+                     <label  class="mb-0">Thanh toán trực tuyến</label>
                   </div>
                   <div style="height: 54px;">
-                     <%-- <input  id="payment-info-method-shipping" value="shipping" type="radio"> <label  class="mb-0">Giao hàng tận nơi</label> --%>
+                     <input  id="shipping" name="delivery"  value="shipping" type="radio"> 
+                     <label  class="mb-0">Thanh toán khi nhận hàng</label>
                   </div>
                </div>
                <div  class="payment-info-main">
