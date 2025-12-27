@@ -22,6 +22,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import io.micrometer.common.util.StringUtils;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -30,6 +31,8 @@ import org.jxls.util.JxlsHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,12 +57,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
-
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import org.apache.commons.io.IOUtils;
 
 @Service
 public class HoaDonService {
 
     public static final int TAI_QUAY = 4;
+
+    @Autowired
+    private ResourceLoader resourceLoader;
     @Autowired
     private HoaDonRepository repository;
 
@@ -90,7 +99,6 @@ public class HoaDonService {
     @Autowired
     SanPhamService sanPhamService;
 
-
     @Autowired
     SanPhamRepository sanPhamRepository;
 
@@ -109,22 +117,22 @@ public class HoaDonService {
     @Autowired
     private KhachHangRepository khachHangRepository;
 
-    @Value("${TEMPLATE_PATH}")
+    @Value("${template.path}")
     private String templateFolder;
 
-    @Value("${FILE_TEMP_UPLOAD_PATH}")
-    private String fileNameFullFolder;
+    @Value("${file.temp.upload.path}")
+    private String fileTempUploadPath;
 
-    @Value("${FONT}")
+    @Value("${font.path}")
     private String font;
 
-    @Value("${PDF_DIRECTORY}")
+    @Value("${pdf.directory}")
     private String pdfDirectory;
 
-    @Value("${PDF_DIRECTORY_Quay}")
+    @Value("${pdf.directory.quay}")
     private String pdfDirectoryQuay;
 
-    @Value("${IMG_LOGO_PATH}")
+    @Value("${img.logo.path}")
     private String imgLogoPath;
 
     @Autowired
@@ -135,6 +143,8 @@ public class HoaDonService {
 
     @Autowired
     GiaoDichViRepository giaoDichViRepository;
+    @Autowired
+    private ServletContext servletContext;
 
     public List<HoaDonResponse> getAll() {
         return repository.viewALl();
@@ -149,13 +159,14 @@ public class HoaDonService {
         if (!request.getNgayKetThuc().isEmpty()) {
             ngayKetThuc = DateUtils.convertStringToDate(request.getNgayKetThuc(), "yyyy-MM-dd");
         }
-        List<HoaDonResponse> hoaDonResponses = repository.searchHoaDon(request.getTrangThai(), ngayBatDau, ngayKetThuc, request.getKhachHang(), request.getNguoiNhan());
-        for (HoaDonResponse hoaDonResponse: hoaDonResponses){
-            if(hoaDonResponse.getMaVoucher() != null){
+        List<HoaDonResponse> hoaDonResponses = repository.searchHoaDon(request.getTrangThai(), ngayBatDau, ngayKetThuc,
+                request.getKhachHang(), request.getNguoiNhan());
+        for (HoaDonResponse hoaDonResponse : hoaDonResponses) {
+            if (hoaDonResponse.getMaVoucher() != null) {
                 Voucher voucher = voucherRepository.getReferenceById(hoaDonResponse.getMaVoucher());
                 hoaDonResponse.setTenVoucher(voucher.getTen());
                 hoaDonResponse.setPhanTramGiam(voucher.getPhanTramVoucher());
-            }else{
+            } else {
                 hoaDonResponse.setTenVoucher("");
                 hoaDonResponse.setPhanTramGiam(0);
             }
@@ -194,14 +205,14 @@ public class HoaDonService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
     public List<HoaDon> getAllBykhachHang(KhachHang khachHang) {
         return repository.findAllBykhachHang(khachHang);
     }
 
     public void add(HoaDon hoaDon, HoaDonChiTiet hoaDonChiTiet) {
         repository.saveAndFlush(hoaDon);
-//        HoaDonChiTiet hoaDonChiTiet = (HoaDonChiTiet) hoaDonChiTietRepository.getByHoaDon(hoaDon);
+        // HoaDonChiTiet hoaDonChiTiet = (HoaDonChiTiet)
+        // hoaDonChiTietRepository.getByHoaDon(hoaDon);
         hoaDonChiTietRepository.save(hoaDonChiTiet);
     }
 
@@ -221,7 +232,8 @@ public class HoaDonService {
         return null;
     }
 
-    public boolean addHD(Long maKhachHang, Model model, HttpServletRequest request, HttpServletResponse response) throws DocumentException, MessagingException, IOException {
+    public boolean addHD(Long maKhachHang, Model model, HttpServletRequest request, HttpServletResponse response)
+            throws DocumentException, MessagingException, IOException {
         Map<String, Integer> DSSP = new HashMap<>();
         List<SanPham> listSP = new ArrayList<>();
         KhachHang user = userService.getByMa(maKhachHang);
@@ -243,23 +255,13 @@ public class HoaDonService {
         List<String> spp = new ArrayList<>();
         BigDecimal tongtien = null;
 
-
         String nguoiNhan = request.getParameter("nguoiNhan");
         String diaChi = request.getParameter("diaChi");
         String sdt = request.getParameter("sdt");
-        HoaDon hd1 = HoaDon.builder().
-                nguoiNhan(nguoiNhan).
-                khachHang(user).
-                diaChi(diaChi).
-                ngayTao(java.sql.Date.valueOf(datenow)).
-                nhanVien(nhanVienMD).
-                trangThai(1).
-                loaiThanhToan(1).
-                createdDate(new Date()).
-                lastUpdate(new Date()).
-                ngayThanhToan(java.sql.Date.valueOf(datenow)).
-                sdt(sdt).
-                build();
+        HoaDon hd1 = HoaDon.builder().nguoiNhan(nguoiNhan).khachHang(user).diaChi(diaChi)
+                .ngayTao(java.sql.Date.valueOf(datenow)).nhanVien(nhanVienMD).trangThai(1).loaiThanhToan(1)
+                .createdDate(new Date()).lastUpdate(new Date()).ngayThanhToan(java.sql.Date.valueOf(datenow)).sdt(sdt)
+                .build();
         hoaDonRepository.save(hd1);
         for (GioHangChiTiet ghct : listGHCT) {
             HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
@@ -281,7 +283,7 @@ public class HoaDonService {
 
                 ctsp.setSoLuongBan(ctsp.getSoLuongBan() + hdct.getSoLuongMua());
                 ctsp.setMaChiTietSanPham(ctsp.getMaChiTietSanPham());
-                //Hàm đổi trạng thái
+                // Hàm đổi trạng thái
                 if (ctsp.getSoLuongBan() >= ctsp.getSoLuongNhap()) {
                     ctsp.setTrangThai(0);
                     ctsp.getSanPham().setTrangThai(0);
@@ -294,18 +296,18 @@ public class HoaDonService {
                 ctsp.setMoTa(ctsp.getMoTa());
                 chiTietSanPhamRepository.save(ctsp);
 
-//                String tensp = null;
-//                Integer sl = null;
-//                String test = " ";
-//                for (HoaDonChiTiet hdct2 : listHDCT) {
-//                    tensp = hdct2.getChiTietSanPham().getSanPham().getTenSanPham();
-//                    sl = hdct2.getSoLuongMua();
-//                    tongtien = hdct2.getGiaTien();
-//                    String all = "\n" + tensp + " x " + sl;
-//                    spp.add(all);
-//                }
-//
-//                this.sendPdfToMail(hd1, maKhachHang, user, spp, tongtien, response);
+                // String tensp = null;
+                // Integer sl = null;
+                // String test = " ";
+                // for (HoaDonChiTiet hdct2 : listHDCT) {
+                // tensp = hdct2.getChiTietSanPham().getSanPham().getTenSanPham();
+                // sl = hdct2.getSoLuongMua();
+                // tongtien = hdct2.getGiaTien();
+                // String all = "\n" + tensp + " x " + sl;
+                // spp.add(all);
+                // }
+                //
+                // this.sendPdfToMail(hd1, maKhachHang, user, spp, tongtien, response);
             }
             // Lưu thông tin khách hàng vào cookie
             Cookie cookie = new Cookie("makhachhang", String.valueOf(user.getMaKhachHang()));
@@ -325,10 +327,8 @@ public class HoaDonService {
         model.addAttribute("sanPham", listSP);
         model.addAttribute("DSSP", DSSP);
 
-
         return true;
     }
-
 
     // Phương thức gửi email với tệp PDF đính kèm
     private void sendEmailWithAttachmentQuay(String toEmail, String pdfFileName) throws MessagingException {
@@ -397,25 +397,28 @@ public class HoaDonService {
         helper.setText("Cảm ơn Bạn đã mua hàng của chúng tôi. Đơn hàng của bạn đang chờ xác nhận");
 
         // Đính kèm tệp PDF vào email
-//        FileSystemResource file = new FileSystemResource(new File(pdfFileName));
-//        helper.addAttachment("invoice.pdf", file);
+        // FileSystemResource file = new FileSystemResource(new File(pdfFileName));
+        // helper.addAttachment("invoice.pdf", file);
 
         // Gửi email
         mailSender.send(message);
     }
 
-    public void sendPdfToMailDangGiao(HoaDon hd, Long id, KhachHang user, List<String> tenSp, String tongTien) throws IOException, DocumentException, MessagingException {
+    public void sendPdfToMailDangGiao(HoaDon hd, Long id, KhachHang user, List<String> tenSp, String tongTien)
+            throws IOException, DocumentException, MessagingException {
 
         Document document = new Document();
         String pdfFileName = this.pdfDirectory + "HoaDon_" + id + ".pdf";
-        PdfWriter writer = PdfWriter.getInstance(document, Files.newOutputStream(Paths.get(pdfFileName), StandardOpenOption.CREATE));
+        PdfWriter writer = PdfWriter.getInstance(document,
+                Files.newOutputStream(Paths.get(pdfFileName), StandardOpenOption.CREATE));
 
         // Mở tài liệu PDF
         document.open();
         // Đường dẫn tới tệp hình ảnh logo của cửa hàng
-        String logoImagePath = this.imgLogoPath; // Thay đổi đường dẫn đến tệp logo.png// Thay đổi đường dẫn đến tệp logo.png
+        String logoImagePath = this.imgLogoPath; // Thay đổi đường dẫn đến tệp logo.png// Thay đổi đường dẫn đến tệp
+                                                 // logo.png
 
-// Tạo đối tượng Image từ tệp hình ảnh logo
+        // Tạo đối tượng Image từ tệp hình ảnh logo
         Image logoImage = Image.getInstance(logoImagePath);
         logoImage.scaleAbsolute(100, 100); // Điều chỉnh kích thước ảnh logo theo ý muốn
 
@@ -425,17 +428,15 @@ public class HoaDonService {
 
         logoImage.setAbsolutePosition(logoX, logoY);
 
-// Thêm ảnh logo vào tài liệu PDF
+        // Thêm ảnh logo vào tài liệu PDF
         document.add(logoImage);
 
         // Tạo font chữ cho tiêu đề và nội dung
         BaseFont bf = BaseFont.createFont(this.font, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 
-
         Font titleFont = new Font(bf, 18, Font.BOLD);
         Font headerFont = new Font(bf, 12, Font.BOLD);
         Font contentFont = new Font(bf, 12);
-
 
         // Tạo tiêu đề hóa đơn
         Paragraph title = new Paragraph("HÓA ĐƠN BÁN HÀNG", titleFont);
@@ -449,7 +450,8 @@ public class HoaDonService {
         storeInfo.setSpacingAfter(10f);
         document.add(storeInfo);
 
-        Paragraph storeAddress = new Paragraph("Số 14A, Đường Xuân Phương, Quận Nam Từ Liêm, Thành phố Hà Nội", contentFont);
+        Paragraph storeAddress = new Paragraph("Số 14A, Đường Xuân Phương, Quận Nam Từ Liêm, Thành phố Hà Nội",
+                contentFont);
         storeAddress.setAlignment(Element.ALIGN_LEFT);
         storeAddress.setSpacingAfter(20f);
         document.add(storeAddress);
@@ -457,7 +459,7 @@ public class HoaDonService {
         // Tạo thông tin hóa đơn
         PdfPTable table = new PdfPTable(2);
         table.setWidthPercentage(100);
-        table.setWidths(new float[]{1.5f, 2.5f});
+        table.setWidths(new float[] { 1.5f, 2.5f });
 
         // Thêm dòng Mã Hóa đơn
         PdfPCell cell = new PdfPCell(new Phrase("Mã Hóa đơn:", headerFont));
@@ -482,7 +484,8 @@ public class HoaDonService {
 
         table.addCell(cell);
 
-        cell = new PdfPCell(new Phrase(hd.getDiaChi() + ", " + hd.getXa() + ", " + hd.getHuyen() + ", " + hd.getTinh(), contentFont));
+        cell = new PdfPCell(new Phrase(hd.getDiaChi() + ", " + hd.getXa() + ", " + hd.getHuyen() + ", " + hd.getTinh(),
+                contentFont));
 
         table.addCell(cell);
 
@@ -532,18 +535,21 @@ public class HoaDonService {
         sendEmailDangGiao(user.getEmail(), pdfFileName);
     }
 
-    public void sendPdfToMail(HoaDon hd, Long id, KhachHang user, List<String> tenSp, String tongTien, HttpServletResponse response) throws IOException, DocumentException, MessagingException {
+    public void sendPdfToMail(HoaDon hd, Long id, KhachHang user, List<String> tenSp, String tongTien,
+            HttpServletResponse response) throws IOException, DocumentException, MessagingException {
 
         Document document = new Document();
         String pdfFileName = this.pdfDirectory + "HoaDon_" + id + ".pdf";
-        PdfWriter writer = PdfWriter.getInstance(document, Files.newOutputStream(Paths.get(pdfFileName), StandardOpenOption.CREATE));
+        PdfWriter writer = PdfWriter.getInstance(document,
+                Files.newOutputStream(Paths.get(pdfFileName), StandardOpenOption.CREATE));
 
         // Mở tài liệu PDF
         document.open();
         // Đường dẫn tới tệp hình ảnh logo của cửa hàng
-        String logoImagePath = this.imgLogoPath; // Thay đổi đường dẫn đến tệp logo.png// Thay đổi đường dẫn đến tệp logo.png
+        String logoImagePath = this.imgLogoPath; // Thay đổi đường dẫn đến tệp logo.png// Thay đổi đường dẫn đến tệp
+                                                 // logo.png
 
-// Tạo đối tượng Image từ tệp hình ảnh logo
+        // Tạo đối tượng Image từ tệp hình ảnh logo
         Image logoImage = Image.getInstance(logoImagePath);
         logoImage.scaleAbsolute(100, 100); // Điều chỉnh kích thước ảnh logo theo ý muốn
 
@@ -553,17 +559,15 @@ public class HoaDonService {
 
         logoImage.setAbsolutePosition(logoX, logoY);
 
-// Thêm ảnh logo vào tài liệu PDF
+        // Thêm ảnh logo vào tài liệu PDF
         document.add(logoImage);
 
         // Tạo font chữ cho tiêu đề và nội dung
         BaseFont bf = BaseFont.createFont(this.font, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 
-
         Font titleFont = new Font(bf, 18, Font.BOLD);
         Font headerFont = new Font(bf, 12, Font.BOLD);
         Font contentFont = new Font(bf, 12);
-
 
         // Tạo tiêu đề hóa đơn
         Paragraph title = new Paragraph("HÓA ĐƠN BÁN HÀNG", titleFont);
@@ -577,7 +581,8 @@ public class HoaDonService {
         storeInfo.setSpacingAfter(10f);
         document.add(storeInfo);
 
-        Paragraph storeAddress = new Paragraph("Số 14A, Đường Xuân Phương, Quận Nam Từ Liêm, Thành phố Hà Nội", contentFont);
+        Paragraph storeAddress = new Paragraph("Số 14A, Đường Xuân Phương, Quận Nam Từ Liêm, Thành phố Hà Nội",
+                contentFont);
         storeAddress.setAlignment(Element.ALIGN_LEFT);
         storeAddress.setSpacingAfter(20f);
         document.add(storeAddress);
@@ -585,7 +590,7 @@ public class HoaDonService {
         // Tạo thông tin hóa đơn
         PdfPTable table = new PdfPTable(2);
         table.setWidthPercentage(100);
-        table.setWidths(new float[]{1.5f, 2.5f});
+        table.setWidths(new float[] { 1.5f, 2.5f });
 
         // Thêm dòng Mã Hóa đơn
         PdfPCell cell = new PdfPCell(new Phrase("Mã Hóa đơn:", headerFont));
@@ -610,7 +615,8 @@ public class HoaDonService {
 
         table.addCell(cell);
 
-        cell = new PdfPCell(new Phrase(hd.getDiaChi() + ", " + hd.getXa() + ", " + hd.getHuyen() + ", " + hd.getTinh(), contentFont));
+        cell = new PdfPCell(new Phrase(hd.getDiaChi() + ", " + hd.getXa() + ", " + hd.getHuyen() + ", " + hd.getTinh(),
+                contentFont));
 
         table.addCell(cell);
 
@@ -660,21 +666,34 @@ public class HoaDonService {
         sendEmailDangGiao(user.getEmail(), pdfFileName);
     }
 
-    public void sendPdfToMailQuay(HoaDon hd, Long id, KhachHang user, List<String> tenSp, String tongTien) throws IOException, DocumentException, MessagingException {
-
+    public void sendPdfToMailQuay(HoaDon hd, Long id, KhachHang user, List<String> tenSp, String tongTien)
+            throws IOException, DocumentException, MessagingException {
         Document document = new Document();
-        String pdfFileName = this.pdfDirectoryQuay + "HoaDon_" + id + ".pdf";
-        PdfWriter writer = PdfWriter.getInstance(document, Files.newOutputStream(Paths.get(pdfFileName), StandardOpenOption.CREATE));
+        // Tạo thư mục nếu chưa tồn tại
+        Path pdfDir = Paths.get(pdfDirectoryQuay);
+        Files.createDirectories(pdfDir);
+
+        // Tạo path file PDF
+        Path pdfFileName = pdfDir.resolve("HoaDon_" + id + ".pdf");
+
+        // Ghi PDF
+        PdfWriter writer = PdfWriter.getInstance(
+                document,
+                Files.newOutputStream(pdfFileName));
 
         // Mở tài liệu PDF
         document.open();
 
         // Đường dẫn tới tệp hình ảnh logo của cửa hàng
-        String logoImagePath = this.imgLogoPath; // Thay đổi đường dẫn đến tệp logo.png
+        String logoImagePath = this.imgLogoPath;
 
-// Tạo đối tượng Image từ tệp hình ảnh logo
         Image logoImage = Image.getInstance(logoImagePath);
-        logoImage.scaleAbsolute(100, 100); // Điều chỉnh kích thước ảnh logo theo ý muốn
+        logoImage.scaleAbsolute(100, 100);
+        document.add(logoImage);
+
+        // Image logoImage = Image.getInstance(logoImagePath);
+        // logoImage.scaleAbsolute(100, 100); // Điều chỉnh kích thước ảnh logo theo ý
+        // muốn
 
         // Đặt vị trí ảnh logo bên trái trên cùng
         float logoX = document.left();
@@ -682,17 +701,29 @@ public class HoaDonService {
 
         logoImage.setAbsolutePosition(logoX, logoY);
 
-// Thêm ảnh logo vào tài liệu PDF
+        // Thêm ảnh logo vào tài liệu PDF
         document.add(logoImage);
 
         // Tạo font chữ cho tiêu đề và nội dung
-        BaseFont bf = BaseFont.createFont(this.font, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        // BaseFont bf = BaseFont.createFont(this.font, BaseFont.IDENTITY_H,
+        // BaseFont.EMBEDDED);
 
+        // Lấy path thật của font trong webapp
+        String realFontPath = servletContext.getRealPath(font);
+
+        if (realFontPath == null) {
+            throw new RuntimeException("Không lấy được real path của font: " + font);
+        }
+
+        // Tạo BaseFont cho iText
+        BaseFont bf = BaseFont.createFont(
+                realFontPath,
+                BaseFont.IDENTITY_H,
+                BaseFont.EMBEDDED);
 
         Font titleFont = new Font(bf, 18, Font.BOLD);
         Font headerFont = new Font(bf, 12, Font.BOLD);
         Font contentFont = new Font(bf, 12);
-
 
         // Tạo tiêu đề hóa đơn
         Paragraph title = new Paragraph("HÓA ĐƠN BÁN HÀNG", titleFont);
@@ -706,7 +737,8 @@ public class HoaDonService {
         storeInfo.setSpacingAfter(10f);
         document.add(storeInfo);
 
-        Paragraph storeAddress = new Paragraph("Số 14A, Đường Xuân Phương, Quận Nam Từ Liêm, Thành phố Hà Nội", contentFont);
+        Paragraph storeAddress = new Paragraph("Số 14A, Đường Xuân Phương, Quận Nam Từ Liêm, Thành phố Hà Nội",
+                contentFont);
         storeAddress.setAlignment(Element.ALIGN_LEFT);
         storeAddress.setSpacingAfter(20f);
         document.add(storeAddress);
@@ -714,7 +746,7 @@ public class HoaDonService {
         // Tạo thông tin hóa đơn
         PdfPTable table = new PdfPTable(2);
         table.setWidthPercentage(100);
-        table.setWidths(new float[]{1.5f, 2.5f});
+        table.setWidths(new float[] { 1.5f, 2.5f });
 
         // Thêm dòng Mã Hóa đơn
         PdfPCell cell = new PdfPCell(new Phrase("Mã Hóa đơn:", headerFont));
@@ -785,10 +817,9 @@ public class HoaDonService {
         // Đóng tài liệu PDF
         document.close();
 
-//        sendEmailWithAttachmentQuay(user.getEmail(), pdfFileName);
+        // sendEmailWithAttachmentQuay(user.getEmail(), pdfFileName);
 
     }
-
 
     public HoaDonChiTietDTO detailHoaDon(Long maHoaDon) {
         HoaDonChiTietDTO hoaDonChiTietDTO = hoaDonRepository.getDetailHD(maHoaDon);
@@ -814,36 +845,51 @@ public class HoaDonService {
         for (HoaDonResponse hoaDonResponse : hoaDonResponses) {
             hoaDonResponse.convertTongTien();
         }
-        String templateFolder = this.templateFolder;
         String fileName = "template_export_hoa_don.xls";
-        String fileNameFull = this.fileNameFullFolder + File.separator + fileName;
-        String fileTemplate = "template_export_hoa_don.xls";
-        File templateFile = new File(templateFolder, fileTemplate);
+        String templatePath = this.templateFolder + fileName;
+
         try {
-            InputStream is = new FileInputStream(templateFile);
-            File fileResult = new File(fileNameFull);
+            // Sử dụng ResourceLoader để load template từ classpath
+            Resource resource = resourceLoader.getResource(templatePath);
+            InputStream is = resource.getInputStream();
+
+            // Tạo thư mục output nếu chưa tồn tại
+            File outputDir = new File(this.fileTempUploadPath);
+            if (!outputDir.exists()) {
+                outputDir.mkdirs();
+            }
+
+            // Tạo file output
+            File fileResult = new File(outputDir, fileName);
             OutputStream os = new FileOutputStream(fileResult);
 
             Context context = new Context();
             context.putVar("hds", hoaDonResponses);
             JxlsHelper.getInstance().processTemplate(is, os, context);
-            return fileNameFull;
+
+            // Đóng stream
+            os.close();
+            is.close();
+
+            return fileResult.getAbsolutePath();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public ResponseEntity<?> updateTrangThai(HoaDonRequest hoaDonRequest) throws MessagingException, IOException, DocumentException {
+    public ResponseEntity<?> updateTrangThai(HoaDonRequest hoaDonRequest)
+            throws MessagingException, IOException, DocumentException {
         HoaDon hoaDon = hoaDonRepository.findById(hoaDonRequest.getMaHoaDon()).orElse(null);
         Map<String, Integer> DSSP = new HashMap<>();
         List<SanPham> listSP = new ArrayList<>();
         if (hoaDon != null) {
-            if (hoaDonRequest.getTrangThai() == 3 | hoaDonRequest.getTrangThai() == 5) {
+            if (hoaDonRequest.getTrangThai() == 3 || hoaDonRequest.getTrangThai() == 5) {
                 ViShop viShop = viShopRepository.getByKhachHang(hoaDon.getKhachHang());
-                if(viShop !=null && hoaDon.getLoaiThanhToan() !=0){
+                if (viShop != null && hoaDon.getLoaiThanhToan() != 0) {
 
-                    viShop.setTongTien(BigDecimal.valueOf(Double.parseDouble(String.valueOf(viShop.getTongTien())) + Double.parseDouble(String.valueOf(hoaDon.getTongTien()))));
+                    viShop.setTongTien(BigDecimal.valueOf(Double.parseDouble(String.valueOf(viShop.getTongTien()))
+                            + Double.parseDouble(String.valueOf(hoaDon.getTongTien()))));
                     viShopRepository.save(viShop);
 
                     GiaoDichVi giaoDichVi = new GiaoDichVi();
@@ -863,12 +909,11 @@ public class HoaDonService {
                     if (ctsp != null) {
 
                         ctsp.setSoLuongBan(ctsp.getSoLuongBan() - hdct.getSoLuongMua());
-                        //Hàm đổi trạng thái
+                        // Hàm đổi trạng thái
                         if (ctsp.getSoLuongBan() < ctsp.getSoLuongNhap()) {
                             ctsp.setTrangThai(1);
                         }
                         chiTietSanPhamRepository.save(ctsp);
-
 
                     }
                     listSP.add(hdct.getChiTietSanPham().getSanPham());
@@ -895,16 +940,17 @@ public class HoaDonService {
                     if (checkImei != null) {
                         return new ResponseEntity<>(checkImeiTrung, HttpStatus.OK);
                     }
-                    if (checkImei != null && !checkImei.getMaHoaDonChiTiet().equals(hoaDonChiTiet.getMaHoaDonChiTiet())) {
+                    if (checkImei != null
+                            && !checkImei.getMaHoaDonChiTiet().equals(hoaDonChiTiet.getMaHoaDonChiTiet())) {
                         return new ResponseEntity<>(checkImeiTrung, HttpStatus.OK);
                     } else {
                         hoaDonChiTiet.setImei(dshdct.getImei());
                     }
-                    if (isIMEIValid(dshdct.getImei())) {
-                        System.out.println("IMEI hợp lệ!");
+                    if (!isIMEIValid(dshdct.getImei())) {
                         String checkImeiHopLe = "Imei " + dshdct.getImei() + " Không hợp lệ!";
                         return new ResponseEntity<>(checkImeiHopLe, HttpStatus.OK);
                     }
+
                     hoaDon.setLastUpdate(new Date());
                     hoaDonChiTietRepository.save(hoaDonChiTiet);
                 }
@@ -935,27 +981,58 @@ public class HoaDonService {
                 String all = tensp + " " + tenDungLuong + " " + tenMauSac + " " + " (Imei: " + imei + ")\n";
                 spp.add(all);
             }
-            this.sendPdfToMailDangGiao(hoaDon, hoaDon.getKhachHang().getMaKhachHang(), hoaDon.getKhachHang(), spp, currencyFormat.format(hoaDon.getTongTien()));
+            this.sendPdfToMailDangGiao(hoaDon, hoaDon.getKhachHang().getMaKhachHang(), hoaDon.getKhachHang(), spp,
+                    currencyFormat.format(hoaDon.getTongTien()));
 
         }
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
 
-    public ResponseEntity<?> updateTrangThaiHoanThanh(HoaDonRequest hoaDonRequest) throws MessagingException, IOException, DocumentException {
+    public ResponseEntity<?> updateTrangThaiHoanThanh(HoaDonRequest hoaDonRequest)
+            throws MessagingException, IOException, DocumentException {
         HoaDon hoaDon = hoaDonRepository.findById(hoaDonRequest.getMaHoaDon()).orElse(null);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDateTime now = LocalDateTime.now();
         String datenow = dtf.format(now).toLowerCase();
         if (hoaDon != null) {
+            // Xử lý IMEI nếu có dữ liệu
+            if (hoaDonRequest.getDanhSachSanPhamHoaDonDTOS() != null) {
+                for (DanhSachSanPhamHoaDonDTO dshdct : hoaDonRequest.getDanhSachSanPhamHoaDonDTOS()) {
+                    HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietRepository.findById(dshdct.getMaHDCT()).orElse(null);
+
+                    // Chỉ xử lý IMEI nếu có giá trị mới được gửi lên
+                    if (dshdct.getImei() != null && !dshdct.getImei().trim().isEmpty()) {
+                        // Kiểm tra IMEI trùng lặp (trừ chính nó)
+                        HoaDonChiTiet checkImei = hoaDonChiTietRepository.checkImei(dshdct.getImei().trim());
+
+                        String checkImeiTrung = "Imei " + dshdct.getImei() + " đã được bán vui lòng nhập lại imei!";
+                        if (checkImei != null
+                                && !checkImei.getMaHoaDonChiTiet().equals(hoaDonChiTiet.getMaHoaDonChiTiet())) {
+                            return new ResponseEntity<>(checkImeiTrung, HttpStatus.OK);
+                        }
+
+                        // Kiểm tra IMEI hợp lệ
+                        if (!isIMEIValid(dshdct.getImei())) {
+                            String checkImeiHopLe = "Imei " + dshdct.getImei() + " Không hợp lệ!";
+                            return new ResponseEntity<>(checkImeiHopLe, HttpStatus.OK);
+                        }
+
+                        // Lưu IMEI
+                        hoaDonChiTiet.setImei(dshdct.getImei());
+                        hoaDonChiTietRepository.save(hoaDonChiTiet);
+                    }
+                    // Nếu IMEI trống nhưng đã có IMEI trong DB thì bỏ qua, không cần cập nhật
+                }
+            }
+
             hoaDon.setTrangThai(hoaDonRequest.getTrangThai());
             hoaDon.setNgayThanhToan(java.sql.Date.valueOf(datenow));
             hoaDon.setLastUpdate(new Date());
             repository.save(hoaDon);
-//            this.sendEmailHoanThanh(hoaDon.getKhachHang().getEmail());
+            // this.sendEmailHoanThanh(hoaDon.getKhachHang().getEmail());
         }
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
-
 
     public Integer countHoaDon() {
         return repository.tongDonHang();
@@ -981,7 +1058,8 @@ public class HoaDonService {
         for (HoaDonChiTietDTO hoaDonChiTietDTO : hoaDonChiTietDTOS) {
             List<String> danhSachSP = new ArrayList<>();
             Integer soLuongMua = 0;
-            List<DanhSachSanPhamHoaDonDTO> danhSachSanPhamHoaDonDTOS = hoaDonChiTietRepository.getDsSPOFHoaDon(hoaDonChiTietDTO.getMaHoaDon());
+            List<DanhSachSanPhamHoaDonDTO> danhSachSanPhamHoaDonDTOS = hoaDonChiTietRepository
+                    .getDsSPOFHoaDon(hoaDonChiTietDTO.getMaHoaDon());
             for (DanhSachSanPhamHoaDonDTO danhSachSanPhamHoaDonDTO : danhSachSanPhamHoaDonDTOS) {
                 danhSachSP.add(danhSachSanPhamHoaDonDTO.getTenSanpham());
                 soLuongMua += danhSachSanPhamHoaDonDTO.getSoLuong();
@@ -1015,11 +1093,13 @@ public class HoaDonService {
         if (!ngayKetThucStr.isEmpty()) {
             ngayKetThuc = DateUtils.convertStringToDate(ngayKetThucStr, "yyyy-MM-dd");
         }
-        List<HoaDonChiTietDTO> hoaDonChiTietDTOS = hoaDonRepository.danhSachDOnHangThanhCongTheoNgay(ngayBatDau, ngayKetThuc);
+        List<HoaDonChiTietDTO> hoaDonChiTietDTOS = hoaDonRepository.danhSachDOnHangThanhCongTheoNgay(ngayBatDau,
+                ngayKetThuc);
         for (HoaDonChiTietDTO hoaDonChiTietDTO : hoaDonChiTietDTOS) {
             List<String> danhSachSP = new ArrayList<>();
             Integer soLuongMua = 0;
-            List<DanhSachSanPhamHoaDonDTO> danhSachSanPhamHoaDonDTOS = hoaDonChiTietRepository.getDsSPOFHoaDon(hoaDonChiTietDTO.getMaHoaDon());
+            List<DanhSachSanPhamHoaDonDTO> danhSachSanPhamHoaDonDTOS = hoaDonChiTietRepository
+                    .getDsSPOFHoaDon(hoaDonChiTietDTO.getMaHoaDon());
             for (DanhSachSanPhamHoaDonDTO danhSachSanPhamHoaDonDTO : danhSachSanPhamHoaDonDTOS) {
                 danhSachSP.add(danhSachSanPhamHoaDonDTO.getTenSanpham());
                 soLuongMua += danhSachSanPhamHoaDonDTO.getSoLuong();
@@ -1042,7 +1122,8 @@ public class HoaDonService {
         if (!ngayKetThucStr.isEmpty()) {
             ngayKetThuc = DateUtils.convertStringToDate(ngayKetThucStr, "yyyy-MM-dd");
         }
-        List<HoaDonChiTietDTO> hoaDonChiTietDTOS = hoaDonRepository.danhSachDOnHangThanhCongTheoNgay(ngayBatDau, ngayKetThuc);
+        List<HoaDonChiTietDTO> hoaDonChiTietDTOS = hoaDonRepository.danhSachDOnHangThanhCongTheoNgay(ngayBatDau,
+                ngayKetThuc);
         for (HoaDonChiTietDTO hoaDonChiTietDTO : hoaDonChiTietDTOS) {
             tongTien += Double.parseDouble(String.valueOf(hoaDonChiTietDTO.getTongTien()));
         }
@@ -1052,17 +1133,19 @@ public class HoaDonService {
         return tongTienString;
     }
 
-    public ResponseEntity<?> addThongTinHoaDonTaiQuay(ThongTinThanhToanTaiQuay thongTinThanhToanTaiQuay) throws DocumentException, MessagingException, IOException {
+    public ResponseEntity<?> addThongTinHoaDonTaiQuay(ThongTinThanhToanTaiQuay thongTinThanhToanTaiQuay)
+            throws DocumentException, MessagingException, IOException {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDateTime now = LocalDateTime.now();
         String datenow = dtf.format(now).toLowerCase();
         List<SanPhamThanhToanTaiQuayDTO> DSSP = thongTinThanhToanTaiQuay.getSanPhamThanhToanTaiQuayDTOS();
         Integer totalSoLuongMua = 0;
-        for (SanPhamThanhToanTaiQuayDTO sanPhamThanhToanTaiQuayDTO: DSSP){
-            ChiTietSanPham chiTietSanPham = chiTietSanPhamRepository.findById(sanPhamThanhToanTaiQuayDTO.getMaChiTietSanPham()).orElse(null);
+        for (SanPhamThanhToanTaiQuayDTO sanPhamThanhToanTaiQuayDTO : DSSP) {
+            ChiTietSanPham chiTietSanPham = chiTietSanPhamRepository
+                    .findById(sanPhamThanhToanTaiQuayDTO.getMaChiTietSanPham()).orElse(null);
             Integer soLuongTon = chiTietSanPham.getSoLuongNhap() - chiTietSanPham.getSoLuongBan();
             totalSoLuongMua += sanPhamThanhToanTaiQuayDTO.getSoLuongMua();
-            if (totalSoLuongMua > soLuongTon){
+            if (totalSoLuongMua > soLuongTon) {
                 return new ResponseEntity<>("Số lượng sản phẩm trong kho không đủ, hãy kiểm tra lại", HttpStatus.OK);
             }
             if (isIMEIValid(sanPhamThanhToanTaiQuayDTO.getImei())) {
@@ -1087,63 +1170,48 @@ public class HoaDonService {
         NhanVien nhanVienMD = nhanVienRepository.findById(thongTinThanhToanTaiQuay.getMaNhanVien()).orElse(null);
         HoaDon hd;
         if (thongTinThanhToanTaiQuay.getLoaiThanhToan() == 0) {
-            hd = HoaDon.builder().
-                    nguoiNhan(thongTinThanhToanTaiQuay.getTenKhachHang()).
-                    diaChi(thongTinThanhToanTaiQuay.getDiaChi()).
-                    sdt(thongTinThanhToanTaiQuay.getSdt()).
-                    trangThai(1).
-                    khachHang(khachHang1).
-                    tongTien(thongTinThanhToanTaiQuay.getTongTien()).
-                    nhanVien(nhanVienMD).
-                    ngayTao(java.sql.Date.valueOf(datenow)).
-                    ngayThanhToan(java.sql.Date.valueOf(datenow)).
-                    loaiThanhToan(thongTinThanhToanTaiQuay.getLoaiThanhToan()).
-                    ghiChu(thongTinThanhToanTaiQuay.getGhiChu()).
-                    createdDate(new Date()).
-                    lastUpdate(new Date()).
-                    maVoucher(thongTinThanhToanTaiQuay.getMaVoucher()).
-                    build();
+            hd = HoaDon.builder().nguoiNhan(thongTinThanhToanTaiQuay.getTenKhachHang())
+                    .diaChi(thongTinThanhToanTaiQuay.getDiaChi()).sdt(thongTinThanhToanTaiQuay.getSdt()).trangThai(1)
+                    .khachHang(khachHang1).tongTien(thongTinThanhToanTaiQuay.getTongTien()).nhanVien(nhanVienMD)
+                    .ngayTao(java.sql.Date.valueOf(datenow)).ngayThanhToan(java.sql.Date.valueOf(datenow))
+                    .loaiThanhToan(thongTinThanhToanTaiQuay.getLoaiThanhToan())
+                    .ghiChu(thongTinThanhToanTaiQuay.getGhiChu()).createdDate(new Date()).lastUpdate(new Date())
+                    .maVoucher(thongTinThanhToanTaiQuay.getMaVoucher()).build();
             hoaDonRepository.save(hd);
         } else {
-            hd = HoaDon.builder().
-                    nguoiNhan(thongTinThanhToanTaiQuay.getTenKhachHang()).
-                    diaChi("Số nhà 14A, 80/47 Xuân Phương").
-                    tinh("Hà Nội").huyen("NamTừ Liêm").xa("Xuân Phương").
-                    sdt(thongTinThanhToanTaiQuay.getSdt()).
-                    trangThai(TAI_QUAY).
-                    khachHang(khachHang1).
-                    tongTien(thongTinThanhToanTaiQuay.getTongTien()).
-                    nhanVien(nhanVienMD).
-                    ngayTao(java.sql.Date.valueOf(datenow)).
-                    ngayThanhToan(java.sql.Date.valueOf(datenow)).
-                    loaiThanhToan(thongTinThanhToanTaiQuay.getLoaiThanhToan()).
-                    ghiChu(thongTinThanhToanTaiQuay.getGhiChu()).
-                    createdDate(new Date()).
-                    lastUpdate(new Date()).
-                    maVoucher(thongTinThanhToanTaiQuay.getMaVoucher()).
-                    build();
+            hd = HoaDon.builder().nguoiNhan(thongTinThanhToanTaiQuay.getTenKhachHang())
+                    .diaChi("Số nhà 14A, 80/47 Xuân Phương").tinh("Hà Nội").huyen("NamTừ Liêm").xa("Xuân Phương")
+                    .sdt(thongTinThanhToanTaiQuay.getSdt()).trangThai(TAI_QUAY).khachHang(khachHang1)
+                    .tongTien(thongTinThanhToanTaiQuay.getTongTien()).nhanVien(nhanVienMD)
+                    .ngayTao(java.sql.Date.valueOf(datenow)).ngayThanhToan(java.sql.Date.valueOf(datenow))
+                    .loaiThanhToan(thongTinThanhToanTaiQuay.getLoaiThanhToan())
+                    .ghiChu(thongTinThanhToanTaiQuay.getGhiChu()).createdDate(new Date()).lastUpdate(new Date())
+                    .maVoucher(thongTinThanhToanTaiQuay.getMaVoucher()).build();
             hoaDonRepository.save(hd);
         }
 
         for (SanPhamThanhToanTaiQuayDTO sanPhamThanhToanTaiQuayDTO : DSSP) {
-            ChiTietSanPham chiTietSanPham = chiTietSanPhamRepository.findById(sanPhamThanhToanTaiQuayDTO.getMaChiTietSanPham()).orElse(null);
-            //hdct
+            ChiTietSanPham chiTietSanPham = chiTietSanPhamRepository
+                    .findById(sanPhamThanhToanTaiQuayDTO.getMaChiTietSanPham()).orElse(null);
+            // hdct
             for (int i = 0; i < sanPhamThanhToanTaiQuayDTO.getSoLuongMua(); i++) {
                 HoaDonChiTiet checkImei = hoaDonChiTietRepository
                         .checkImei(sanPhamThanhToanTaiQuayDTO.getImei().trim());
                 HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
-                if (sanPhamThanhToanTaiQuayDTO.getImei().isEmpty()) {
-                    return new ResponseEntity<>("Vui lòng nhập imei máy!", HttpStatus.OK);
-                }
-                String checkImeiTrung = "Imei " + sanPhamThanhToanTaiQuayDTO.getImei() + " đã được bán vui lòng nhập lại imei!";
-                if (checkImei != null ) {
-                    return new ResponseEntity<>(checkImeiTrung, HttpStatus.OK);
-                }
-                if (checkImei != null && !checkImei.getMaHoaDonChiTiet().equals(hoaDonChiTiet.getMaHoaDonChiTiet())) {
-                    return new ResponseEntity<>(checkImeiTrung, HttpStatus.OK);
-                } else {
-                    hoaDonChiTiet.setImei(sanPhamThanhToanTaiQuayDTO.getImei());
-                }
+                // if (sanPhamThanhToanTaiQuayDTO.getImei().isEmpty()) {
+                // return new ResponseEntity<>("Vui lòng nhập imei máy!", HttpStatus.OK);
+                // }
+                // String checkImeiTrung = "Imei " + sanPhamThanhToanTaiQuayDTO.getImei() + " đã
+                // được bán vui lòng nhập lại imei!";
+                // if (checkImei != null ) {
+                // return new ResponseEntity<>(checkImeiTrung, HttpStatus.OK);
+                // }
+                // if (checkImei != null &&
+                // !checkImei.getMaHoaDonChiTiet().equals(hoaDonChiTiet.getMaHoaDonChiTiet())) {
+                // return new ResponseEntity<>(checkImeiTrung, HttpStatus.OK);
+                // } else {
+                // hoaDonChiTiet.setImei(sanPhamThanhToanTaiQuayDTO.getImei());
+                // }
                 hoaDonChiTiet.setChiTietSanPham(chiTietSanPham);
                 hoaDonChiTiet.setHoaDon(hd);
                 hoaDonChiTiet.setGiaTien(sanPhamThanhToanTaiQuayDTO.getGiaTien());
@@ -1153,7 +1221,7 @@ public class HoaDonService {
                 hoaDonChiTiet.setLastUpdate(new Date());
                 hoaDonChiTietRepository.save(hoaDonChiTiet);
             }
-            //cap nhap slban
+            // cap nhap slban
             chiTietSanPham.setSoLuongBan(chiTietSanPham.getSoLuongBan() + sanPhamThanhToanTaiQuayDTO.getSoLuongMua());
             chiTietSanPhamRepository.save(chiTietSanPham);
             if (chiTietSanPham.getSoLuongNhap() <= chiTietSanPham.getSoLuongBan()) {
@@ -1196,14 +1264,14 @@ public class HoaDonService {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
 
-
         // Đặt thông tin email
         helper.setTo(toEmail);
         helper.setSubject("Thông tin Đơn hàng");
 
-        helper.setText("Cảm ơn khách hàng đã mua hàng của chúng tôi.\n Đơn hàng của bạn đã được xác nhận và đang trên đường giao hàng.Dưới đây là hóa đơn của bạn. ");
+        helper.setText(
+                "Cảm ơn khách hàng đã mua hàng của chúng tôi.\n Đơn hàng của bạn đã được xác nhận và đang trên đường giao hàng.Dưới đây là hóa đơn của bạn. ");
 
-// Đính kèm tệp PDF vào email
+        // Đính kèm tệp PDF vào email
         FileSystemResource file = new FileSystemResource(new File(pdfFileName));
         helper.addAttachment("invoice.pdf", file);
         // Gửi email
@@ -1219,12 +1287,11 @@ public class HoaDonService {
         helper.setTo(toEmail);
         helper.setSubject("Thông tin Đơn hàng");
 
-
         helper.setText("Cảm ơn Bạn đã mua hàng của chúng tôi. Đơn hàng của bạn hoàn thành.");
 
-//        // Đính kèm tệp PDF vào email
-//        FileSystemResource file = new FileSystemResource(new File(pdfFileName));
-//        helper.addAttachment("invoice.pdf", file);
+        // // Đính kèm tệp PDF vào email
+        // FileSystemResource file = new FileSystemResource(new File(pdfFileName));
+        // helper.addAttachment("invoice.pdf", file);
 
         // Gửi email
         mailSender.send(message);
@@ -1243,23 +1310,34 @@ public class HoaDonService {
     }
 
     public static boolean isIMEIValid(String imei) {
-        imei = imei.replaceAll("[\\s-]", "");
-        if (imei.matches("^\\d{15}$")) {
-            int sum = 0;
-            for (int i = 0; i < 14; i++) {
-                int digit = Character.getNumericValue(imei.charAt(i));
-                if (i % 2 == 0) {
-                    digit *= 2;
-                    digit = digit < 10 ? digit : digit - 9;
-                }
-                sum += digit;
-            }
+        if (imei == null)
+            return false;
 
-            int checkDigit = (10 - (sum % 10)) % 10;
-            return Character.getNumericValue(imei.charAt(14)) == checkDigit;
+        imei = imei.replaceAll("[\\s-]", "");
+
+        if (!imei.matches("\\d{15}")) {
+            return false;
         }
 
-        return false;
+        int sum = 0;
+        boolean doubleDigit = true;
+
+        // duyệt từ phải sang trái (bỏ check digit)
+        for (int i = 13; i >= 0; i--) {
+            int digit = imei.charAt(i) - '0';
+
+            if (doubleDigit) {
+                digit *= 2;
+                if (digit > 9)
+                    digit -= 9;
+            }
+
+            sum += digit;
+            doubleDigit = !doubleDigit;
+        }
+
+        int checkDigit = (10 - (sum % 10)) % 10;
+        return checkDigit == (imei.charAt(14) - '0');
     }
 
     public List<HoaDon> findByKhachHangAndTrangThai(Long maKhachHang, int trangThai) {

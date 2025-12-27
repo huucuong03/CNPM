@@ -92,7 +92,7 @@ public class HoaDon {
     @Column(name = "mavoucher")
     private Long maVoucher;
 
-    public class SupportUtils {
+    public static class SupportUtils {
 
         public static boolean conDoiTra(Date ngayTao) {
             Calendar cal = Calendar.getInstance();

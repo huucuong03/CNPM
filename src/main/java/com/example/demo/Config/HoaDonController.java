@@ -112,14 +112,15 @@ public class HoaDonController {
     @Autowired
     DungLuongRepository dungLuongRepository;
 
-    @Value("${FONT}")
+    @Value("${font.path}")
     private String font;
 
-    @Value("${PDF_DIRECTORY}")
+    @Value("${pdf.directory}")
     private String pdfDirectory;
 
-    @Value("${IMG_LOGO_PATH}")
+    @Value("${img.logo.path}")
     private String imgLogoPath;
+
 
     @GetMapping("/thanhtoan/{maKhachHang}")
     public String hoaDonView(@PathVariable(name = "maKhachHang") Long maKhachHang, Model model) {
