@@ -148,4 +148,26 @@ $provinceList.on("click", ".dropdown__item", function () {
     $(document).on("click", function (e) {
         if (!$(e.target).closest(".box-input, #ghi-chu").length) hideDropdowns();
     });
+function setBuyNow() {
+    const form = document.getElementById('myForm');
+    const btn  = document.getElementById('submitBtn');
+    form.action = '/cart/buy-now'; // action mới
+    btn.innerText = 'Mua Ngay';
+}
+
+function setCheckout() {
+    const form = document.getElementById('myForm');
+    const btn  = document.getElementById('submitBtn');
+    form.action = '/cart/submit-order'; 
+    btn.innerText = 'Đặt Hàng';
+}
+    document.querySelectorAll('input[name="delivery"]').forEach(radio => {
+    radio.addEventListener('change', function () {
+         if (this.value === 'pickup') {
+            setBuyNow();   
+        } else {
+            setCheckout(); 
+        }
+    });
+});
 });

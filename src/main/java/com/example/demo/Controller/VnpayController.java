@@ -575,6 +575,7 @@ public class VnpayController {
         if (khachHang == null) {
             return "redirect:/index";
         }
+        NhanVien nhanVienMD = nhanVienRepository.getReferenceById(1L);
         // 4️⃣ Tạo hóa đơn
         HoaDon hoaDon = HoaDon.builder()
                 .khachHang(khachHang)
@@ -583,6 +584,7 @@ public class VnpayController {
                 .diaChi(diaChi)
                 .tinh(tinh)
                 .xa(xa)
+                .nhanVien(nhanVienMD)
                 .ghiChu(note)
                 .ngayTao(new java.util.Date())
                 .createdDate(new java.util.Date())
