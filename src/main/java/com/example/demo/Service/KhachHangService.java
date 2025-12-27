@@ -14,6 +14,8 @@ import org.jxls.common.Context;
 import org.jxls.util.JxlsHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -29,16 +31,19 @@ import java.util.List;
 public class KhachHangService {
 
     @Autowired
+    private ResourceLoader resourceLoader;
+
+    @Autowired
     private KhachHangRepository repository;
 
     @Autowired
     private GioHangRepository gioHangRepository;
 
-    @Value("${TEMPLATE_PATH}")
+    @Value("${template.path}")
     private String templateFolder;
 
-    @Value("${FILE_TEMP_UPLOAD_PATH}")
-    private String fileNameFullFolder;
+    @Value("${file.temp.upload.path}")
+    private String fileTempUploadPath;
 
     public List<KhachHangDTO> searchKhachHang(KhachHangRequest request) {
         return repository.searchKhachHang(request.getDiaChi(), request.getTenKhachHang());
@@ -76,7 +81,6 @@ public class KhachHangService {
 
     }
 
-
     public ResponseEntity<?> them(KhachHangRequest khachHangRequest) {
         KhachHang khachHang = new KhachHang();
         khachHang.setTen(khachHangRequest.getTenKhachHang());
@@ -88,7 +92,6 @@ public class KhachHangService {
         khachHang.setTrangThai(khachHangRequest.getTrangThai());
         repository.save(khachHang);
 
-
         GioHang gioHang = new GioHang();
         gioHang.setKhachHang(KhachHang.builder().maKhachHang(khachHang.getMaKhachHang()).build());
         gioHang.setTrangThai(1);
@@ -97,30 +100,42 @@ public class KhachHangService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
     public KhachHang getKhachHangByEmailAndAndMatKhau(String email, String pass) {
         return repository.getByEmailAndMatKhau(email, pass);
     }
 
     public String buildSearchKhachHangResultFile(KhachHangRequest request) {
         List<KhachHangDTO> khachHangDTOS = repository.searchKhachHang(request.getDiaChi(), request.getTenKhachHang());
-        for (KhachHangDTO khachHangDTO: khachHangDTOS){
+        for (KhachHangDTO khachHangDTO : khachHangDTOS) {
             khachHangDTO.convertString();
         }
-        String templateFolder = this.templateFolder;
         String fileName = "template_export_khach_hang.xls";
-        String fileNameFull = this.fileNameFullFolder + File.separator + fileName;
-        String fileTemplate = "template_export_khach_hang.xls";
-        File templateFile = new File(templateFolder, fileTemplate);
+        String templatePath = this.templateFolder + fileName;
+
         try {
-            InputStream is = new FileInputStream(templateFile);
-            File fileResult = new File(fileNameFull);
+            // Sử dụng ResourceLoader để load template từ classpath
+            Resource resource = resourceLoader.getResource(templatePath);
+            InputStream is = resource.getInputStream();
+
+            // Tạo thư mục output nếu chưa tồn tại
+            File outputDir = new File(this.fileTempUploadPath);
+            if (!outputDir.exists()) {
+                outputDir.mkdirs();
+            }
+
+            // Tạo file output
+            File fileResult = new File(outputDir, fileName);
             OutputStream os = new FileOutputStream(fileResult);
 
             Context context = new Context();
             context.putVar("khs", khachHangDTOS);
             JxlsHelper.getInstance().processTemplate(is, os, context);
-            return fileNameFull;
+
+            // Đóng stream
+            os.close();
+            is.close();
+
+            return fileResult.getAbsolutePath();
         } catch (Exception e) {
             e.printStackTrace();
         }

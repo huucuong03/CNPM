@@ -9,6 +9,8 @@ import org.jxls.common.Context;
 import org.jxls.util.JxlsHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -25,22 +27,25 @@ import java.util.List;
 @Service
 public class NhanVienService {
     @Autowired
+    private ResourceLoader resourceLoader;
+
+    @Autowired
     private NhanVienRepository repository;
 
     @Autowired
     private ChucVuRepository chucVuRepository;
 
-    @Value("${TEMPLATE_PATH}")
+    @Value("${template.path}")
     private String templateFolder;
 
-    @Value("${FILE_TEMP_UPLOAD_PATH}")
-    private String fileNameFullFolder;
+    @Value("${file.temp.upload.path}")
+    private String fileTempUploadPath;
 
-    public NhanVien getByEmailAndMatKhau(String email, String pass){
+    public NhanVien getByEmailAndMatKhau(String email, String pass) {
         return repository.getByEmailAndMatKhau(email, pass);
     }
 
-    public List<NhanVien> getAll(){
+    public List<NhanVien> getAll() {
         return repository.findAllByOrderByTrangThaiDesc();
     }
 
@@ -65,7 +70,7 @@ public class NhanVienService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public NhanVien getByMa(Long maKhachHang){
+    public NhanVien getByMa(Long maKhachHang) {
         NhanVien nhanVien = repository.getReferenceById(maKhachHang);
         return nhanVien;
     }
@@ -100,30 +105,43 @@ public class NhanVienService {
 
     public String buildSearchNhanVienResultFile() {
         List<NhanVienDTO> nhanVienList = repository.getListNhanVien();
-        for (NhanVienDTO nhanVienDTO: nhanVienList){
+        for (NhanVienDTO nhanVienDTO : nhanVienList) {
             nhanVienDTO.convertTrangThaiToString();
         }
-        String templateFolder = this.templateFolder;
         String fileName = "template_export_nhan_vien.xls";
-        String fileNameFull = this.fileNameFullFolder + File.separator + fileName;
-        String fileTemplate = "template_export_nhan_vien.xls";
-        File templateFile = new File(templateFolder, fileTemplate);
+        String templatePath = this.templateFolder + fileName;
+
         try {
-            InputStream is = new FileInputStream(templateFile);
-            File fileResult = new File(fileNameFull);
+            // Sử dụng ResourceLoader để load template từ classpath
+            Resource resource = resourceLoader.getResource(templatePath);
+            InputStream is = resource.getInputStream();
+
+            // Tạo thư mục output nếu chưa tồn tại
+            File outputDir = new File(this.fileTempUploadPath);
+            if (!outputDir.exists()) {
+                outputDir.mkdirs();
+            }
+
+            // Tạo file output
+            File fileResult = new File(outputDir, fileName);
             OutputStream os = new FileOutputStream(fileResult);
 
             Context context = new Context();
             context.putVar("nvs", nhanVienList);
             JxlsHelper.getInstance().processTemplate(is, os, context);
-            return fileNameFull;
+
+            // Đóng stream
+            os.close();
+            is.close();
+
+            return fileResult.getAbsolutePath();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public Integer tongNhanVienDangHoatDong(){
+    public Integer tongNhanVienDangHoatDong() {
         return repository.tongNhanVienDangHoatDong();
     }
 

@@ -35,7 +35,7 @@
     <!-- Navbar Right Menu-->
     <ul class="app-nav">
 
-        <li><a class="app-nav__item" href="/loginView"><i class='bx bx-log-out bx-rotate-180'></i> </a>
+        <li><a class="app-nav__item" href="/admin/admin-login"><i class='bx bx-log-out bx-rotate-180'></i> </a>
         </li>
     </ul>
 </header>
