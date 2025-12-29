@@ -431,8 +431,16 @@ public class HoaDonService {
         // Thêm ảnh logo vào tài liệu PDF
         document.add(logoImage);
 
+        String realFontPath = servletContext.getRealPath(font);
+
+        if (realFontPath == null) {
+            throw new RuntimeException("Không lấy được real path của font: " + font);
+        }
         // Tạo font chữ cho tiêu đề và nội dung
-        BaseFont bf = BaseFont.createFont(this.font, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        BaseFont bf = BaseFont.createFont(
+                realFontPath,
+                BaseFont.IDENTITY_H,
+                BaseFont.EMBEDDED);
 
         Font titleFont = new Font(bf, 18, Font.BOLD);
         Font headerFont = new Font(bf, 12, Font.BOLD);
@@ -1029,7 +1037,7 @@ public class HoaDonService {
             hoaDon.setNgayThanhToan(java.sql.Date.valueOf(datenow));
             hoaDon.setLastUpdate(new Date());
             repository.save(hoaDon);
-            // this.sendEmailHoanThanh(hoaDon.getKhachHang().getEmail());
+//            this.sendEmailHoanThanh(hoaDon.getKhachHang().getEmail());
         }
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
@@ -1195,8 +1203,8 @@ public class HoaDonService {
                     .findById(sanPhamThanhToanTaiQuayDTO.getMaChiTietSanPham()).orElse(null);
             // hdct
             for (int i = 0; i < sanPhamThanhToanTaiQuayDTO.getSoLuongMua(); i++) {
-                HoaDonChiTiet checkImei = hoaDonChiTietRepository
-                        .checkImei(sanPhamThanhToanTaiQuayDTO.getImei().trim());
+//                HoaDonChiTiet checkImei = hoaDonChiTietRepository
+//                        .checkImei(sanPhamThanhToanTaiQuayDTO.getImei().trim());
                 HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
                 // if (sanPhamThanhToanTaiQuayDTO.getImei().isEmpty()) {
                 // return new ResponseEntity<>("Vui lòng nhập imei máy!", HttpStatus.OK);

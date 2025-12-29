@@ -27,13 +27,13 @@ public class VnpayService {
         String vnp_TxnRef = VnpayConfig.getRandomNumber(8);
         String vnp_IpAddr = "127.0.0.1";
         String vnp_TmnCode = VnpayConfig.vnp_TmnCode;
-        String orderType = "order-type";
+        String orderType = "other";
 
         Map<String, String> vnp_Params = new HashMap<>();
         vnp_Params.put("vnp_Version", vnp_Version);
         vnp_Params.put("vnp_Command", vnp_Command);
         vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
-        vnp_Params.put("vnp_Amount", total.intValue()+"00");
+        vnp_Params.put("vnp_Amount", total.intValue() + "00");
         vnp_Params.put("vnp_CurrCode", "VND");
 
         vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
@@ -62,17 +62,16 @@ public class VnpayService {
         StringBuilder query = new StringBuilder();
         Iterator itr = fieldNames.iterator();
 
-
         while (itr.hasNext()) {
             String fieldName = (String) itr.next();
             String fieldValue = (String) vnp_Params.get(fieldName);
             if ((fieldValue != null) && (fieldValue.length() > 0)) {
-                //Build hash data
+                // Build hash data
                 hashData.append(fieldName);
                 hashData.append('=');
                 try {
                     hashData.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
-                    //Build query
+                    // Build query
                     query.append(URLEncoder.encode(fieldName, StandardCharsets.US_ASCII.toString()));
                     query.append('=');
                     query.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
@@ -86,16 +85,27 @@ public class VnpayService {
             }
         }
         String queryUrl = query.toString();
+
+        // Debug logging
+        System.out.println("=== VNPay Debug ===");
+        System.out.println("TMN Code: " + VnpayConfig.vnp_TmnCode);
+        System.out.println("Hash Secret: " + VnpayConfig.vnp_HashSecret);
+        System.out.println("Hash Data: " + hashData.toString());
+
         String vnp_SecureHash = VnpayConfig.hmacSHA512(VnpayConfig.vnp_HashSecret, hashData.toString());
+        System.out.println("Secure Hash: " + vnp_SecureHash);
+        System.out.println("==================");
+
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
         String paymentUrl = VnpayConfig.vnp_PayUrl + "?" + queryUrl;
         return paymentUrl;
     }
 
-    // Trả về 1 nếu thanh toán thành công, 0 nếu thanh toán thất bại, -1 nếu có lỗi xảy ra
+    // Trả về 1 nếu thanh toán thành công, 0 nếu thanh toán thất bại, -1 nếu có lỗi
+    // xảy ra
     public int orderReturn(HttpServletRequest request) {
         Map fields = new HashMap();
-        for (Enumeration params = request.getParameterNames(); params.hasMoreElements(); ) {
+        for (Enumeration params = request.getParameterNames(); params.hasMoreElements();) {
             String fieldName = null;
             String fieldValue = null;
             try {
@@ -119,13 +129,31 @@ public class VnpayService {
 
         // Kiểm tra xem dữ liệu có bị thay đổi hay không
         String signValue = VnpayConfig.hashAllFields(fields);
+
+        System.out.println("=== orderReturn Debug ===");
+        System.out.println("VNPay SecureHash: " + vnp_SecureHash);
+        System.out.println("Calculated Hash: " + signValue);
+        System.out.println("Hash Match: " + signValue.equals(vnp_SecureHash));
+        System.out.println("vnp_ResponseCode: " + request.getParameter("vnp_ResponseCode"));
+        System.out.println("vnp_TransactionStatus: " + request.getParameter("vnp_TransactionStatus"));
+
         if (signValue.equals(vnp_SecureHash)) {
-            if ("00".equals(request.getParameter("vnp_TransactionStatus"))) {
+            // Kiểm tra cả ResponseCode và TransactionStatus
+            String responseCode = request.getParameter("vnp_ResponseCode");
+            String transactionStatus = request.getParameter("vnp_TransactionStatus");
+
+            System.out.println("Signature VALID - Checking transaction status...");
+
+            if ("00".equals(responseCode) || "00".equals(transactionStatus)) {
+                System.out.println("Transaction SUCCESS");
                 return 1;
             } else {
+                System.out.println("Transaction FAILED - ResponseCode: " + responseCode + ", TransactionStatus: "
+                        + transactionStatus);
                 return 0;
             }
         } else {
+            System.out.println("Signature INVALID - Hash mismatch!");
             return -1;
         }
     }
