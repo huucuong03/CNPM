@@ -431,8 +431,16 @@ public class HoaDonService {
         // Thêm ảnh logo vào tài liệu PDF
         document.add(logoImage);
 
+        String realFontPath = servletContext.getRealPath(font);
+
+        if (realFontPath == null) {
+            throw new RuntimeException("Không lấy được real path của font: " + font);
+        }
         // Tạo font chữ cho tiêu đề và nội dung
-        BaseFont bf = BaseFont.createFont(this.font, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        BaseFont bf = BaseFont.createFont(
+                realFontPath,
+                BaseFont.IDENTITY_H,
+                BaseFont.EMBEDDED);
 
         Font titleFont = new Font(bf, 18, Font.BOLD);
         Font headerFont = new Font(bf, 12, Font.BOLD);

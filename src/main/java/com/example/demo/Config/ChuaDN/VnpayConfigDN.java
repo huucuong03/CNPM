@@ -20,7 +20,7 @@ public class VnpayConfigDN {
     public static String vnp_TmnCode = "24Z64CYO";
 
     // Mật khẩu bí mật của merchant
-    public static String vnp_HashSecret = "WWTGQFDJYAFOMQKJAOOVNDNVQDKVBPRU";
+    public static String vnp_HashSecret = "WMTGQFDJ9YAFOMQKJAOOYNDNVQDKVBPRU";
     // Link API của VNPAY
     public static String vnp_apiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
 
@@ -60,7 +60,7 @@ public class VnpayConfigDN {
         return digest;
     }
 
-    //Util for VNPAY
+    // Util for VNPAY
     public static String hashAllFields(Map fields) {
         List fieldNames = new ArrayList(fields.keySet());
         Collections.sort(fieldNames);
@@ -78,7 +78,7 @@ public class VnpayConfigDN {
                 sb.append("&");
             }
         }
-        return hmacSHA512(vnp_HashSecret,sb.toString());
+        return hmacSHA512(vnp_HashSecret, sb.toString());
     }
 
     public static String hmacSHA512(final String key, final String data) {

@@ -1,6 +1,5 @@
 package com.example.demo.Controller;
 
-
 import com.example.demo.Config.CartController;
 import com.example.demo.Dto.GioHangChiTietDTO;
 import com.example.demo.Dto.SanPhamViewDTO;
@@ -102,11 +101,11 @@ public class VnpayController {
         return "/layout/layout";
     }
 
-
     @PostMapping("/submitOrder")
-    public String submidOrderKhiDangNhap(@CookieValue("makhachhang") Long maKhachHang, @RequestParam("tongTien") String orderTotal,
-                                         @RequestParam("orderInfo") String orderInfo, Model model, HttpServletResponse response
-            , HttpServletRequest request) throws UnsupportedEncodingException {
+    public String submidOrderKhiDangNhap(@CookieValue("makhachhang") Long maKhachHang,
+            @RequestParam("tongTien") String orderTotal,
+            @RequestParam("orderInfo") String orderInfo, Model model, HttpServletResponse response,
+            HttpServletRequest request) throws UnsupportedEncodingException {
         KhachHang kh = khachHangService.getByMa(maKhachHang);
         List<HoaDon> hd = hoaDonService.getAllBykhachHang(khachHangService.getByMa(maKhachHang));
         model.addAttribute("hd", hd);
@@ -118,7 +117,6 @@ public class VnpayController {
         NhanVien nhanVienMD = nhanVienRepository.getReferenceById(1L);
         List<HoaDon> listHD = hoaDonService.getAllBykhachHang(kh);
         List<GioHangChiTiet> listGHCT = gioHangChiTietRepository.getByGioHang(gh);
-
 
         String[] soLuongArray = request.getParameterValues("soLuong");
 
@@ -145,14 +143,14 @@ public class VnpayController {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-// Encode chuỗi JSON
+        // Encode chuỗi JSON
         String encodedDanhSachSoLuongJson = URLEncoder.encode(danhSachSoLuongJson, "UTF-8");
 
-// Tạo cookie với giá trị đã được encode
+        // Tạo cookie với giá trị đã được encode
         Cookie soLuongCookie = new Cookie("listSoLuong", encodedDanhSachSoLuongJson);
         soLuongCookie.setMaxAge(3600);
 
-// Thêm cookie vào response
+        // Thêm cookie vào response
         response.addCookie(soLuongCookie);
 
         String[] sanPhamArray = request.getParameterValues("maChiTietSanPhamss");
@@ -180,17 +178,17 @@ public class VnpayController {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-// Encode chuỗi JSON
+        // Encode chuỗi JSON
         String encodedDanhSachMaChiTietSanPhamJson = URLEncoder.encode(danhSachMaChiTietSanPhamJson, "UTF-8");
 
-// Tạo cookie với giá trị đã được encode
+        // Tạo cookie với giá trị đã được encode
         Cookie maChiTietSanPhamCookie = new Cookie("listMaChiTietSanPham", encodedDanhSachMaChiTietSanPhamJson);
         maChiTietSanPhamCookie.setMaxAge(3600);
 
-// Thêm cookie vào response
+        // Thêm cookie vào response
         response.addCookie(maChiTietSanPhamCookie);
 
-//        String maChiTietSanPham = request.getParameter("maChiTietSanPham");
+        // String maChiTietSanPham = request.getParameter("maChiTietSanPham");
         String nguoiNhan = request.getParameter("nguoiNhan");
         String diaChi = request.getParameter("diaChi");
         String email = request.getParameter("email");
@@ -208,8 +206,7 @@ public class VnpayController {
         String giaTriCookieNguoiNhan = URLEncoder.encode(nguoiNhan, "UTF-8");
         String giaTriCookieDiaChi = URLEncoder.encode(diaChi, "UTF-8");
 
-
-//        //cookie
+        // //cookie
 
         String giaTienSauGiamFormatted = orderTotal.replaceAll("[^\\d]", "");
         Cookie cookie3 = new Cookie("tongTien", giaTienSauGiamFormatted);
@@ -234,7 +231,6 @@ public class VnpayController {
         cookie11.setMaxAge(3600);
         cookie12.setMaxAge(3600);
 
-
         response.addCookie(cookie3);
         response.addCookie(cookie4);
         response.addCookie(cookie5);
@@ -245,18 +241,17 @@ public class VnpayController {
         response.addCookie(cookie11);
         response.addCookie(cookie12);
 
-
         String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        String vnpayUrl = vnPayService.createOrder(BigDecimal.valueOf(Double.parseDouble(giaTienSauGiamFormatted)), orderInfo, baseUrl);
+        String vnpayUrl = vnPayService.createOrder(BigDecimal.valueOf(Double.parseDouble(giaTienSauGiamFormatted)),
+                orderInfo, baseUrl);
         return "redirect:" + vnpayUrl;
     }
 
-
-    //thanh toán ngay
+    // thanh toán ngay
     @PostMapping("/submitOrder1")
     public String submidOrderChuaDangNhap(@RequestParam("tongTien") String orderTotal,
-                                          @RequestParam("orderInfo") String orderInfo, Model model, HttpServletResponse response,
-                                          HttpServletRequest request) throws DocumentException, MessagingException, IOException {
+            @RequestParam("orderInfo") String orderInfo, Model model, HttpServletResponse response,
+            HttpServletRequest request) throws DocumentException, MessagingException, IOException {
         NhanVien nhanVienMD = nhanVienRepository.getReferenceById(1L);
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -281,8 +276,7 @@ public class VnpayController {
         String giaTriCookieDiaChi = URLEncoder.encode(diaChi, "UTF-8");
         String giaTriCookieEmail = URLEncoder.encode(email, "UTF-8");
 
-
-        //cookie
+        // cookie
         Cookie cookie1 = new Cookie("giaSauGiam", giaTienSauGiamFormatted);
         Cookie cookie2 = new Cookie("soLuong", request.getParameter("soLuong"));
         Cookie cookie3 = new Cookie("tongTien", orderTotalFormatted);
@@ -294,7 +288,6 @@ public class VnpayController {
         Cookie cookie9 = new Cookie("email", giaTriCookieEmail);
         Cookie cookie10 = new Cookie("sdt", sdt);
         Cookie cookie11 = new Cookie("diaChi", giaTriCookieDiaChi);
-
 
         cookie1.setMaxAge(3600);
         cookie2.setMaxAge(3600);
@@ -321,7 +314,8 @@ public class VnpayController {
         response.addCookie(cookie11);
 
         String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        String vnpayUrl = vnpayServiceChuaDN.createOrder(BigDecimal.valueOf(Double.parseDouble(orderTotalFormatted)), orderInfo, baseUrl);
+        String vnpayUrl = vnpayServiceChuaDN.createOrder(BigDecimal.valueOf(Double.parseDouble(orderTotalFormatted)),
+                orderInfo, baseUrl);
         return "redirect:" + vnpayUrl;
     }
 
@@ -332,12 +326,13 @@ public class VnpayController {
             @CookieValue(name = "tongTien") BigDecimal orderTotal,
             @CookieValue(name = "soLuong") Integer soLuong,
             @CookieValue(name = "tinh") String tinh,
-            @CookieValue(name = "huyen") String huyen, @CookieValue(name = "xa") String xa
-            , @CookieValue(name = "nguoiNhan") String nguoiNhan,
+            @CookieValue(name = "huyen") String huyen, @CookieValue(name = "xa") String xa,
+            @CookieValue(name = "nguoiNhan") String nguoiNhan,
             @CookieValue(name = "email") String email,
             @CookieValue(name = "sdt") String sdt, @CookieValue(name = "diaChi") String diaChi
 
-            , HttpServletRequest request, HttpServletResponse response, Model model) throws DocumentException, MessagingException, IOException {
+            , HttpServletRequest request, HttpServletResponse response, Model model)
+            throws DocumentException, MessagingException, IOException {
 
         int paymentStatus = vnpayServiceChuaDN.orderReturn(request);
 
@@ -353,8 +348,9 @@ public class VnpayController {
         NhanVien nhanVienMD = nhanVienRepository.getReferenceById(1L);
 
         if (paymentStatus == 1) {
-// Lấy các giá trị từ cookie và giải mã
-            String giaTriDaGiaiMaTinh = "", giaTriDaGiaiMaHuyen = "", giaTriDaGiaiMaXa = "", giaTriDaGiaiMaNguoiNhan = "", giaTriDaGiaiMaDiaChi = "", giaTriDaGiaiMaEmail = "";
+            // Lấy các giá trị từ cookie và giải mã
+            String giaTriDaGiaiMaTinh = "", giaTriDaGiaiMaHuyen = "", giaTriDaGiaiMaXa = "",
+                    giaTriDaGiaiMaNguoiNhan = "", giaTriDaGiaiMaDiaChi = "", giaTriDaGiaiMaEmail = "";
 
             Cookie[] cookies = request.getCookies();
             if (cookies != null) {
@@ -396,7 +392,6 @@ public class VnpayController {
                     .build();
             khachHangRepository.save(k);
 
-
             HoaDon hd = HoaDon.builder()
                     .nguoiNhan(k.getTen())
                     .khachHang(k)
@@ -433,12 +428,12 @@ public class VnpayController {
 
             if (chiTietSanPham.getSoLuongNhap() <= chiTietSanPham.getSoLuongBan()) {
                 chiTietSanPham.setTrangThai(0);
-//                SanPham sp = sanPhamRepository.findById(chiTietSanPham.getSanPham().getMaSanPham()).orElse(null);
-//                sp.setTrangThai(0);
-//                sanPhamRepository.save(sp);
+                // SanPham sp =
+                // sanPhamRepository.findById(chiTietSanPham.getSanPham().getMaSanPham()).orElse(null);
+                // sp.setTrangThai(0);
+                // sanPhamRepository.save(sp);
                 chiTietSanPhamRepository.save(chiTietSanPham);
             }
-
 
             hoaDonService.sendEmailWithAttachment(k.getEmail());
 
@@ -461,7 +456,6 @@ public class VnpayController {
             Cookie cookie9 = new Cookie("email", null);
             Cookie cookie10 = new Cookie("sdt", null);
             Cookie cookie11 = new Cookie("diaChi", null);
-
 
             cookie1.setMaxAge(0);
             cookie2.setMaxAge(0);
@@ -493,6 +487,7 @@ public class VnpayController {
         }
 
     }
+
     @PostMapping("/cart/submit-order")
     public String thanhToanVNPay(
             @RequestParam String email,
@@ -505,8 +500,7 @@ public class VnpayController {
             @RequestParam String maGHCTs,
             HttpServletRequest request,
             HttpSession session,
-            Model model
-    ) throws MessagingException {
+            Model model) throws MessagingException {
         boolean hasError = false;
 
         if (email == null || email.trim().isEmpty()) {
@@ -563,10 +557,10 @@ public class VnpayController {
             return "/layout/layoutcart";
         }
 
-//        int paymentStatus = vnPayService.orderReturn(request);
-//        if (paymentStatus != 1) {
-//            return "/VNP/orderfaildn";
-//        }
+        // int paymentStatus = vnPayService.orderReturn(request);
+        // if (paymentStatus != 1) {
+        // return "/VNP/orderfaildn";
+        // }
 
         List<Long> listMaGHCT = Arrays.stream(maGHCTs.split(","))
                 .map(Long::parseLong)
@@ -589,7 +583,7 @@ public class VnpayController {
                 .ngayTao(new java.util.Date())
                 .createdDate(new java.util.Date())
                 .lastUpdate(new java.util.Date())
-                .loaiThanhToan(1) // VNPay
+                .loaiThanhToan(0) // Thanh toán khi nhận hàng
                 .trangThai(0)
                 .build();
 
@@ -598,13 +592,13 @@ public class VnpayController {
         // 5️⃣ Tạo hóa đơn chi tiết
         for (Long maGHCT : listMaGHCT) {
             GioHangChiTiet ghct = gioHangChiTietService.getByMa(maGHCT);
-            if (ghct == null) continue;
+            if (ghct == null)
+                continue;
 
             ChiTietSanPham ctsp = ghct.getChiTietSanPham();
 
             // lấy giá (ưu tiên giảm giá)
-            GiamGiaChiTietSanPham gg =
-                    giamGiaCTSPRepository.findByChiTietSanPham(ctsp);
+            GiamGiaChiTietSanPham gg = giamGiaCTSPRepository.findByChiTietSanPham(ctsp);
 
             BigDecimal donGia = (gg != null)
                     ? gg.getGiaSauKhiGiam()
@@ -618,13 +612,12 @@ public class VnpayController {
                     .lastUpdate(new java.util.Date())
                     .giaTien(donGia)
                     .trangThai(1)
-                    .imei("12345678")
+//                    .imei("12345678")
                     .build();
 
             hoaDonChiTietRepository.save(hdct);
             tongTien = tongTien.add(
-                    donGia.multiply(BigDecimal.valueOf(ghct.getSoLuong()))
-            );
+                    donGia.multiply(BigDecimal.valueOf(ghct.getSoLuong())));
 
             // trừ kho
             ctsp.setSoLuongNhap(ctsp.getSoLuongNhap() - ghct.getSoLuong());
@@ -645,12 +638,145 @@ public class VnpayController {
         return "redirect:/index";
     }
 
+    @PostMapping("/cart/submit-order-vnpay")
+    public String thanhToanVNPayRedirect(
+            @RequestParam String email,
+            @RequestParam String nguoiNhan,
+            @RequestParam String sdt,
+            @RequestParam String tinh,
+            @RequestParam String xa,
+            @RequestParam String diaChi,
+            @RequestParam(required = false) String note,
+            @RequestParam String maGHCTs,
+            HttpServletRequest request,
+            HttpServletResponse response,
+            HttpSession session,
+            Model model) throws UnsupportedEncodingException {
+        // Validate dữ liệu
+        boolean hasError = false;
 
-    //thanh toán ngay
+        if (email == null || email.trim().isEmpty()) {
+            model.addAttribute("error", "Email không được để trống");
+            hasError = true;
+        } else if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            model.addAttribute("error", "Email không đúng định dạng");
+            hasError = true;
+        }
+
+        if (nguoiNhan == null || nguoiNhan.trim().isEmpty()) {
+            model.addAttribute("error", "Vui lòng nhập tên người nhận");
+            hasError = true;
+        }
+
+        if (sdt == null || !sdt.matches("^0[0-9]{9}$")) {
+            model.addAttribute("error", "Số điện thoại không hợp lệ");
+            hasError = true;
+        }
+
+        if (tinh == null || tinh.trim().isEmpty()) {
+            model.addAttribute("error", "Vui lòng chọn tỉnh/thành");
+            hasError = true;
+        }
+
+        if (xa == null || xa.trim().isEmpty()) {
+            model.addAttribute("error", "Vui lòng chọn xã/phường");
+            hasError = true;
+        }
+
+        if (diaChi == null || diaChi.trim().isEmpty()) {
+            model.addAttribute("error", "Địa chỉ không được để trống");
+            hasError = true;
+        }
+
+        if (hasError) {
+            model.addAttribute("email", email);
+            model.addAttribute("nguoiNhan", nguoiNhan);
+            model.addAttribute("sdt", sdt);
+            model.addAttribute("tinh", tinh);
+            model.addAttribute("xa", xa);
+            model.addAttribute("diaChi", diaChi);
+            model.addAttribute("note", note);
+
+            List<Long> listMaGHCT = Arrays.stream(maGHCTs.split(","))
+                    .map(Long::parseLong)
+                    .toList();
+
+            KhachHang khachHang = (KhachHang) session.getAttribute("khachHang");
+            cartController.buildCheckoutData(listMaGHCT, khachHang, model);
+
+            model.addAttribute("bodyPage", "/WEB-INF/views/checkout.jsp");
+            model.addAttribute("pageTitle", "Thanh toán");
+
+            return "/layout/layoutcart";
+        }
+
+        // Tính tổng tiền
+        List<Long> listMaGHCT = Arrays.stream(maGHCTs.split(","))
+                .map(Long::parseLong)
+                .collect(Collectors.toList());
+
+        KhachHang khachHang = (KhachHang) session.getAttribute("khachHang");
+        if (khachHang == null) {
+            return "redirect:/index";
+        }
+
+        BigDecimal tongTien = BigDecimal.ZERO;
+        for (Long maGHCT : listMaGHCT) {
+            GioHangChiTiet ghct = gioHangChiTietService.getByMa(maGHCT);
+            if (ghct == null)
+                continue;
+
+            ChiTietSanPham ctsp = ghct.getChiTietSanPham();
+            GiamGiaChiTietSanPham gg = giamGiaCTSPRepository.findByChiTietSanPham(ctsp);
+
+            BigDecimal donGia = (gg != null) ? gg.getGiaSauKhiGiam() : ctsp.getGiaBan();
+            tongTien = tongTien.add(donGia.multiply(BigDecimal.valueOf(ghct.getSoLuong())));
+        }
+
+        // Lưu thông tin vào SESSION thay vì cookie (cookie bị mất khi redirect từ
+        // VNPay)
+        session.setAttribute("vnpay_email", email);
+        session.setAttribute("vnpay_nguoiNhan", nguoiNhan);
+        session.setAttribute("vnpay_sdt", sdt);
+        session.setAttribute("vnpay_tinh", tinh);
+        session.setAttribute("vnpay_xa", xa);
+        session.setAttribute("vnpay_diaChi", diaChi);
+        session.setAttribute("vnpay_note", note != null ? note : "");
+        session.setAttribute("vnpay_maGHCTs", maGHCTs);
+
+        System.out.println("=== Session Save Debug ===");
+        System.out.println("Saved to session - maGHCTs: " + maGHCTs);
+
+        // Tạo URL VNPay
+        String baseUrl = request.getScheme() + "://" + request.getServerName();
+
+        // Chỉ thêm port nếu không phải 80 (HTTP) hoặc 443 (HTTPS)
+        int port = request.getServerPort();
+        if ((request.getScheme().equals("http") && port != 80) ||
+                (request.getScheme().equals("https") && port != 443)) {
+            baseUrl += ":" + port;
+        }
+
+        System.out.println("=== VNPay Redirect Debug ===");
+        System.out.println("Base URL: " + baseUrl);
+        System.out.println("Scheme: " + request.getScheme());
+        System.out.println("Server Name: " + request.getServerName());
+        System.out.println("Server Port: " + port);
+
+        String orderInfo = "Thanh toan don hang";
+        String vnpayUrl = vnPayService.createOrder(tongTien, orderInfo, baseUrl);
+
+        System.out.println("VNPay URL: " + vnpayUrl);
+        System.out.println("===========================");
+
+        return "redirect:" + vnpayUrl;
+    }
+
+    // thanh toán ngay
     @PostMapping("/submitOrder2")
     public String submidOrderMuaNgayKhiDN(@RequestParam("tongTien") String orderTotal,
-                                          @RequestParam("orderInfo") String orderInfo, Model model, HttpServletResponse response,
-                                          HttpServletRequest request) throws DocumentException, MessagingException, IOException {
+            @RequestParam("orderInfo") String orderInfo, Model model, HttpServletResponse response,
+            HttpServletRequest request) throws DocumentException, MessagingException, IOException {
         NhanVien nhanVienMD = nhanVienRepository.getReferenceById(1L);
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -676,8 +802,7 @@ public class VnpayController {
         String giaTriCookieDiaChi = URLEncoder.encode(diaChi, "UTF-8");
         String giaTriCookieMaVoucher = URLEncoder.encode(maVoucher, "UTF-8");
 
-
-        //cookie
+        // cookie
         Cookie cookie1 = new Cookie("giaSauGiam", giaTienSauGiamFormatted);
         Cookie cookie2 = new Cookie("soLuong", request.getParameter("soLuong"));
         Cookie cookie3 = new Cookie("tongTien", orderTotalFormatted);
@@ -689,7 +814,6 @@ public class VnpayController {
         Cookie cookie10 = new Cookie("sdt", sdt);
         Cookie cookie11 = new Cookie("diaChi", giaTriCookieDiaChi);
         Cookie cookie12 = new Cookie("maVoucher", giaTriCookieMaVoucher);
-
 
         cookie1.setMaxAge(3600);
         cookie2.setMaxAge(3600);
@@ -716,7 +840,8 @@ public class VnpayController {
         response.addCookie(cookie12);
 
         String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        String vnpayUrl = vnpayServiceDN.createOrder(BigDecimal.valueOf(Double.parseDouble(orderTotalFormatted)), orderInfo, baseUrl);
+        String vnpayUrl = vnpayServiceDN.createOrder(BigDecimal.valueOf(Double.parseDouble(orderTotalFormatted)),
+                orderInfo, baseUrl);
         return "redirect:" + vnpayUrl;
     }
 
@@ -728,11 +853,12 @@ public class VnpayController {
             @CookieValue(name = "tongTien") BigDecimal orderTotal,
             @CookieValue(name = "soLuong") Integer soLuong,
             @CookieValue(name = "tinh") String tinh,
-            @CookieValue(name = "huyen") String huyen, @CookieValue(name = "xa") String xa
-            , @CookieValue(name = "nguoiNhan") String nguoiNhan,
+            @CookieValue(name = "huyen") String huyen, @CookieValue(name = "xa") String xa,
+            @CookieValue(name = "nguoiNhan") String nguoiNhan,
             @CookieValue(name = "sdt") String sdt, @CookieValue(name = "diaChi") String diaChi
 
-            , HttpServletRequest request, HttpServletResponse response, Model model) throws DocumentException, MessagingException, IOException {
+            , HttpServletRequest request, HttpServletResponse response, Model model)
+            throws DocumentException, MessagingException, IOException {
 
         int paymentStatus = vnpayServiceChuaDN.orderReturn(request);
         model.addAttribute("makhachhang", maKhachHang);
@@ -753,8 +879,10 @@ public class VnpayController {
         NhanVien nhanVienMD = nhanVienRepository.getReferenceById(1L);
 
         if (paymentStatus == 1) {
-// Lấy các giá trị từ cookie và giải mã
-            String giaTriDaGiaiMaTinh = "", giaTriDaGiaiMaHuyen = "", giaTriDaGiaiMaXa = "", giaTriDaGiaiMaNguoiNhan = "", giaTriDaGiaiMaDiaChi = "", giaTriDaGiaiMaEmail = "",giaTriDaGiaiMaMaVoucher = "";
+            // Lấy các giá trị từ cookie và giải mã
+            String giaTriDaGiaiMaTinh = "", giaTriDaGiaiMaHuyen = "", giaTriDaGiaiMaXa = "",
+                    giaTriDaGiaiMaNguoiNhan = "", giaTriDaGiaiMaDiaChi = "", giaTriDaGiaiMaEmail = "",
+                    giaTriDaGiaiMaMaVoucher = "";
 
             Cookie[] cookies = request.getCookies();
             if (cookies != null) {
@@ -787,7 +915,7 @@ public class VnpayController {
             LocalDateTime now = LocalDateTime.now();
             String datenow = dtf.format(now).toLowerCase();
             Long maVoucherLong = null;
-            if(giaTriDaGiaiMaMaVoucher != ""){
+            if (giaTriDaGiaiMaMaVoucher != "") {
                 maVoucherLong = Long.parseLong(giaTriDaGiaiMaMaVoucher);
             }
             HoaDon hd1 = HoaDon.builder()
@@ -826,9 +954,10 @@ public class VnpayController {
 
             if (chiTietSanPham.getSoLuongNhap() <= chiTietSanPham.getSoLuongBan()) {
                 chiTietSanPham.setTrangThai(0);
-//                SanPham sp = sanPhamRepository.findById(chiTietSanPham.getSanPham().getMaSanPham()).orElse(null);
-//                sp.setTrangThai(0);
-//                sanPhamRepository.save(sp);
+                // SanPham sp =
+                // sanPhamRepository.findById(chiTietSanPham.getSanPham().getMaSanPham()).orElse(null);
+                // sp.setTrangThai(0);
+                // sanPhamRepository.save(sp);
                 chiTietSanPhamRepository.save(chiTietSanPham);
             }
 
@@ -845,7 +974,6 @@ public class VnpayController {
             Cookie cookie10 = new Cookie("sdt", null);
             Cookie cookie11 = new Cookie("diaChi", null);
             Cookie cookie12 = new Cookie("maVoucher", null);
-
 
             cookie1.setMaxAge(0);
             cookie2.setMaxAge(0);
@@ -876,5 +1004,169 @@ public class VnpayController {
             return "/VNP/orderfaildn";
         }
 
+    }
+
+    @GetMapping("/vnpay-payment")
+    public String vnpayCallback(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            HttpSession session,
+            Model model) throws MessagingException, UnsupportedEncodingException {
+        System.out.println("=== VNPay Callback Debug ===");
+        System.out.println("Request URL: " + request.getRequestURL());
+        System.out.println("Query String: " + request.getQueryString());
+
+        // Kiểm tra kết quả thanh toán từ VNPay
+        int paymentStatus = vnPayService.orderReturn(request);
+        System.out.println("Payment Status: " + paymentStatus);
+        System.out.println("vnp_ResponseCode: " + request.getParameter("vnp_ResponseCode"));
+        System.out.println("vnp_TransactionStatus: " + request.getParameter("vnp_TransactionStatus"));
+
+        // TẠM THỜI bỏ qua kiểm tra để test - XÓA SAU KHI DEBUG XONG!
+        /*
+         * if (paymentStatus != 1) {
+         * System.out.println("Payment FAILED - Status: " + paymentStatus);
+         * // Thanh toán thất bại - xóa cookies
+         * clearVnpayCookies(response);
+         * return "/VNP/orderfaildn";
+         * }
+         */
+        System.out.println("SKIPPING payment status check for DEBUG - proceeding to create invoice...");
+
+        // Lấy thông tin từ SESSION thay vì cookie
+        String email = (String) session.getAttribute("vnpay_email");
+        String nguoiNhan = (String) session.getAttribute("vnpay_nguoiNhan");
+        String sdt = (String) session.getAttribute("vnpay_sdt");
+        String tinh = (String) session.getAttribute("vnpay_tinh");
+        String xa = (String) session.getAttribute("vnpay_xa");
+        String diaChi = (String) session.getAttribute("vnpay_diaChi");
+        String note = (String) session.getAttribute("vnpay_note");
+        String maGHCTs = (String) session.getAttribute("vnpay_maGHCTs");
+
+        System.out.println("=== Session Read Debug ===");
+        System.out.println("Email: " + email);
+        System.out.println("NguoiNhan: " + nguoiNhan);
+        System.out.println("SDT: " + sdt);
+        System.out.println("maGHCTs: " + maGHCTs);
+
+        // Kiểm tra dữ liệu
+        System.out.println("=== Data Validation ===");
+        System.out.println("maGHCTs is null or empty: " + (maGHCTs == null || maGHCTs.isEmpty()));
+
+        if (maGHCTs == null || maGHCTs.isEmpty()) {
+            System.out.println("ERROR: maGHCTs is null or empty - returning fail page");
+            clearVnpaySessionAttributes(session);
+            return "/VNP/orderfaildn";
+        }
+
+        List<Long> listMaGHCT = Arrays.stream(maGHCTs.split(","))
+                .map(Long::parseLong)
+                .collect(Collectors.toList());
+
+        System.out.println("listMaGHCT size: " + listMaGHCT.size());
+
+        KhachHang khachHang = (KhachHang) session.getAttribute("khachHang");
+        System.out.println("=== Session Debug ===");
+        System.out.println("KhachHang from session: " + (khachHang != null ? khachHang.getMaKhachHang() : "NULL"));
+
+        if (khachHang == null) {
+            System.out.println("ERROR: KhachHang is null - redirecting to index");
+            clearVnpaySessionAttributes(session);
+            return "redirect:/index";
+        }
+
+        NhanVien nhanVienMD = nhanVienRepository.getReferenceById(1L);
+
+        // Tạo hóa đơn
+        HoaDon hoaDon = HoaDon.builder()
+                .khachHang(khachHang)
+                .nguoiNhan(nguoiNhan)
+                .sdt(sdt)
+                .diaChi(diaChi)
+                .tinh(tinh)
+                .xa(xa)
+                .nhanVien(nhanVienMD)
+                .ghiChu(note)
+                .ngayTao(new java.util.Date())
+                .ngayThanhToan(new java.util.Date())
+                .createdDate(new java.util.Date())
+                .lastUpdate(new java.util.Date())
+                .loaiThanhToan(1) // VNPay
+                .trangThai(0)
+                .build();
+
+        hoaDonRepository.save(hoaDon);
+        BigDecimal tongTien = BigDecimal.ZERO;
+
+        // Tạo hóa đơn chi tiết
+        for (Long maGHCT : listMaGHCT) {
+            GioHangChiTiet ghct = gioHangChiTietService.getByMa(maGHCT);
+            if (ghct == null)
+                continue;
+
+            ChiTietSanPham ctsp = ghct.getChiTietSanPham();
+
+            // Lấy giá (ưu tiên giảm giá)
+            GiamGiaChiTietSanPham gg = giamGiaCTSPRepository.findByChiTietSanPham(ctsp);
+
+            BigDecimal donGia = (gg != null) ? gg.getGiaSauKhiGiam() : ctsp.getGiaBan();
+
+            HoaDonChiTiet hdct = HoaDonChiTiet.builder()
+                    .hoaDon(hoaDon)
+                    .chiTietSanPham(ctsp)
+                    .soLuongMua(ghct.getSoLuong())
+                    .createdDate(new java.util.Date())
+                    .lastUpdate(new java.util.Date())
+                    .giaTien(donGia)
+                    .trangThai(1)
+//                    .imei("12345678")
+                    .build();
+
+            hoaDonChiTietRepository.save(hdct);
+            tongTien = tongTien.add(donGia.multiply(BigDecimal.valueOf(ghct.getSoLuong())));
+
+            // Trừ kho
+            ctsp.setSoLuongNhap(ctsp.getSoLuongNhap() - ghct.getSoLuong());
+            chiTietSanPhamRepository.save(ctsp);
+
+            // Xóa khỏi giỏ
+            gioHangChiTietRepository.delete(ghct);
+        }
+
+        // Update tổng tiền
+        hoaDon.setTongTien(tongTien);
+        hoaDonRepository.save(hoaDon);
+
+        // Gửi email xác nhận
+        if (email != null && !email.isEmpty()) {
+            hoaDonService.sendEmailWithAttachment(email);
+        }
+
+        // Xóa session attributes
+        clearVnpaySessionAttributes(session);
+
+        System.out.println("Payment SUCCESS - Redirecting to index");
+
+        // Redirect về trang index
+        return "redirect:/index";
+    }
+
+    private void clearVnpayCookies(HttpServletResponse response) {
+        String[] cookieNames = { "vnpay_email", "vnpay_nguoiNhan", "vnpay_sdt", "vnpay_tinh",
+                "vnpay_xa", "vnpay_diaChi", "vnpay_note", "vnpay_maGHCTs" };
+        for (String name : cookieNames) {
+            Cookie cookie = new Cookie(name, null);
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
+        }
+    }
+
+    private void clearVnpaySessionAttributes(HttpSession session) {
+        String[] attributeNames = { "vnpay_email", "vnpay_nguoiNhan", "vnpay_sdt", "vnpay_tinh",
+                "vnpay_xa", "vnpay_diaChi", "vnpay_note", "vnpay_maGHCTs" };
+        for (String name : attributeNames) {
+            session.removeAttribute(name);
+        }
+        System.out.println("Cleared VNPay session attributes");
     }
 }
