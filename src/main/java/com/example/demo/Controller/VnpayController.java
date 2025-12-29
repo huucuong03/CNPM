@@ -612,7 +612,7 @@ public class VnpayController {
                     .lastUpdate(new java.util.Date())
                     .giaTien(donGia)
                     .trangThai(1)
-//                    .imei("12345678")
+                    // .imei("12345678")
                     .build();
 
             hoaDonChiTietRepository.save(hdct);
@@ -1022,16 +1022,13 @@ public class VnpayController {
         System.out.println("vnp_ResponseCode: " + request.getParameter("vnp_ResponseCode"));
         System.out.println("vnp_TransactionStatus: " + request.getParameter("vnp_TransactionStatus"));
 
-        // TẠM THỜI bỏ qua kiểm tra để test - XÓA SAU KHI DEBUG XONG!
-        /*
-         * if (paymentStatus != 1) {
-         * System.out.println("Payment FAILED - Status: " + paymentStatus);
-         * // Thanh toán thất bại - xóa cookies
-         * clearVnpayCookies(response);
-         * return "/VNP/orderfaildn";
-         * }
-         */
-        System.out.println("SKIPPING payment status check for DEBUG - proceeding to create invoice...");
+        // Kiểm tra thanh toán thất bại
+        if (paymentStatus != 1) {
+            System.out.println("Payment FAILED - Status: " + paymentStatus);
+            // Thanh toán thất bại - xóa session
+            clearVnpaySessionAttributes(session);
+            return "/VNP/orderfaildn";
+        }
 
         // Lấy thông tin từ SESSION thay vì cookie
         String email = (String) session.getAttribute("vnpay_email");
@@ -1119,7 +1116,7 @@ public class VnpayController {
                     .lastUpdate(new java.util.Date())
                     .giaTien(donGia)
                     .trangThai(1)
-//                    .imei("12345678")
+                    // .imei("12345678")
                     .build();
 
             hoaDonChiTietRepository.save(hdct);
@@ -1145,10 +1142,10 @@ public class VnpayController {
         // Xóa session attributes
         clearVnpaySessionAttributes(session);
 
-        System.out.println("Payment SUCCESS - Redirecting to index");
+        System.out.println("Payment SUCCESS - Showing success page");
 
-        // Redirect về trang index
-        return "redirect:/index";
+        // Hiển thị trang thành công (sẽ tự động chuyển về /index sau 2 giây)
+        return "/VNP/ordersuccess";
     }
 
     private void clearVnpayCookies(HttpServletResponse response) {

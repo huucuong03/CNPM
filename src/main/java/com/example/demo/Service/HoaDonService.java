@@ -1037,7 +1037,7 @@ public class HoaDonService {
             hoaDon.setNgayThanhToan(java.sql.Date.valueOf(datenow));
             hoaDon.setLastUpdate(new Date());
             repository.save(hoaDon);
-            // this.sendEmailHoanThanh(hoaDon.getKhachHang().getEmail());
+//            this.sendEmailHoanThanh(hoaDon.getKhachHang().getEmail());
         }
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
@@ -1203,8 +1203,8 @@ public class HoaDonService {
                     .findById(sanPhamThanhToanTaiQuayDTO.getMaChiTietSanPham()).orElse(null);
             // hdct
             for (int i = 0; i < sanPhamThanhToanTaiQuayDTO.getSoLuongMua(); i++) {
-                HoaDonChiTiet checkImei = hoaDonChiTietRepository
-                        .checkImei(sanPhamThanhToanTaiQuayDTO.getImei().trim());
+//                HoaDonChiTiet checkImei = hoaDonChiTietRepository
+//                        .checkImei(sanPhamThanhToanTaiQuayDTO.getImei().trim());
                 HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
                 // if (sanPhamThanhToanTaiQuayDTO.getImei().isEmpty()) {
                 // return new ResponseEntity<>("Vui lòng nhập imei máy!", HttpStatus.OK);

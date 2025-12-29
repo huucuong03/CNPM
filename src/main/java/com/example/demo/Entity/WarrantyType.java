@@ -1,9 +1,13 @@
 package com.example.demo.Entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "WarrantyType")
+@Getter
+@Setter
 public class WarrantyType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
