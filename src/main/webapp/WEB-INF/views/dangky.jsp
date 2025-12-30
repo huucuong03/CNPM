@@ -20,10 +20,10 @@
       <link rel="manifest" href="/manifest.webmanifest">
       <meta name="keywords" content="Smember,Tri ân khách hàng,Khách hàng thân thiết,Tích điểm đổi quà">
       <meta name="robots" content="index, follow">
-      <link rel="canonical" href="http://localhost:8080/">
+      <link rel="canonical" href="https://clause-headline-mild-bizrate.trycloudflare.com/">
       <meta property="og:title" content="Smember | Tri ân khách hàng thân thiết - Tích điểm đổi quà">
       <meta property="og:description" content="Quà tặng tri ân khách hàng thân thiết - VIP membership . Tích điểm Smember săn voucher, mức chiết khấu và ưu đãi sinh nhật hấp dẫn.">
-      <meta property="og:url" content="http://localhost:8080/">
+      <meta property="og:url" content="https://clause-headline-mild-bizrate.trycloudflare.com/">
       <meta property="og:site_name" content="Web Smember">
       <meta property="og:locale" content="vi_VN">
       <meta property="og:type" content="website">
@@ -142,9 +142,9 @@
       <div class="min-h-screen w-full">
          <div class="w-full px-1x-small py-large tablet:px-large tablet:py-4x-large">
             <div class="w-full max-w-[800px] mx-auto flex flex-col justify-center items-center gap-medium">
-               <h1 class="text-medium tablet:text-3x-large laptop:text-4x-large text-center tablet:text-primary-500 font-bold">Đăng ký trở thành MEMBER</h1>
-               <span class="font-regular text-base tablet:text-medium text-neutral-500">Hoặc điền thông tin sau</span>
-               <form class="w-full flex flex-col gap-medium relative" action="/RegistrationForm" method="post">
+               <h1 class="text-medium tablet:text-3x-large laptop:text-4x-large text-center tablet:text-primary-500 font-bold">Đăng ký thành viên</h1>
+               <span class="font-regular text-base tablet:text-medium text-neutral-500">Điền thông tin sau</span>
+               <form id="registerForm" class="w-full flex flex-col gap-medium relative" action="/RegistrationForm" method="post">
                   <h2 class="font-bold text-medium tablet:text-large">Thông tin cá nhân</h2>
                   <div class="w-full grid grid-cols-1 tablet:grid-cols-2 gap-medium items-stretch">
                      <div class="cpsui:flex cpsui:gap-2x-small cpsui:group cpsui:flex-col">
@@ -189,7 +189,8 @@
                         </div>
                      </div>
                      <div class="cpsui:flex cpsui:gap-2x-small cpsui:group cpsui:flex-col">
-                        <label data-slot="label" class="cpsui:flex cpsui:items-center cpsui:gap-2x-small cpsui:font-medium cpsui:select-none cpsui:group-data-[disabled=true]:pointer-events-none cpsui:group-data-[disabled=true]:opacity-50 cpsui:peer-data-[disabled=true]:cursor-not-allowed cpsui:peer-data-[disabled=true]:opacity-50 cpsui:text-base"><span>Email <span class="text-small font-regular text-neutral-400">(Không bắt buộc)</span></span> </label>
+                        <label data-slot="label" class="cpsui:flex cpsui:items-center cpsui:gap-2x-small cpsui:font-medium cpsui:select-none cpsui:group-data-[disabled=true]:pointer-events-none cpsui:group-data-[disabled=true]:opacity-50 cpsui:peer-data-[disabled=true]:cursor-not-allowed cpsui:peer-data-[disabled=true]:opacity-50 cpsui:text-base">
+                        <span>Email <span class="text-small font-regular text-neutral-400">(Không bắt buộc)</span></span> </label>
                         <div class="cpsui:flex cpsui:flex-col cpsui:gap-2x-small cpsui:peer">
                            <div class="cpsui:p-1x-small cpsui:flex cpsui:items-center cpsui:gap-1x-small cpsui:min-w-0 cpsui:border cpsui:transition-colors cpsui:data-[disabled=true]:bg-neutral-100 cpsui:data-[disabled=true]:cursor-not-allowed cpsui:border-neutral-300 cpsui:focus-within:border-neutral-600 cpsui:data-[disabled=true]:border-neutral-200 cpsui:text-base cpsui:min-h-[48px] cpsui:rounded-base cpsui:pl-medium">
                            <input data-slot="input" class="cpsui:w-full cpsui:h-full cpsui:bg-transparent cpsui:border-none cpsui:outline-none cpsui:shadow-none cpsui:ring-0 cpsui:focus:outline-none cpsui:focus:border-none cpsui:focus:ring-0 cpsui:focus-visible:outline-none cpsui:focus-visible:border-none cpsui:focus-visible:ring-0 cpsui:placeholder:text-neutral-300 cpsui:placeholder:select-none cpsui:disabled:opacity-80 cpsui:disabled:cursor-not-allowed cpsui:disabled:text-neutral-500 cpsui:disabled:placeholder:text-neutral-400 cpsui:overflow-hidden cpsui:text-ellipsis cpsui:whitespace-nowrap"
@@ -238,12 +239,14 @@
                                  </svg>
                               </button>
                            </div>
-                           <div id="confirmPasswordError" class="cpsui:flex cpsui:items-center cpsui:gap-2x-small cpsui:text-negative-600 cpsui:text-small" style="display: flex;"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="cpsui:shrink-0" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"></path></svg>Mật khẩu không khớp</div>
+                           <div id="confirmPasswordError" class="cpsui:flex cpsui:items-center cpsui:gap-2x-small cpsui:text-negative-600 cpsui:text-small" style="display: none;"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="cpsui:shrink-0" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"></path></svg>Mật khẩu không khớp</div>
                         </div>
                      </div>
                   </div>
                   <div class="w-full grid grid-cols-1 gap-medium items-stretch py-medium">
-                     <div class="flex gap-1x-small items-center"><label data-slot="label" class="cpsui:flex cpsui:items-center cpsui:gap-2x-small cpsui:font-medium cpsui:select-none cpsui:group-data-[disabled=true]:pointer-events-none cpsui:group-data-[disabled=true]:opacity-50 cpsui:peer-data-[disabled=true]:cursor-not-allowed cpsui:peer-data-[disabled=true]:opacity-50 cpsui:text-base font-regular !inline-block text-base">Bằng việc Đăng ký, bạn đã đọc và đồng ý với <a class="font-bold text-info-500" target="_blank" href="">Điều khoản sử dụng</a> và <a class="font-bold text-info-500" target="_blank" href="">Chính sách bảo mật</a>.</label></div>
+                     <div class="flex gap-1x-small items-center"><label data-slot="label" class="cpsui:flex cpsui:items-center cpsui:gap-2x-small cpsui:font-medium cpsui:select-none cpsui:group-data-[disabled=true]:pointer-events-none cpsui:group-data-[disabled=true]:opacity-50 cpsui:peer-data-[disabled=true]:cursor-not-allowed cpsui:peer-data-[disabled=true]:opacity-50 cpsui:text-base font-regular !inline-block text-base">Bằng việc Đăng ký, bạn đã đọc và đồng ý với
+                      <a class="font-bold text-info-500" target="_blank" href="/detailKh/support?section=1">Điều khoản sử dụng</a> và 
+                      <a class="font-bold text-info-500" target="_blank" href="/detailKh/support?section=4">Chính sách bảo mật</a>.</label></div>
                   </div>
                   <div class="w-full h-0 border-t-[1px]" style="border-image: repeating-linear-gradient(90deg, rgb(207, 207, 211) 0px, rgb(207, 207, 211) 8px, transparent 8px, transparent 16px) 8 / 1 / 0 stretch;"></div>
                   <div class="w-full flex flex-col items-center pb-[100px] gap-medium"></div>

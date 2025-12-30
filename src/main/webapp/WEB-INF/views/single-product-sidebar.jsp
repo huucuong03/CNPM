@@ -76,7 +76,7 @@
                             <!--logo start-->
                             <div class="col-lg-3 col-md-3">
                                 <div class="logo">
-                                    <a href="index.html"><img src="../../../assets/img/logo/AZURA.png" alt=""></a>
+                                    <a href="index.html"><img src="../../../img/logo/AZURA.png" alt=""></a>
                                 </div>
                             </div>
                             <!--logo end-->

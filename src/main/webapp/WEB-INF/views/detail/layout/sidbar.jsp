@@ -74,7 +74,7 @@
                                     </span>
                                  </div>
                               </a>
-                              <a class="text-base laptop:text-medium items-center group hover:bg-primary-50 hover:text-primary-500 relative" target="_blank" href="/detailKh/chinh-sach-bao-hanh">
+                              <a class="text-base laptop:text-medium items-center group hover:bg-primary-50 hover:text-primary-500 relative" target="_blank" href="/detailKh/support?section=3">
                                  <div class="absolute top-0 left-0 w-[4px] h-full shrink-0 bg-transparent rounded-r-full group-hover:bg-primary-500"></div>
                                  <div class="w-full px-1x-large py-medium flex items-center gap-1x-small">
                                     <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="shrink-0" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -89,19 +89,18 @@
                                     </span>
                                  </div>
                               </a>
-                              <a class="text-base laptop:text-medium items-center group hover:bg-primary-50 hover:text-primary-500 relative" target="_self" href="/detailKh/support">
+                              <a class="text-base laptop:text-medium items-center group hover:bg-primary-50 hover:text-primary-500 relative" target="_self" href="/detailKh/support?section=1">
                                  <div class="absolute top-0 left-0 w-[4px] h-full shrink-0 bg-transparent rounded-r-full group-hover:bg-primary-500"></div>
                                  <div class="w-full px-1x-large py-medium flex items-center gap-1x-small">
                                     <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="shrink-0" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
                                        <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"></path>
                                        <path d="M3 7l9 6l9 -6"></path>
                                     </svg>
-                                    <span class="font-medium">
-                                       Góp ý - Phản hồi - Hỗ trợ<!-- --> 
+                                    <span class="font-medium"> Góp ý - Phản hồi - Hỗ trợ
                                     </span>
                                  </div>
                               </a>
-                              <a class="text-base laptop:text-medium items-center group hover:bg-primary-50 hover:text-primary-500 relative" target="_blank" href="/detailKh/support?section=4">
+                              <a class="text-base laptop:text-medium items-center group hover:bg-primary-50 hover:text-primary-500 relative" target="_blank" href="/detailKh/support?section=1">
                                  <div class="absolute top-0 left-0 w-[4px] h-full shrink-0 bg-transparent rounded-r-full group-hover:bg-primary-500"></div>
                                  <div class="w-full px-1x-large py-medium flex items-center gap-1x-small">
                                     <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="shrink-0" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -111,9 +110,7 @@
                                        <path d="M21 21.5v-4.5h-4.5"></path>
                                        <path d="M16 9h2"></path>
                                     </svg>
-                                    <span class="font-medium">
-                                       Điều khoản sử dụng<!-- --> 
-                                    </span>
+                                    <span class="font-medium">Điều khoản sử dụng</span>
                                  </div>
                               </a>
                               <div class="w-full px-medium">

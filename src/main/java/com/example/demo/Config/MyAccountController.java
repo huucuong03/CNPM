@@ -345,6 +345,7 @@ public String addDanhGia(
     danhGia.setKhachHang(khachHang);
     danhGia.setSanPham(sanPham);
     danhGia.setDanhGia(binhLuan);
+    danhGia.setSoSao(5);
     danhGia.setNgayDanhGia(
         Date.from(LocalDateTime.now()
             .atZone(ZoneId.of("Asia/Ho_Chi_Minh"))

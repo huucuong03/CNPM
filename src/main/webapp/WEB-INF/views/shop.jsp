@@ -623,7 +623,7 @@
                            <div class="box-image">
                               <div class="image-none">
                                  <a href="/san-pham/${sp.tenSanPham}" aria-label="${sp.tenSanPham}">
-                                 <img loading="lazy" decoding="async" width="470" height="488" src="http://localhost:8080/img/${sp.anh}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="">				</a>
+                                 <img loading="lazy" decoding="async" width="470" height="488" src="../../../img/${sp.anh}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="">				</a>
                                  <div class="item-hotsale"></div>
                               </div>
                               <div class="image-tools is-small top right show-on-hover">

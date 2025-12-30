@@ -180,7 +180,34 @@ public class SmartPhonesController {
             model.addAttribute("pageTitle", "Trang chủ");
             return "/layout/layout";
         }
+    @GetMapping("/{tenNsx}/danh-muc/san-pham/{dongSanPham}")
+    public String hienThiTheoNsxVaDong(
+            @PathVariable String tenNsx,
+            @PathVariable String dongSanPham,
+            @RequestParam(defaultValue = "0") int page,
+            Model model
+    ) {
+        Long maNsx = nSXService.getbyTenNsx(tenNsx);
+        String keyword = dongSanPham.replace("-", " ").toLowerCase();
+        Page<SanPhamViewDTO> pageSanPham =
+                sanPhamService.getSanPhamByNsxVaDong(maNsx, keyword, page);
 
+        Map<String, Long> minMaxGia = sanPhamService.getMinMaxGia(maNsx);
+        Long maxGia = minMaxGia.get("max") / 1000;
+
+        NumberFormat nf = NumberFormat.getInstance(new Locale("vi", "VN"));
+        model.addAttribute("maxGia", maxGia);
+        model.addAttribute("maxGiaFormatted", nf.format(maxGia));
+        model.addAttribute("pageSanPham", pageSanPham.getContent());
+        model.addAttribute("totalPages", pageSanPham.getTotalPages());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("tenNsx", tenNsx);
+        model.addAttribute("dongSanPham", dongSanPham);
+        model.addAttribute("bodyPage", "/WEB-INF/views/shop.jsp");
+        model.addAttribute("pageTitle", "Trang chủ");
+
+        return "/layout/layout";
+    }
         @GetMapping("/nsx/{tenNsx}/sort")
         @ResponseBody
         public List<SanPhamViewDTO> sortTheoGia(
@@ -262,6 +289,9 @@ public class SmartPhonesController {
         DetailSanPhamResponse sanPham = service.detailSanPhamByTenSanPham(tenSanPham);
         model.addAttribute("sanPham", sanPham);
         Long maSP = sanPham.getMaSanPham();
+        SanPham sanpham1= sanPhamService.getByMa( maSP );
+        Long tongBinhLuan = danhGiaRepository.countBySanPhamAndTrangThai(sanpham1,1);
+        model.addAttribute("tongBinhLuan", tongBinhLuan);
         NSX maNSX =service.getSanPhamByNSX(maSP);
         List<DetailSanPhamResponse> sanPhamGanNhat = service.findTop5SanPhamGanNhat(maSP,maNSX.getMaNSX());
         model.addAttribute("sanPhamGanNhat", sanPhamGanNhat);

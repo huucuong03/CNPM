@@ -591,11 +591,11 @@ form.lost_reset_password{
 }
 .show-password-input:after{
     content:"";
-    font-family:fl-icons
+     font-family: "Bootstrap Icons" !important;
 }
 .show-password-input.display-password:after{
-    content:"";
-    font-family:fl-icons
+    content: "★★★★★";
+
 }
 #login-form-popup .woocommerce-notices-wrapper:not(:empty){
     padding:20px 20px 0

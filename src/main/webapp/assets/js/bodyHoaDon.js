@@ -307,7 +307,7 @@ function renderProducts(list, sanPhamMax) {
                                 <div class="mZ1OWk">
                                     <div class="dJaa92">
                                         <div class="divimg">
-                                            <img src="http://localhost:8080/img/${img}" class="gQuHsZ" style="object-fit:cover;">
+                                            <img src="../../../img/${img}" class="gQuHsZ" style="object-fit:cover;">
                                         </div>
 
                                         <div class="nmdHRf">

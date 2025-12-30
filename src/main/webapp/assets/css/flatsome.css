@@ -2710,7 +2710,7 @@ select.resize-select{
     speak:none!important;
     display:inline-block;
     font-display:block;
-    font-family:fl-icons!important;
+    font-family: "Bootstrap Icons" !important;
     font-style:normal!important;
     font-variant:normal!important;
     font-weight:400!important;
@@ -4440,7 +4440,7 @@ ul.links li a{
 }
 ul.links li:before{
     display:inline-block;
-    font-family:fl-icons;
+    font-family: "Bootstrap Icons" !important;;
     margin-right:5px
 }
 ul.links li:first-child{
@@ -4515,14 +4515,14 @@ ul li.bullet-arrow,ul li.bullet-checkmark,ul li.bullet-cross,ul li.bullet-star{
 }
 ul li.bullet-arrow:before,ul li.bullet-checkmark:before,ul li.bullet-star:before{
     color:var(--fs-color-success);
-    font-family:fl-icons;
+    font-family: "Bootstrap Icons" !important;;
     font-size:16px;
     left:0;
     position:absolute
 }
 ul li.bullet-cross:before{
     color:var(--fs-color-alert);
-    font-family:fl-icons;
+     font-family: "Bootstrap Icons" !important;;
     font-size:16px;
     left:0;
     position:absolute
@@ -6886,7 +6886,7 @@ img.size-full.alignnone{
 }
 .widget>ul>li:before,ul.menu>li:before{
     display:inline-block;
-    font-family:fl-icons;
+    font-family: "Bootstrap Icons" !important;
     margin-right:6px;
     opacity:.6
 }
@@ -8153,7 +8153,7 @@ img.size-full.alignnone{
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
     display:block;
-    font-family:fl-icons!important;
+    font-family: "Bootstrap Icons" !important;
     font-size:16px;
     font-weight:400!important;
     height:1em;
@@ -8167,7 +8167,7 @@ img.size-full.alignnone{
 }
 .star-rating:before,.woocommerce-page .star-rating:before{
     color:var(--fs-color-secondary);
-    content:"";
+    content: "★★★★★";
     float:left;
     left:0;
     position:absolute;
@@ -8175,7 +8175,7 @@ img.size-full.alignnone{
 }
 .star-rating span{
     float:left;
-    font-family:fl-icons!important;
+     font-family: "Bootstrap Icons" !important;
     font-weight:400!important;
     height:10px;
     left:0;
@@ -8187,7 +8187,7 @@ img.size-full.alignnone{
 }
 .star-rating span:before{
     color:var(--fs-color-secondary);
-    content:"";
+    content: "★★★★★";
     left:0;
     position:absolute;
     top:0
@@ -8215,7 +8215,7 @@ li.wc-layered-nav-rating .star-rating{
 .stars a{
     color:transparent!important;
     display:inline-block;
-    font-family:fl-icons;
+    font-family: "Bootstrap Icons" !important;
     font-size:0;
     margin-left:-5px;
     overflow:hidden

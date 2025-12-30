@@ -1021,7 +1021,7 @@
     var currentPrice = parseFloat(${tongTien});
 
     async function loadProvinces() {
-        const response = await fetch(`http://localhost:8080/public/provinces`);
+        const response = await fetch(`../../../assets/public/provinces`);
         const data = await response.json();
 
         const provinceSelect = document.getElementById("province");
@@ -1044,7 +1044,7 @@
             return;
         }
 
-        const response = await fetch('http://localhost:8080/public/districts?province_id=' + provinceId);
+        const response = await fetch('../../../assets/public/districts?province_id=' + provinceId);
         const data = await response.json();
 
         const districtSelect = document.getElementById("district");
@@ -1069,7 +1069,7 @@
             return;
         }
 
-        const response = await fetch('http://localhost:8080/public/wards?district_id=' + districtId);
+        const response = await fetch('../../../assets/public/wards?district_id=' + districtId);
         const data = await response.json();
 
         const wardSelect = document.getElementById("ward");
