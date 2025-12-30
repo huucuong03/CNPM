@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="../../../assets/css/swiper-bundle.min.css">
     <script src="../../../assets/js/vendor/modernizr-2.8.3.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <link rel="icon" type="image/png" href="assets\img\logo\AZURA.png">
+    <link rel="icon" type="image/png" href="assets\img\logo\logo.png">
     <script src="https://example.com/path/to/currencyFormat.js"></script>
     <link rel="stylesheet" href="../../../assets/css/single-product.css">
     <link rel="stylesheet" href="../../../assets/css/cart.css">

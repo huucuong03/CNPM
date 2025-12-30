@@ -6,14 +6,14 @@
          <div class="super-cart-container" style="padding-top: 15px;">
             <div class="cart-header">
                <div class="go-back">
-                  <a class="d-flex align-items-center button__back">
+                  <a class="d-flex align-items-center button__back" href="javascript:history.back()">
                      <svg width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M19 8.5L1 8.5M1 8.5L8 1M1 8.5L8 16" stroke="#121219" stroke-width="1.5"
                            stroke-linecap="round" stroke-linejoin="round"></path>
                      </svg>
                      <p></p>
                   </a>
-                  <p class="title">Thông tin</p>
+                  <%-- <p class="title">Thông tin</p> --%>
                   <div></div>
                </div>
                <!---->
@@ -26,10 +26,10 @@
                            1. Thông tin
                         </span>
                      </div>
-                     <div class="nav__item"><span>
+                     <%-- <div class="nav__item"><span>
                            2. Thanh toán
                         </span>
-                     </div>
+                     </div> --%>
                   </div>
                   <div class="view-list">
                      <div class="view-list__wrapper">
@@ -122,11 +122,11 @@
                            <div class="payment-info-method">
                               <div>
                                  <input id="pickup" value="pickup" name="delivery" type="radio" checked>
-                                 <label class="mb-0">Thanh toán trực tuyến</label>
+                                 <label class="mb-0" for="pickup">Thanh toán trực tuyến</label>
                               </div>
                               <div style="height: 54px;">
                                  <input id="shipping" name="delivery" value="shipping" type="radio">
-                                 <label class="mb-0">Thanh toán khi nhận hàng</label>
+                                 <label class="mb-0" for="shipping">Thanh toán khi nhận hàng</label>
                               </div>
                            </div>
                            <div class="payment-info-main">
@@ -248,7 +248,7 @@
                      class="button__go-next btn btn-danger d-flex flex-column justify-content-center align-items-center w-100"
                      style="font-size: 1rem;margin: 0;border-radius: .25rem;padding: .375rem .75rem;"
                      fdprocessedid="z9vl9k">
-                     Đặt Hàng
+                     Mua Ngay
                   </button> <!---->
                </div>
             </div>
