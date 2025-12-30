@@ -1,5 +1,3 @@
-                                 
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
                   <div class="hidden tablet:block w-[280px] laptop:w-[340px] min-h-[calc(100vh-280px)] shrink-0 mr-small sticky top-[32px] left-0">
@@ -128,15 +126,9 @@
                                  </div>
                               </button>
                            </div>
-                           <%-- <div class="w-full flex-1 flex justify-end items-end relative">
-                              <div class="w-full px-1x-large py-medium sticky bottom-0 left-0">
-                                 <span class="w-full pb-small flex items-center gap-1x-small text-small text-neutral-500 tablet:font-regular tablet:text-medium">Mua sắm dễ dàng - Ưu đãi ngập tràn cùng app CellphoneS</span>
-                                 <div class="flex gap-small tablet:gap-medium items-center justify-center">
-                                    <div class="max-h-[100px] w-[100px] h-[100px] bg-neutral-50 rounded-base shrink-0 p-2x-small flex items-center justify-center"><img alt="Qr Install App" title="Qr Install App" loading="lazy" width="300" height="300" decoding="async" data-nimg="1" class="w-[100%] h-[100%] object-contain" style="color:transparent" src="https://cdn-static.Smember.com.vn/_next/static/media/qr-install-app.c92a5dbb.webp"></div>
-                                    <div class="max-h-[100px] app-downloader__stores flex flex-col gap-2 justify-center"><a href="" rel="nofollow" class="p-0"><img alt="Tải app từ Google Play" title="Tải app từ Google Play" loading="lazy" width="300" height="44" decoding="async" data-nimg="1" class="w-[150px] h-[auto] object-contain" style="color: transparent;" src="https://cdn2.cellphones.com.vn/200x,webp/media/wysiwyg/downloadANDROID.png"></a><a href="" rel="nofollow" class="p-0"><img alt="Tải app từ App Store" title="Tải app từ App Store" loading="lazy" width="300" height="44" decoding="async" data-nimg="1" class="w-[150px] h-[auto] object-contain" style="color: transparent;" src="https://cdn2.cellphones.com.vn/200x,webp/media/wysiwyg/downloadiOS.png"></a></div>
-                                 </div>
-                              </div>
-                           </div> --%>
                         </div>
                      </div>
-                  </div>
+               </div> --%>
+            </div>
+         </div>
+         </div>
