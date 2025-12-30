@@ -21,26 +21,36 @@ public class AuthService {
     @Autowired
     private EmailService emailService;
 
-    public void guiMatKhauMoi(String email) {
-        KhachHang khachHang = khachHangRepository.findByEmailAndMatKhauIsNotNull(email);
+    public void guiMatKhauMoi(String account) {
+        KhachHang khachHang = khachHangRepository.findByEmailAndMatKhauIsNotNull(account);
+
+        if (khachHang == null) {
+            khachHang = khachHangRepository.findBySdtAndMatKhauIsNotNull(account);
+        }
+
         if (khachHang != null) {
-            String matKhauMoi = generateRandomNumericPassword(8); // Ví dụ: tạo mật khẩu gồm 8 chữ số
+            if (khachHang.getEmail() == null || khachHang.getEmail().isEmpty()) {
+                throw new RuntimeException("Tài khoản này chưa đăng ký Email để nhận mật khẩu");
+            }
+            String matKhauMoi = generateRandomNumericPassword(8);
 
             khachHang.setMatKhau(matKhauMoi);
             khachHangRepository.save(khachHang);
 
             emailService.sendPasswordResetEmail(khachHang.getEmail(), matKhauMoi);
         } else {
-            throw new RuntimeException("Email không tồn tại trong hệ thống");
+            throw new RuntimeException("Tài khoản hoặc Email không tồn tại");
         }
     }
 
     private String generateRandomNumericPassword(int length) {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         SecureRandom secureRandom = new SecureRandom();
         StringBuilder sb = new StringBuilder(length);
 
         for (int i = 0; i < length; i++) {
-            sb.append(secureRandom.nextInt(10)); // Sử dụng nextInt để sinh số ngẫu nhiên từ 0 đến 9
+            int randomIndex = secureRandom.nextInt(chars.length());
+            sb.append(chars.charAt(randomIndex));
         }
 
         return sb.toString();

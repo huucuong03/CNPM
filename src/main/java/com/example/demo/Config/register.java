@@ -914,17 +914,6 @@ public class register {
         return "blogDN";
     }
 
-    @PostMapping("/check-email")
-    public ResponseEntity<Map<String, Boolean>> checkEmail(@RequestBody Map<String, String> payload) {
-        String email = payload.get("email");
-        boolean exists = khachHangRepository.existsByEmail(email);
-
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("exists", exists);
-
-        return ResponseEntity.ok(response);
-    }
-
     @GetMapping("test")
     public String hienthiT() {
         return "test";
