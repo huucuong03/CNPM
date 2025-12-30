@@ -265,6 +265,3 @@
                showErrorToast("<%= request.getAttribute("error") %>");
             </script>
             <% } %>
-               <script>
-                 
-               </script>

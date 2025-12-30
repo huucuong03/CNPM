@@ -630,11 +630,11 @@ public class VnpayController {
         // 6️⃣ Update tổng tiền
         hoaDon.setTongTien(tongTien);
         hoaDonRepository.save(hoaDon);
-
         // 7️⃣ Gửi email xác nhận
         hoaDonService.sendEmailWithAttachment(email);
 
         model.addAttribute("hoaDon", hoaDon);
+        model.addAttribute("message", "Mua hàng thành công!");
         return "redirect:/index";
     }
 

@@ -638,10 +638,20 @@
                                  <p class="name product-title woocommerce-loop-product__title"><a href="/san-pham/${sp.tenSanPham}" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">${sp.tenSanPham}</a></p>
                               </div>
                               <div class="price-wrapper">
-                                 <div class="star-rating" title="Rated 5 out of 5">
-                                    <span style="width:100%">
-                                    <strong class="rating">5</strong> out of 5</span>
-                                 </div>
+                                  <c:choose>
+                                          <c:when test="${sp.tongBinhLuan > 0}">
+                                             <div class="star-rating" title="Rated 5 out of 5">
+                                                <span style="width:${sp.diemTrungBinh * 20}%">
+                                                <strong class="rating">5</strong> out of 5</span>
+                                             </div>
+                                          </c:when>
+                                          <c:otherwise>
+                                             <div class="star-rating" style="opacity: 0;" title="Rated 5 out of 5">
+                                                <span style="display:none">
+                                                <strong class="rating">5</strong> out of 5</span>
+                                             </div>
+                                          </c:otherwise>
+                                       </c:choose>
                                  <span class="price">
                                     <%-- Nếu có giá khuyến mãi và nhỏ hơn giá gốc --%>
                                     <c:choose>
@@ -675,7 +685,14 @@
                                     </c:choose>
                                  </span>
                                  <div class="promotion">Thu cũ lên đời - Trợ giá 1 triệu</div>
-                                 <span class="text-count-review">2 đánh giá</span>
+                                  <c:choose>
+                                          <c:when test="${sp.tongBinhLuan > 0}">
+                                             <span class="text-count-review">  ${sp.tongBinhLuan} đánh giá</span>
+                                          </c:when>
+                                          <c:otherwise>
+                                             <span class="text-count-review">Chưa có đánh giá</span>
+                                          </c:otherwise>
+                                       </c:choose>
                               </div>
                            </div>
                         </div>

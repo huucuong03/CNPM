@@ -1,4 +1,3 @@
-                                 
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
@@ -116,7 +115,7 @@
                               <div class="w-full px-medium">
                                  <div class="w-full h-[1px] bg-neutral-200"></div>
                               </div>
-                              <button class="text-medium items-center group hover:bg-primary-50 hover:text-primary-500 relative cursor-pointer" fdprocessedid="5963o">
+                              <button class="text-medium items-center group hover:bg-primary-50 hover:text-primary-500 relative cursor-pointer" onclick="window.location.href='/logout'" fdprocessedid="5963o">
                                  <div class="absolute top-0 left-0 w-[4px] h-full shrink-0 bg-transparent rounded-tr-full rounded-br-full group-hover:bg-primary-500"></div>
                                  <div class="w-full px-1x-large py-medium flex items-center gap-1x-small">
                                     <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="shrink-0" height="24" width="24" xmlns="http://www.w3.org/2000/svg">

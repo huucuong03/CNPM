@@ -61,14 +61,15 @@ public class LoginController {
         response.addCookie(cookie);
         return "login";
     }
+
     @PostMapping("/login")
     public String loginSubmit(@RequestParam("Email") String email,
-                              @RequestParam("Password") String pass,
-                              Model model,
-                              HttpSession session) {
+            @RequestParam("Password") String pass,
+            Model model,
+            HttpSession session) {
 
         try {
-            if(email == null || email.trim().isEmpty() || pass == null || pass.trim().isEmpty()) {
+            if (email == null || email.trim().isEmpty() || pass == null || pass.trim().isEmpty()) {
                 model.addAttribute("error", "Email hoặc mật khẩu không được để trống!");
                 return "login"; // Trở lại trang login + hiển thị lỗi
             }
@@ -83,14 +84,13 @@ public class LoginController {
             session.setAttribute("khachHang", kh);
             model.addAttribute("message", "Đăng nhập thành công!");
             return "redirect:/index"; // Đăng nhập thành công
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             model.addAttribute("error", "Có lỗi xảy ra, vui lòng thử lại!");
             return "login";
         }
     }
 
-    //Chưa đăng nhập
+    // Chưa đăng nhập
     @GetMapping("/home")
     public String home(Model model) {
         List<ChiTietSanPhamDTO> ctsp = chiTietSanPhamRepository.findAllNotGiamGiaTrangChu();
@@ -100,8 +100,7 @@ public class LoginController {
         return "page/home";
     }
 
-
-    //Đã đăng nhập
+    // Đã đăng nhập
     @GetMapping("/home_clients/{maKhachHang}")
     public String home(@PathVariable("maKhachHang") Long maKhachHang, Model model) {
         KhachHang kh = khachHangService.getByMa(maKhachHang);
@@ -112,10 +111,9 @@ public class LoginController {
         model.addAttribute("ctspgg", listgg);
         model.addAttribute("viShop", viShop);
         model.addAttribute("kh", kh);
-//        model.addAttribute("ctsp", ctsp);
+        // model.addAttribute("ctsp", ctsp);
         return "page/home";
     }
-
 
     @PostMapping("/ClientLogin")
     public String login(Model model, HttpServletRequest request, HttpServletResponse response) {
@@ -152,5 +150,26 @@ public class LoginController {
                 return "Admin/doc/Home";
             }
         }
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session, HttpServletResponse response) {
+        // Xóa session
+        session.invalidate();
+
+        // Xóa cookie khách hàng
+        Cookie khCookie = new Cookie("makhachhang", null);
+        khCookie.setMaxAge(0);
+        khCookie.setPath("/");
+        response.addCookie(khCookie);
+
+        // Xóa cookie nhân viên
+        Cookie nvCookie = new Cookie("manhanvien", null);
+        nvCookie.setMaxAge(0);
+        nvCookie.setPath("/");
+        response.addCookie(nvCookie);
+
+        // Chuyển hướng về trang đăng nhập
+        return "redirect:/loginView";
     }
 }
