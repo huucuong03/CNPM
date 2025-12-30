@@ -26,7 +26,7 @@ $(document).ready(function() {
                             <div class="product-info">
                                 <a href="/san-pham/${sp.tenSanPham}" class="product__link button__link">
                                     <div class="product__image">
-                                        <img src="http://localhost:8080/img/${sp.hinhAnhURL}" 
+                                        <img src="../../../img/${sp.hinhAnhURL}" 
                                              width="358" height="358" alt="${sp.tenSanPham}" class="product__img">
                                     </div>
                                     <div class="product__name">

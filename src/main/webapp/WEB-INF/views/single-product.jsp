@@ -10,17 +10,27 @@
          <div class="row pdb-0">
             <div class="col medium-12 header-title" style="padding: 0;">
                <h1 class="ma-san-pham"  id="${sanPham.maSanPham}">${sanPham.tenSanPham}</h1>
-               <div class="meta-title">
+              
+               <c:choose>
+    <c:when test="${tongBinhLuan > 0}">
+        <div class="meta-title">
                   <div class="" title="Rated 5 out of 5">
-                     <span style="border-right: 1px solid;display: block;font-family: fl-icons !important;font-size: 16px;font-weight: 400 !important;height: 1em;letter-spacing: 0;line-height: 1em;margin: .5em 0;overflow: hidden;position: relative;text-align: left;width: 6em;">
+                     <span style="border-right: 1px solid;display: block;font-family: Bootstrap Icons !important;font-size: 16px;font-weight: 400 !important;height: 1em;letter-spacing: 0;line-height: 1em;margin: .5em 0;overflow: hidden;position: relative;text-align: left;width: 6em;">
                      <i class="bi bi-star-fill" style="font-size: 13px;color: #ffa500 !important;"></i>
                      <i class="bi bi-star-fill" style="font-size: 13px;color: #ffa500 !important;"></i>
                      <i class="bi bi-star-fill" style="font-size: 13px;color: #ffa500 !important;"></i>
                      <i class="bi bi-star-fill" style="font-size: 13px;color: #ffa500 !important;"></i>
                      <i class="bi bi-star-fill" style="font-size: 13px;color: #ffa500 !important;"></i>
                   </div>
-                  <a href="#reviews_summary" class="woocommerce-review-link" rel="nofollow" style="font-size: 90%;margin-left: 10px;color:#e0052b"><span class="count">2</span> Đánh Giá</a>
+                  <a href="#reviews_summary" class="woocommerce-review-link" rel="nofollow" style="font-size: 90%;margin-left: 10px;color:#e0052b"><span class="count">${tongBinhLuan}</span> Đánh Giá</a>
                </div>
+    </c:when>
+    <c:otherwise>
+     <div class="meta-title">
+     <a href="#reviews_summary" class="woocommerce-review-link" rel="nofollow" style="font-size: 90%;margin-left: 10px;color:#e0052b"> <span class="count">Chưa có đánh giá</span></a>
+               </div>
+    </c:otherwise>
+</c:choose>
             </div>
          </div>
          <div class="row content-row mb-0">
@@ -44,13 +54,13 @@
                      <div class="flickity-viewport" style="height: 384.156px; touch-action: pan-y;">
                         <div class="flickity-slider" style="left: 0px; transform: translateX(0%);">
                            <div class="main-product-image">
-                              <img src="http://localhost:8080/img/${mauSacDefault.hinhAnhURL}" alt="${sanPham.tenSanPham}"  width="470" height="488" style="width:370px;height:384px;"/>
+                              <img src="../../../img/${mauSacDefault.hinhAnhURL}" alt="${sanPham.tenSanPham}"  width="470" height="488" style="width:370px;height:384px;"/>
                            </div>
                            <div class="color-thumbnails">
                               <c:forEach var="mauSac" items="${listMauSac}">
                                  <c:if test="${mauSac.maMauSac != mauSacDefault.maMauSac}">
                                     <div class="thumbnail">
-                                       <img src="http://localhost:8080/img/${mauSac.hinhAnhURL}" 
+                                       <img src="../../../img/${mauSac.hinhAnhURL}" 
                                           alt="${sanPham.tenSanPham}" 
                                           width="100" height="100"/>
                                     </div>
@@ -93,7 +103,7 @@
                               <div class="col ${status.first ? 'first' : ''}" 
                                  style="position: absolute; left: ${status.index * 25}%;">
                                  <a>
-                                 <img src="http://localhost:8080/img/${mauSac.hinhAnhURL}" 
+                                 <img src="../../../img/${mauSac.hinhAnhURL}" 
                                     alt="${sanPham.tenSanPham}" 
                                     width="1024" height="815" 
                                     class="attachment-woocommerce_thumbnail"/>
@@ -342,7 +352,7 @@
                                        <a href="/san-pham/${sp.tenSanPham}" aria-label="${sp.tenSanPham}">
                                        <img width="600"
                                           height="600"
-                                          src="http://localhost:8080/img/${sp.hinhAnh}"
+                                          src="../../../img/${sp.hinhAnh}"
                                           class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
                                           alt="${sp.tenSanPham}"
                                           loading="lazy"/>

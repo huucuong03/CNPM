@@ -76,10 +76,11 @@ public class SanPhamService {
                         ctsp.getAnh(),
                         ctsp.getGiaBan(),
                         ctsp.getGiaBanGG(),
-                        ctsp.getGioiThieu()
+                        ctsp.getGioiThieu(),
+                        ctsp.getTongBinhLuan(),
+                        ctsp.getDiemTrungBinh()
                 ))
                 .toList();;
-        System.out.println("Service - danhSachMoiNhat size: " + dtos.size());
         return dtos;
     }
     public Page<SanPhamViewDTO> getSanPhamByNsx(Long maNsx, int page) {
@@ -247,4 +248,8 @@ public class SanPhamService {
         return chiTietSanPhamRepository.findByNsxAndGiaBetween(maNsx, min, max, pageable);
     }
 
+    public Page<SanPhamViewDTO> getSanPhamByNsxVaDong(Long maNsx, String dongSanPham, int page) {
+        Pageable pageable = PageRequest.of(page, 12);
+        return chiTietSanPhamRepository.findByNsxAndTenSanPhamLike(maNsx, dongSanPham, pageable);
+    }
 }

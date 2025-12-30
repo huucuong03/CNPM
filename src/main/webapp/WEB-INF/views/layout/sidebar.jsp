@@ -28,8 +28,8 @@
             <div class="d-flex justify-content-between">
                <!-- Logo -->
                <div class="logo">
-                  <a href="/home">
-                  <img src="../../../assets/img/logo/logo.png" alt="" style="height: 80px;width: 90px">
+                  <a href="/index">
+                  <img src="../../../assets/img/logo/logo.png" alt="" style="height: 80px;width: 170px">
                   </a>
                </div>
                <div class="flex-col hide-for-medium flex-right my-auto">
@@ -208,7 +208,7 @@
     </div>
 
     <!-- Body -->
-    <img src="https://cdn2.cellphones.com.vn/insecure/rs:fill:0:80/q:90/plain/https://cellphones.com.vn/media/wysiwyg/chibi2.png" 
+    <img src="../../../assets/img/logo/Azuza.jpg" 
          alt="Loading" width="46" height="80" class="mb-3">
 
     <!-- Buttons -->
@@ -294,7 +294,6 @@
           // top cố định
           const top = 80; 
           
-          // left căn phải button nhưng không vượt quá 1200px
           let left = rect.right - panelRect.width;
           if (left > 1200) left = 1200;
       

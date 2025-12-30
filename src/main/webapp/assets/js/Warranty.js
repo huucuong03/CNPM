@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         // Thêm hình ảnh
                         const img = document.createElement("img");
-                        img.src = `http://localhost:8080/img/${p.hinhAnhURL || "default.png"}`;
+                        img.src = `../../../img/${p.hinhAnhURL || "default.png"}`;
                         img.alt = p.chiTietSanPham.tenSanPham;
                         img.style.width = "40px";
                         img.style.height = "40px";

@@ -53,7 +53,7 @@
                         <div class="aNNsGB">
                            <div class="vAQAmD">
                               <a href="/san-pham/${sp.tenSanpham}">
-                                 <div class="x5vMbk"><img src="http://localhost:8080/img/${sp.hinhAnh}" alt="${sp.tenSanpham}"></div>
+                                 <div class="x5vMbk"><img src="../../../img/${sp.hinhAnh}" alt="${sp.tenSanpham}"></div>
                                  <div class="iX_ZXQ">
                                     <div class="OvglF_"><span>${sp.tenSanpham}</span></div>
                                     <div class="HszWOL">${sp.tenDungLuong} - ${sp.tenMauSac}</div>
@@ -64,17 +64,18 @@
                                        <div>
                                           <c:choose>
                                              <c:when test="${sp.giaTienGGCT != null || sp.giaTienGGSP != null}">
-                                                <span class="sLVfna" style="text-decoration: line-through; color: #888;">
+                                                <%-- <span class="sLVfna" style="text-decoration: line-through; color: #888;">
                                                    <fmt:formatNumber value="${sp.giaTien}" type="currency" currencySymbol="₫"/>
                                                 </span>
                                                 <span style="color: #EE4D2D; font-weight: bold; margin-left: 5px;">
                                                    <fmt:formatNumber value="${sp.giaTien - (sp.giaTienGGCT != null ? sp.giaTienGGCT : 0) - (sp.giaTienGGSP != null ? sp.giaTienGGSP : 0)}" 
                                                       type="currency" currencySymbol="₫"/>
-                                                </span>
+                                                </span> --%>
+                                                 <fmt:formatNumber value="${hoaDonChiTiet.tongTien}" type="currency" currencySymbol="₫"/>
                                              </c:when>
                                              <c:otherwise>
                                                 <span>
-                                                   <fmt:formatNumber value="${sp.giaTien}" type="currency" currencySymbol="₫"/>
+                                                   <fmt:formatNumber value="${hoaDonChiTiet.tongTien}" type="currency" currencySymbol="₫"/>
                                                 </span>
                                              </c:otherwise>
                                           </c:choose>
@@ -88,7 +89,7 @@
                   </div>
                   <div style="display: none;">
                      <div class="vAQAmD cCj_Ps">
-                        <div class="x5vMbk"><img src="http://localhost:8080/img/${sp.hinhAnh}" alt="${sp.tenSanpham}"></div>
+                        <div class="x5vMbk"><img src="../../../img/${sp.hinhAnh}" alt="${sp.tenSanpham}"></div>
                      </div>
                   </div>
                </div>
@@ -162,7 +163,7 @@
                   <div class="dSdz57"><span>Thành tiền</span></div>
                   <div class="mDgIcz">
                      <div>
-                        <fmt:formatNumber value="${tongTienHang - tongGiamGiaCT - tongGiamGiaSP}" type="currency" currencySymbol="₫"/>
+                         <fmt:formatNumber value="${hoaDonChiTiet.tongTien}" type="currency" currencySymbol="₫"/>
                      </div>
                   </div>
                </div>

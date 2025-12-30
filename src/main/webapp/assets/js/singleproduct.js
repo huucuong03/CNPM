@@ -133,7 +133,7 @@ async function getSelectedProductDetail() {
 
                 // Update main image
                 if (mainImage && firstColor.hinhAnhURL) {
-                    mainImage.src = `http://localhost:8080/img/${firstColor.hinhAnhURL}`;
+                    mainImage.src = `../../../img/${firstColor.hinhAnhURL}`;
                 }
 
                 // Update giá
@@ -164,7 +164,7 @@ async function getSelectedProductDetail() {
 
                         const aTag = document.createElement("a");
                         const imgTag = document.createElement("img");
-                        imgTag.src = `http://localhost:8080/img/${color.hinhAnhURL}`;
+                        imgTag.src = `../../../img/${color.hinhAnhURL}`;
                         imgTag.alt = dl.getAttribute("data-ten-san-pham") || "";
                         imgTag.width = 1024;
                         imgTag.height = 815;
@@ -209,7 +209,7 @@ async function getSelectedProductDetail() {
                         if (!data) return;
 
                         if (mainImage && data.hinhAnhURL) {
-                            mainImage.src = `http://localhost:8080/img/${data.hinhAnhURL}`;
+                            mainImage.src = `../../../img/${data.hinhAnhURL}`;
                         }
 
                         if (priceWrapper && data.giaBan) {

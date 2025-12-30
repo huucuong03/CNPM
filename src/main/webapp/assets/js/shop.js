@@ -37,7 +37,7 @@ function renderProduct(sp) {
                 <div class="product-small box">
                     <div class="box-image">
                         <a href="/san-pham/${sp.tenSanPham}">
-                            <img src="http://localhost:8080/img/${sp.anh}" width="470">
+                            <img src="../../../img/${sp.anh}" width="470">
                         </a>
                     </div>
 
@@ -127,7 +127,7 @@ function renderProduct(sp) {
                         <div class="image-none">
                             <a href="/san-pham/${sp.tenSanPham}" aria-label="${sp.tenSanPham}">
                                 <img loading="lazy" decoding="async" width="470" height="488" 
-                                     src="http://localhost:8080/img/${sp.anh}" 
+                                     src="../../../img/${sp.anh}" 
                                      class="attachment-woocommerce_thumbnail" alt="">
                             </a>
                             <div class="item-hotsale"></div>

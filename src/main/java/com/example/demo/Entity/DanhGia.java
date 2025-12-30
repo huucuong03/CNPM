@@ -33,6 +33,9 @@ public class DanhGia {
     @Column(name = "danhgia")
     private String danhGia;
 
+    @Column(name = "SoSao")
+    private Integer soSao;
+
     @Column(name = "ngaydanhgia")
     private Date ngayDanhGia;
 

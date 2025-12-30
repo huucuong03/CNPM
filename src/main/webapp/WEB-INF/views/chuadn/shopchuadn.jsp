@@ -28,7 +28,7 @@
                         </defs>
                      </svg>
                   </div>
-                  <a href="http://localhost:8080/index" class="button__home">Trang chủ</a>
+                  <a href="/index" class="button__home">Trang chủ</a>
                </li>
                <li>
                   <div class="separator">/</div>
@@ -83,7 +83,7 @@
                         <!-- Hình ảnh -->
                         <div class="product__image">
                            <img 
-                              src="http://localhost:8080/img/${sp.hinhAnhURL}" 
+                              src="../../../img/${sp.hinhAnhURL}" 
                               width="358" 
                               height="358" 
                               alt="${sp.tenSanPham}" 

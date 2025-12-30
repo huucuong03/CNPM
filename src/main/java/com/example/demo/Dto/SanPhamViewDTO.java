@@ -1,13 +1,13 @@
 package com.example.demo.Dto;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @Data
 @Builder
+@Getter
+@Setter
 @NoArgsConstructor
 public class SanPhamViewDTO {
 
@@ -17,7 +17,8 @@ public class SanPhamViewDTO {
     private BigDecimal giaBan;
     private BigDecimal giaBanGG;
     private String gioiThieu;
-
+    private long tongBinhLuan;
+    private Double diemTrungBinh;
     // Constructor
     public SanPhamViewDTO(Long maSanPham, String tenSanPham, String anh, BigDecimal giaBan,BigDecimal giaBanGG, String gioiThieu) {
         this.maSanPham = maSanPham;
@@ -27,55 +28,15 @@ public class SanPhamViewDTO {
         this.giaBanGG = giaBanGG != null ? giaBanGG : BigDecimal.ZERO;
         this.gioiThieu = gioiThieu != null ? gioiThieu : "";
     }
-
-
-    // Getter
-    public Long getMaSanPham() {
-        return maSanPham;
-    }
-
-    public String getTenSanPham() {
-        return tenSanPham;
-    }
-
-    public String getAnh() {
-        return anh;
-    }
-
-    public BigDecimal getGiaBan() {
-        return giaBan;
-    }
-
-    public BigDecimal getGiaBanGG() {
-        return giaBanGG;
-    }
-
-    public String getGioiThieu() {
-        return gioiThieu;
-    }
-
-    // Nếu cần setter, có thể thêm
-    public void setMaSanPham(Long maSanPham) {
+    public SanPhamViewDTO(Long maSanPham, String tenSanPham, String anh, BigDecimal giaBan,BigDecimal giaBanGG, String gioiThieu,Long tongBinhLuan, Double diemTrungBinh) {
         this.maSanPham = maSanPham;
-    }
-
-    public void setTenSanPham(String tenSanPham) {
         this.tenSanPham = tenSanPham;
-    }
-
-    public void setAnh(String anh) {
         this.anh = anh;
-    }
-
-    public void setGiaBan(BigDecimal giaBan) {
-        this.giaBan = giaBan;
-    }
-    public void setgiaBanGG(BigDecimal giaBanGG) {
-        this.giaBanGG = giaBanGG;
-    }
-
-    public void setGioiThieu(String gioiThieu) {
-        this.gioiThieu = gioiThieu;
+        this.giaBan = giaBan != null ? giaBan : BigDecimal.ZERO;
+        this.giaBanGG = giaBanGG != null ? giaBanGG : BigDecimal.ZERO;
+        this.gioiThieu = gioiThieu != null ? gioiThieu : "";
+        this.tongBinhLuan = tongBinhLuan;
+        this.diemTrungBinh = diemTrungBinh;
     }
 
     // Hàm convert giá

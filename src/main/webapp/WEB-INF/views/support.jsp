@@ -27,7 +27,7 @@
                            </defs>
                         </svg>
                      </div>
-                     <a href="http://localhost:8080/index" class="button__home">Trang chủ</a>
+                     <a href="https://clause-headline-mild-bizrate.trycloudflare.com/index" class="button__home">Trang chủ</a>
                   </li>
                   <li>
                      <div class="separator">/</div>

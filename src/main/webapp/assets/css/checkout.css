@@ -41,6 +41,20 @@
     margin-right: auto;
     border-radius: 8px;
 }
+.box-input.error label {
+    color: red;
+}
+.box-input.error .box-input__main:focus ~ label {
+    color: red;
+}
+.box-input .box-input__main:focus {
+    border-bottom: 1px solid #1e4bc9;
+}
+
+.box-input.error .box-input__main {
+    border-bottom: 1px solid red;
+}
+
 .navCart{
     display: flex;
     justify-content: center;
@@ -223,12 +237,22 @@ input[type=checkbox], input[type=radio] {
     width: 100%;
     box-shadow: inset 0 -1.8em 1em 0 transparent;
 }
-.box-input .box-input__main:focus+label, .box-input .box-input__main:not(:placeholder-shown)+label {
+.box-input .box-input__main:focus ~ label,
+.box-input .box-input__main:not(:placeholder-shown) ~ label {
     color: #999;
     font-size: 13px;
     line-height: 18px;
     opacity: 1;
     top: 0;
+}
+
+/* khi lỗi */
+.box-input.error .box-input__main:focus ~ label,
+.box-input.error .box-input__main:not(:placeholder-shown) ~ label {
+    color: red;
+}
+.box-input.error .box-input__main::placeholder {
+    color: red;
 }
 .box-input label {
     color: #919eab;
