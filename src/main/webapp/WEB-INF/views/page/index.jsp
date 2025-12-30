@@ -3,7 +3,8 @@
 <% 
    com.example.demo.Entity.KhachHang kh = (com.example.demo.Entity.KhachHang) session.getAttribute("khachHang"); 
    %>
-
+<%@ include file="/WEB-INF/views/toast.jsp" %>
+<div id="toast"></div>
 <div class="container" style="margin-top: 15px;">
    <div class="row">
       <div class="col large-3 hide-for-medium box_left">
@@ -316,117 +317,139 @@
             <div class="item-image-ads">
                <div class="d-none d-md-block shadow rounded-3 bg-white p-3 text-dark">
                   <div class="fw-bold d-flex">
-                     Trần Hữu Cường
+                     Nguyễn Văn A
                      <div class="mt-1 d-flex gap-1" style="margin-left:10px">
                         <div class="badge bg-dark text-uppercase p-1" style="color:#fff;height:1rem">S-Null</div>
                      </div>
                   </div>
-                  <div class="d-flex align-items-center gap-1">
-                     <div class="text-muted" style="font-size: 12px;">086*****34</div>
-                     <button class="btn btn-link p-0 text-muted">
-                        <!-- SVG Icon -->
-                     </button>
-                  </div>
                   <div class="mb-2 d-flex align-items-center gap-2" style="font-size: 12px;">
                      <div class="d-flex align-items-center justify-content-center rounded-circle p-1" style="background: linear-gradient(to bottom, #DC3545, #FF5733); width: 30px; height: 30px;">
-                        <!-- SVG Coin Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" style="color:white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
                      </div>
-                     <a href="https://smember.com.vn" class="d-flex flex-column text-decoration-none ">
+                     <a href="" class="d-flex flex-column text-decoration-none ">
                      <span class="fw-bold" style="font-size:16px;">0đ</span>
                      <span class="text-muted" style="font-size: 10px;">Tổng tiền tích lũy</span>
                      </a>
-                     <svg class="ms-auto" width="16" height="16" fill="currentColor">
-                        <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 4 8 8-8 8"></path>
-                     </svg>
                   </div>
-                  <a href="https://smember.com.vn/promotion" class="d-flex align-items-center gap-2 text-decoration-none mb-2" style="font-size: 12px;">
+                  <a href="" class="d-flex align-items-center gap-2 text-decoration-none mb-2" style="font-size: 12px;">
                      <div class="d-flex align-items-center justify-content-center rounded-circle p-1" style="background: linear-gradient(to bottom, #DC3545, #FF5733); width: 30px; height: 30px;">
-                        <!-- SVG Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" style="color:white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        </svg>
                      </div>
-                     <span>Xem ưu đãi của bạn</span>
-                     <svg class="ms-auto" width="16" height="16" fill="currentColor">
-                        <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 4 8 8-8 8 mb-2"></path>
+                     <span>Tài khoản</span>
+                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" style="color: #a1a1aa;width: calc(.25rem * 5);height: calc(.25rem * 5);position: absolute;z-index: 1;right: 12px;">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                      </svg>
                   </a>
-                  <a href="https://smember.com.vn/promotion" class="d-flex align-items-center gap-2 text-decoration-none mb-2" style="font-size: 12px;">
+                  <a href="" class="d-flex align-items-center gap-2 text-decoration-none mb-2" style="font-size: 12px;">
                      <div class="d-flex align-items-center justify-content-center rounded-circle p-1" style="background: linear-gradient(to bottom, #DC3545, #FF5733); width: 30px; height: 30px;">
-                        <!-- SVG Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" style="color:white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M21 11.25v8.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 1 0 9.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1 1 14.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
+                        </svg>
                      </div>
-                     <span>Xem ưu đãi của bạn</span>
-                     <svg class="ms-auto" width="16" height="16" fill="currentColor">
-                        <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 4 8 8-8 8"></path>
+                     <span>Xem Đơn hàng</span>
+                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" style="color: #a1a1aa;width: calc(.25rem * 5);height: calc(.25rem * 5);position: absolute;z-index: 1;right: 12px;">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                      </svg>
                   </a>
-                  <a href="https://smember.com.vn/promotion" class="d-flex align-items-center gap-2 text-decoration-none mb-2" style="font-size: 12px;">
+                  <a href="" class="d-flex align-items-center gap-2 text-decoration-none mb-2" style="font-size: 12px;">
                      <div class="d-flex align-items-center justify-content-center rounded-circle p-1" style="background: linear-gradient(to bottom, #DC3545, #FF5733); width: 30px; height: 30px;">
-                        <!-- SVG Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg"  style="color:white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+                        </svg>
                      </div>
-                     <span>Xem ưu đãi của bạn</span>
-                     <svg class="ms-auto" width="16" height="16" fill="currentColor">
-                        <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 4 8 8-8 8"></path>
-                     </svg>
+                     <span>Đăng xuất</span>
                   </a>
-                  <a href="https://smember.com.vn/promotion" class="d-flex align-items-center gap-2 text-decoration-none mb-2" style="font-size: 12px;">
-                     <div class="d-flex align-items-center justify-content-center rounded-circle p-1" style="background: linear-gradient(to bottom, #DC3545, #FF5733); width: 30px; height: 30px;">
-                        <!-- SVG Icon -->
-                     </div>
-                     <span>Xem ưu đãi của bạn</span>
-                     <svg class="ms-auto" width="16" height="16" fill="currentColor">
-                        <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 4 8 8-8 8"></path>
-                     </svg>
+               </div>
+            </div>
+            <div class="item-image-ads">
+               <div>
+                  <a class="bg-overlay-black-200 hover:bg-overlay-black-300 mb-1.5 block w-full rounded-md py-1.5 text-center font-medium thucu" href="/thu-cu-doi-moi">Thu cũ lên đời giá hời</a>
+                  <a class="line-clamp-2 flex h-9 items-center gap-2 hover:underline" href=""  style="display: flex; padding: 9px 0; margin-left: 16px;">
+                     <span class="cps-image-cdn relative inline-block size-4.5"><img alt="iPhone trợ giá &lt;b&gt;đến 5 triệu&lt;/b&gt;" loading="lazy" width="18" height="18" decoding="async" data-nimg="1" class="transition-opacity duration-500 opacity-100 object-contain size-4.5" style="color: transparent;" src="https://cdn2.cellphones.com.vn/insecure/rs:fill:18:18/q:90/plain/https://cellphones.com.vn/media/wysiwyg/icon_repeat_home_190825.png"></span>
+                     <div class="flex-1">iPhone trợ giá <b>đến 5 triệu</b></div>
                   </a>
-                  <a href="https://smember.com.vn/promotion" class="d-flex align-items-center gap-2 text-decoration-none mb-2" style="font-size: 12px;">
-                     <div class="d-flex align-items-center justify-content-center rounded-circle p-1" style="background: linear-gradient(to bottom, #DC3545, #FF5733); width: 30px; height: 30px;">
-                        <!-- SVG Icon -->
-                     </div>
-                     <span>Xem ưu đãi của bạn</span>
-                     <svg class="ms-auto" width="16" height="16" fill="currentColor">
-                        <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 4 8 8-8 8"></path>
-                     </svg>
+                  <a class="line-clamp-2 flex h-9 items-center gap-2 hover:underline" href="" style="display: flex; padding: 9px 0; margin-left: 16px;">
+                     <span class="cps-image-cdn relative inline-block size-4.5"><img alt="Samsung trợ giá &lt;b&gt;đến 4 triệu&lt;/b&gt;" loading="lazy" width="18" height="18" decoding="async" data-nimg="1" class="transition-opacity duration-500 opacity-100 object-contain size-4.5" style="color: transparent;" src="https://cdn2.cellphones.com.vn/insecure/rs:fill:18:18/q:90/plain/https://cellphones.com.vn/media/wysiwyg/icon_repeat_home_190825.png"></span>
+                     <div class="flex-1">Samsung trợ giá <b>đến 4 triệu</b></div>
                   </a>
                </div>
             </div>
          </div>
       </div>
-      <% 
-         } else { 
-         %>
-      <!-- Container chính -->
-      <div class="d-flex flex-column w-100 col large-3 " style="max-height: 496px; min-width: 224px; gap: 8px;">
-         <!-- Mobile Scrollable Menu -->
-         <div class="d-block d-md-none mb-0">
-            <div class="overflow-auto" style="white-space: nowrap;">
-               <a href="/danh-sach-khuyen-mai" class="d-inline-flex flex-column align-items-center justify-content-center text-center me-2" style="width: 25%;">
-                  <div class="d-flex align-items-center justify-content-center rounded-circle bg-light mb-1" style="width: 40px; height: 40px;">
-                     <img src="https://cdn2.cellphones.com.vn/insecure/rs:fill:32:32/q:90/plain/https://cellphones.com.vn/media/wysiwyg/icon_hot_deal_home_190825.png" alt="Deal siêu HOT" width="32" height="32" class="img-fluid">
+      <% }else { %>
+      <div class="col large-3 hide-for-medium box_right">
+         <div class="image-ads">
+            <div class="item-image-ads">
+               <div class="d-none d-md-block shadow rounded-3 bg-white p-3 text-dark">
+                  <div class="fw-bold d-flex">
+                     <%= kh.getTen() %>
+                     <div class="mt-1 d-flex gap-1" style="margin-left:10px">
+                        <div class="badge bg-dark text-uppercase p-1" style="color:#fff;height:1rem">S-Null</div>
+                     </div>
                   </div>
-                  <p class="mb-0" style="font-size: 12px; line-height: 1.2;">Deal<br>siêu HOT</p>
-               </a>
-               <a href="/uu-dai-sinh-vien-hoc-sinh" class="d-inline-flex flex-column align-items-center justify-content-center text-center me-2" style="width: 25%;">
-                  <div class="d-flex align-items-center justify-content-center rounded-circle bg-light mb-1" style="width: 40px; height: 40px;">
-                     <img src="https://cdn2.cellphones.com.vn/insecure/rs:fill:32:32/q:90/plain/https://cellphones.com.vn/media/wysiwyg/icon_edu_promotion_home_190825.png" alt="Ưu đãi cho giáo dục" width="32" height="32" class="img-fluid">
+                  <div class="mb-2 d-flex align-items-center gap-2" style="font-size: 12px;">
+                     <div class="d-flex align-items-center justify-content-center rounded-circle p-1" style="background: linear-gradient(to bottom, #DC3545, #FF5733); width: 30px; height: 30px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" style="color:white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                     </div>
+                     <a href="" class="d-flex flex-column text-decoration-none ">
+                     <span class="fw-bold" style="font-size:16px;">0đ</span>
+                     <span class="text-muted" style="font-size: 10px;">Tổng tiền tích lũy</span>
+                     </a>
                   </div>
-                  <p class="mb-0" style="font-size: 12px; line-height: 1.2;">Ưu đãi<br>cho giáo dục</p>
-               </a>
-               <!-- Thêm các items khác tương tự -->
+                  <a href="/detailKh/userinfo" class="d-flex align-items-center gap-2 text-decoration-none mb-2" style="font-size: 12px;">
+                     <div class="d-flex align-items-center justify-content-center rounded-circle p-1" style="background: linear-gradient(to bottom, #DC3545, #FF5733); width: 30px; height: 30px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" style="color:white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        </svg>
+                     </div>
+                     <span>Tài khoản</span>
+                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" style="color: #a1a1aa;width: calc(.25rem * 5);height: calc(.25rem * 5);position: absolute;z-index: 1;right: 12px;">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                     </svg>
+                  </a>
+                  <a href="/detailKh/order" class="d-flex align-items-center gap-2 text-decoration-none mb-2" style="font-size: 12px;">
+                     <div class="d-flex align-items-center justify-content-center rounded-circle p-1" style="background: linear-gradient(to bottom, #DC3545, #FF5733); width: 30px; height: 30px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" style="color:white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M21 11.25v8.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 1 0 9.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1 1 14.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
+                        </svg>
+                     <span>Xem Đơn hàng</span>
+                     </div>
+                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" style="color: #a1a1aa;width: calc(.25rem * 5);height: calc(.25rem * 5);position: absolute;z-index: 1;right: 12px;">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                     </svg>
+                  </a>
+                  <a href="/logout" class="d-flex align-items-center gap-2 text-decoration-none mb-2" style="font-size: 12px;">
+                     <div class="d-flex align-items-center justify-content-center rounded-circle p-1" style="background: linear-gradient(to bottom, #DC3545, #FF5733); width: 30px; height: 30px;">
+                        <svg xmlns="http://www.w3.org/2000/svg"  style="color:white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+                        </svg>
+                     </div>
+                     <span>Đăng xuất</span>
+                  </a>
+               </div>
             </div>
-         </div>
-         <!-- Desktop User Card -->
-         <!-- Desktop Menu List -->
-         <div class="d-none d-md-block overflow-auto shadow rounded-3 bg-white p-3" style="max-height: 50vh; font-size: 12px;">
-            <div class="mb-2">
-               <a href="/uu-dai-sinh-vien-hoc-sinh" class="d-block text-center mb-1 py-1 rounded" style="background-color: rgba(0,0,0,0.05); text-decoration: none;">Ưu đãi cho giáo dục</a>
-               <a href="https://smember.com.vn/promotion/s-edu" class="d-flex align-items-center gap-2 text-decoration-none mb-1">
-               <img src="https://cdn2.cellphones.com.vn/insecure/rs:fill:18:18/q:90/plain/https://cellphones.com.vn/media/wysiwyg/icon_student_home_190825.png" width="18" height="18">
-               <span>Đăng ký <b>nhận ưu đãi</b></span>
-               </a>
-               <!-- Thêm các items khác tương tự -->
+            <div class="item-image-ads">
+               <div>
+                  <a class="bg-overlay-black-200 hover:bg-overlay-black-300 mb-1.5 block w-full rounded-md py-1.5 text-center font-medium thucu" href="/thu-cu-doi-moi">Thu cũ lên đời giá hời</a>
+                  <a class="line-clamp-2 flex h-9 items-center gap-2 hover:underline" href=""  style="display: flex; padding: 9px 0; margin-left: 16px;">
+                     <span class="cps-image-cdn relative inline-block size-4.5"><img alt="iPhone trợ giá &lt;b&gt;đến 5 triệu&lt;/b&gt;" loading="lazy" width="18" height="18" decoding="async" data-nimg="1" class="transition-opacity duration-500 opacity-100 object-contain size-4.5" style="color: transparent;" src="https://cdn2.cellphones.com.vn/insecure/rs:fill:18:18/q:90/plain/https://cellphones.com.vn/media/wysiwyg/icon_repeat_home_190825.png"></span>
+                     <div class="flex-1">iPhone trợ giá <b>đến 5 triệu</b></div>
+                  </a>
+                  <a class="line-clamp-2 flex h-9 items-center gap-2 hover:underline" href="" style="display: flex; padding: 9px 0; margin-left: 16px;">
+                     <span class="cps-image-cdn relative inline-block size-4.5"><img alt="Samsung trợ giá &lt;b&gt;đến 4 triệu&lt;/b&gt;" loading="lazy" width="18" height="18" decoding="async" data-nimg="1" class="transition-opacity duration-500 opacity-100 object-contain size-4.5" style="color: transparent;" src="https://cdn2.cellphones.com.vn/insecure/rs:fill:18:18/q:90/plain/https://cellphones.com.vn/media/wysiwyg/icon_repeat_home_190825.png"></span>
+                     <div class="flex-1">Samsung trợ giá <b>đến 4 triệu</b></div>
+                  </a>
+               </div>
             </div>
          </div>
       </div>
-      <% 
-         } 
-         %>
+      <% } %>
    </div>
    <section class="section" id="section_804548742">
       <div class="section-bg fill">
@@ -489,13 +512,11 @@
             <div id="col-68942984" class="col brand-items medium-12 small-12 large-9">
                <div class="col-inner text-left">
                   <div class="list-brand-items2">
-
-    <c:forEach items="${nsx}" var="item">
-        <a title="${item.tenNSX}" style=" text-transform: capitalize;" href="/${item.tenNSX.toLowerCase()}">
-            ${item.tenNSX}
-        </a>
-    </c:forEach>
-
+                     <c:forEach items="${nsx}" var="item">
+                        <a title="${item.tenNSX}" style=" text-transform: capitalize;" href="/${item.tenNSX.toLowerCase()}">
+                        ${item.tenNSX}
+                        </a>
+                     </c:forEach>
                   </div>
                </div>
             </div>
@@ -912,3 +933,8 @@ padding-bottom: 0px;
 }
 </style>
 </section>
+<c:if test="${not empty message}">
+   <script>
+      showSuccessToast("${message}");
+   </script>
+</c:if>

@@ -142,16 +142,21 @@ function renderProduct(sp) {
                         </div>
 
                         <div class="price-wrapper">
-                            <div class="star-rating" title="Rated 5 out of 5">
-                                <span style="width:100%"><strong class="rating">5</strong> out of 5</span>
-                            </div>
+                            <div class="star-rating" title="Rated ${sp.rating} out of 5">
+    <span style="width:${(sp.rating / 5) * 100}%">
+        <strong class="rating">${sp.rating}</strong> out of 5
+    </span>
+</div>
+
 
                             <span class="price">
                                 ${renderPrice(sp)}
                             </span>
 
                             <div class="promotion">Thu cũ lên đời - Trợ giá 1 triệu</div>
-                            <span class="text-count-review">2 đánh giá</span>
+                           <span class="text-count-review">
+                                ${sp.tongBinhLuan > 0 ? `${sp.tongBinhLuan} đánh giá` : 'Chưa có đánh giá'}
+                            </span>
                         </div>
                     </div>
                 </div>

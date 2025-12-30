@@ -1744,7 +1744,7 @@
                               <div class="w-full flex flex-col gap-medium tablet:gap-2x-large">
                                  <h1
                                     class="hidden tablet:block text-3x-large laptop:text-4x-large text-center text-primary-500 font-bold">
-                                    Đăng nhập SMEMBER</h1>
+                                    Đăng nhập</h1>
                                  <form action="/login" method="post"
                                     class="w-full flex flex-col gap-medium tablet:gap-1x-large">
                                     <div class="cpsui:flex cpsui:gap-2x-small cpsui:group cpsui:flex-col">
