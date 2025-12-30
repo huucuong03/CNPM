@@ -16,5 +16,7 @@ public interface DanhGiaRepository extends JpaRepository<DanhGia, Long> {
     @Query("SELECT dg FROM DanhGia dg JOIN FETCH dg.khachHang WHERE dg.sanPham = :sanPham")
     List<DanhGia> findAllBySanPham(@Param("sanPham") SanPham sanPham);
 
+    long countBySanPhamAndTrangThai(SanPham sanPham, Integer trangThai);
+
 
 }

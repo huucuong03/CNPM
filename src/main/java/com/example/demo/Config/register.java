@@ -51,9 +51,6 @@ import java.nio.charset.StandardCharsets;
 public class register {
 
     @Autowired
-    private jakarta.servlet.ServletContext servletContext;
-
-    @Autowired
     private KhachHangService khachHangService;
 
     @Autowired
@@ -171,7 +168,14 @@ public class register {
         model.addAttribute("ngaySinh", khachHang.getNgaySinh());
 
         List<HoaDon> listHD = hoaDonService.getAllBykhachHang(khachHang);
-        model.addAttribute("listHD", listHD);
+
+        // Sắp xếp giảm dần theo ngày và lấy 3 cái mới nhất
+        List<HoaDon> recentHD = listHD.stream()
+                .sorted((h1, h2) -> h2.getNgayTao().compareTo(h1.getNgayTao()))
+                .limit(3)
+                .collect(Collectors.toList());
+
+        model.addAttribute("listHD", recentHD);
 
         Map<Integer, List<HoaDon>> hoaDonTheoTrangThai = new HashMap<>();
         for (int trangThai = 0; trangThai <= 3; trangThai++) {
@@ -229,7 +233,9 @@ public class register {
             HttpSession session,
             @RequestParam(value = "trangThai", required = false, defaultValue = "4") int trangThai,
             @RequestParam(value = "startDate", required = false, defaultValue = "01/12/2020") String startDateStr,
-            @RequestParam(value = "endDate", required = false) String endDateStr) {
+            @RequestParam(value = "endDate", required = false) String endDateStr,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "4") int size) {
         KhachHang khachHang = (KhachHang) session.getAttribute("khachHang");
         if (khachHang == null)
             return "redirect:/loginView";
@@ -244,17 +250,17 @@ public class register {
         LocalDate endDate = LocalDate.parse(endDateStr, formatter);
 
         // Lấy tất cả hóa đơn
-        List<HoaDon> listHD = hoaDonService.getAllBykhachHang(khachHang);
+        List<HoaDon> listHDAll = hoaDonService.getAllBykhachHang(khachHang);
 
         // Lọc theo trạng thái (4 = tất cả)
         if (trangThai != 4) {
-            listHD = listHD.stream()
+            listHDAll = listHDAll.stream()
                     .filter(hd -> hd.getTrangThai() == trangThai)
                     .collect(Collectors.toList());
         }
 
         // Lọc theo ngày
-        listHD = listHD.stream()
+        listHDAll = listHDAll.stream()
                 .filter(hd -> {
                     LocalDate ngayTao = hd.getNgayTao().toInstant()
                             .atZone(ZoneId.systemDefault())
@@ -262,11 +268,30 @@ public class register {
                     return (ngayTao.isEqual(startDate) || ngayTao.isAfter(startDate))
                             && (ngayTao.isEqual(endDate) || ngayTao.isBefore(endDate));
                 })
+                .sorted((h1, h2) -> h2.getNgayTao().compareTo(h1.getNgayTao())) // Mới nhất lên đầu
                 .collect(Collectors.toList());
 
-        // Lấy sản phẩm đặc nhất trong mỗi hóa đơn
+        // Phân trang danh sách đã lọc
+        int totalItems = listHDAll.size();
+        int totalPages = (int) Math.ceil((double) totalItems / size);
+
+        // Đảm bảo page không vượt quá totalPages
+        if (page >= totalPages && totalPages > 0)
+            page = totalPages - 1;
+        if (page < 0)
+            page = 0;
+
+        int startIdx = page * size;
+        int endIdx = Math.min(startIdx + size, totalItems);
+
+        List<HoaDon> listHDPage = new ArrayList<>();
+        if (startIdx < totalItems) {
+            listHDPage = listHDAll.subList(startIdx, endIdx);
+        }
+
+        // Lấy sản phẩm đặc nhất trong mỗi hóa đơn (chỉ cho danh sách đã phân trang)
         Map<Long, HoaDonChiTiet> sanPhamDacNhat = new HashMap<>();
-        for (HoaDon hd : listHD) {
+        for (HoaDon hd : listHDPage) {
             List<HoaDonChiTiet> chiTiets = hoaDonChiTietService.getByHoaDon(hd);
             HoaDonChiTiet maxCt = chiTiets.stream()
                     .max(Comparator.comparing(HoaDonChiTiet::getGiaTien))
@@ -275,7 +300,11 @@ public class register {
         }
 
         model.addAttribute("sanPhamDacNhat", sanPhamDacNhat);
-        model.addAttribute("listHD", listHD);
+        model.addAttribute("listHD", listHDPage);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("size", size);
+
         model.addAttribute("bodyPage", "/WEB-INF/views/detail/body/bodyHoaDon.jsp");
         model.addAttribute("currentTab", "order");
         model.addAttribute("trangThai", trangThai);
@@ -290,14 +319,16 @@ public class register {
     @GetMapping("detailKh/warranty")
     public String hoTroSauMua(HttpSession session, Model model,
             @RequestParam(defaultValue = "0") int page, // trang hiện tại
-            @RequestParam(defaultValue = "15") int size) {
+            @RequestParam(defaultValue = "4") int size) {
 
         KhachHang kh = (KhachHang) session.getAttribute("khachHang");
         if (kh == null) {
             return "redirect:/login";
         }
-        Pageable pageable = PageRequest.of(0, 15, Sort.by("hoaDon.ngayTao").descending());
-        List<SupportOrderItemDTO> items = supportService.getHoTro(kh.getMaKhachHang(), pageable);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("hoaDon.ngayTao").descending());
+        org.springframework.data.domain.Page<SupportOrderItemDTO> pageSupport = supportService
+                .getHoTro(kh.getMaKhachHang(), pageable);
+        List<SupportOrderItemDTO> items = pageSupport.getContent();
 
         for (SupportOrderItemDTO item : items) {
 
@@ -321,11 +352,15 @@ public class register {
             item.setDaGuiDoiTra(daGuiDoiTra);
             item.setDaGuiBaoHanh(daGuiBaoHanh);
         }
-        // Nhóm theo hóa đơn
+        // Nhóm theo hóa đơn (Sử dụng LinkedHashMap để giữ thứ tự)
         Map<Long, List<SupportOrderItemDTO>> mapHD = items.stream()
-                .collect(Collectors.groupingBy(SupportOrderItemDTO::getMaHoaDon));
+                .collect(Collectors.groupingBy(SupportOrderItemDTO::getMaHoaDon, LinkedHashMap::new,
+                        Collectors.toList()));
 
         model.addAttribute("mapHD", mapHD);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", pageSupport.getTotalPages());
+        model.addAttribute("size", size);
         model.addAttribute("currentTab", "warranty");
         model.addAttribute("bodyPage", "/WEB-INF/views/detail/body/bodyWarranty.jsp");
 
@@ -877,17 +912,6 @@ public class register {
         KhachHang khachHang = khachHangService.getByMa(maKhachHang);
         model.addAttribute("kh", khachHang);
         return "blogDN";
-    }
-
-    @PostMapping("/check-email")
-    public ResponseEntity<Map<String, Boolean>> checkEmail(@RequestBody Map<String, String> payload) {
-        String email = payload.get("email");
-        boolean exists = khachHangRepository.existsByEmail(email);
-
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("exists", exists);
-
-        return ResponseEntity.ok(response);
     }
 
     @GetMapping("test")

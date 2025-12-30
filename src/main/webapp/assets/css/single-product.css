@@ -129,7 +129,7 @@
     color: #fff;
     content: "";
     display: flex;
-    font-family: fl-icons;
+     font-family: "Bootstrap Icons" !important;
     font-size: 10px;
     justify-content: center;
     left: 0;

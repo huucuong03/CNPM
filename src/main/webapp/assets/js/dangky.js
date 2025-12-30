@@ -1,6 +1,11 @@
 const input = document.getElementById("birthday");
 const error = document.getElementById("dateError");
-
+let isNameValid = false;
+let isDateValid = false;
+let isPhoneValid = false;
+let isEmailValid = false;
+let isPasswordValid = false;
+let isConfirmPasswordValid = false;
 const mask = "dd/mm/yyyy";
 const editable = [0,1,3,4,6,7,8,9];
 
@@ -126,12 +131,14 @@ function showError() {
     // Nếu còn d, m, y → báo lỗi
     if (v.includes("d") || v.includes("m") || v.includes("y")) {
         error.style.display = "flex";
+        isDateValid=false;
         return;
     }
 
     // Không đủ 10 ký tự → lỗi
     if (v.length < 10) {
         error.style.display = "flex";
+        isDateValid=false;
         return;
     }
 
@@ -141,11 +148,11 @@ function showError() {
 
     if (day > 31 || month > 12) {
         error.style.display = "flex";
+        isDateValid=false;
         return;
     }
-
-    // Hợp lệ
     error.style.display = "none";
+    isDateValid=true;
 }
 const fullName = document.getElementById("fullName");
 const nameError = document.getElementById("nameError");
@@ -158,14 +165,17 @@ fullName.addEventListener("input", function () {
 
     // Nếu rỗng → không báo lỗi
     if (v.trim() === "") {
-        nameError.style.display = "none";
+        nameError.style.display = "flex";
+        isNameValid=false
         return;
     }
 
     if (!nameRegex.test(v)) {
-        nameError.style.display = "block";
+        nameError.style.display = "flex";
+        isNameValid=false
     } else {
         nameError.style.display = "none";
+        isNameValid=true
     }
 });
 const phoneInput = document.getElementById("phone");
@@ -177,21 +187,25 @@ phoneInput.addEventListener("input", function () {
     // Giới hạn 10 ký tự
     if (this.value.length > 10) {
         this.value = this.value.slice(0, 10);
+        isPhoneValid = false;
     }
 
     // Nếu rỗng → không báo lỗi
     if (this.value === "") {
-        phoneError.style.display = "none";
+        phoneError.style.display = "flex";
+        isPhoneValid = false;
         return;
     }
 
     // Chỉ hợp lệ nếu bắt đầu = 07, 08 hoặc 09 và tổng cộng 10 số
-    const phoneRegex = /^(07|08|09)\d{8}$/;
+    const phoneRegex = /^(07|08|09|03)\d{8}$/;
 
     if (!phoneRegex.test(this.value)) {
-        phoneError.style.display = "block";
+        phoneError.style.display = "flex";
+        isPhoneValid = false
     } else {
         phoneError.style.display = "none";
+        isPhoneValid = true
     }
 });
 const emailInput = document.getElementById("email");
@@ -209,8 +223,9 @@ emailInput.addEventListener("input", function () {
 
     // Nếu rỗng → không báo lỗi, không báo đúng
     if (v === "") {
-        emailError.style.display = "none";
-        emailSucces.style.display = "flex";
+        emailError.style.display = "flex";
+        emailSucces.style.display = "none";
+        isEmailValid=false
         return;
     }
 
@@ -218,11 +233,13 @@ emailInput.addEventListener("input", function () {
     if (!emailRegex.test(v)) {
         emailError.style.display = "flex";
         emailSucces.style.display = "none";
+         isEmailValid=false
     } 
     // Nếu đúng định dạng
     else {
         emailError.style.display = "none";
         emailSucces.style.display = "flex";
+         isEmailValid=true
     }
 });
 const passwordInput = document.getElementById("matKhau");
@@ -238,13 +255,16 @@ passwordInput.addEventListener("input", function () {
 
     if (value === "") {
         passwordError.style.color = "black";
+        isPasswordValid=false
         return;
     }
 
     if (!passwordRegex.test(value)) {
         passwordError.style.color = "red";
+        isPasswordValid=false
     } else {
         passwordError.style.color = "black";
+        isPasswordValid=true
     }
 
     // Tự kiểm tra lại confirm password khi đang nhập
@@ -255,12 +275,68 @@ confirmPasswordInput.addEventListener("input", checkConfirmPassword);
 function checkConfirmPassword() {
     if (confirmPasswordInput.value === "") {
         confirmPasswordError.style.display = "none";
+        isConfirmPasswordValid = false
         return;
     }
 
     if (confirmPasswordInput.value !== passwordInput.value) {
         confirmPasswordError.style.display = "flex";
+        isConfirmPasswordValid = false
     } else {
         confirmPasswordError.style.display = "none";
+        isConfirmPasswordValid = true
     }
 }
+document.getElementById("registerForm").addEventListener("submit", function (e) {
+
+    // 1️⃣ Họ tên
+    if (!isNameValid || fullName.value.trim() === "") {
+        e.preventDefault();
+        nameError.style.display = "flex";
+        fullName.focus();
+        return;
+    }
+
+    // 2️⃣ Ngày sinh
+    if (!isDateValid || input.value.trim() === "") {
+        e.preventDefault();
+        error.style.display = "flex";
+        input.focus();
+        return;
+    }
+
+    // 3️⃣ Số điện thoại
+    if (!isPhoneValid || phoneInput.value.trim() === "") {
+        e.preventDefault();
+        phoneError.style.display = "flex";
+        phoneInput.focus();
+        return;
+    }
+
+    // 4️⃣ Email (không bắt buộc nhưng nếu có thì phải đúng)
+    if (emailInput.value.trim() !== "" && !isEmailValid) {
+        e.preventDefault();
+        emailError.style.display = "flex";
+        emailInput.focus();
+        return;
+    }
+
+    // 5️⃣ Mật khẩu
+    if (!isPasswordValid || passwordInput.value === "") {
+        e.preventDefault();
+        passwordError.style.color = "red";
+        passwordInput.focus();
+        return;
+    }
+
+    // 6️⃣ Nhập lại mật khẩu
+    if (!isConfirmPasswordValid || confirmPasswordInput.value === "") {
+        e.preventDefault();
+        confirmPasswordError.style.display = "flex";
+        confirmPasswordInput.focus();
+        return;
+    }
+
+});
+
+

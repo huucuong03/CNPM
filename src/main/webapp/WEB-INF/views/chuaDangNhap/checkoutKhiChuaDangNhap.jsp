@@ -1042,7 +1042,7 @@
 
 
         async function findProvinceIdByName(provinceName) {
-            const response = await fetch(`http://localhost:8080/public/provinces`);
+            const response = await fetch(`https://clause-headline-mild-bizrate.trycloudflare.com/public/provinces`);
             const data = await response.json();
 
             for (const province of data.data) {
@@ -1055,7 +1055,7 @@
         }
 
         async function findProvinceNameById(provinceid) {
-            const response = await fetch(`http://localhost:8080/public/provinces`);
+            const response = await fetch(`https://clause-headline-mild-bizrate.trycloudflare.com/public/provinces`);
             const data = await response.json();
 
             for (const province of data.data) {
@@ -1068,7 +1068,7 @@
         }
 
         async function findDistrictIdByName(districtName, provinceId) {
-            const response = await fetch('http://localhost:8080/public/districts?province_id=' + provinceId);
+            const response = await fetch('https://clause-headline-mild-bizrate.trycloudflare.com/public/districts?province_id=' + provinceId);
             const data = await response.json();
 
             for (const district of data.data) {
@@ -1082,7 +1082,7 @@
         }
 
         async function findWardIdByName(wardName, districtId) {
-            const response = await fetch('http://localhost:8080/public/wards?district_id=' + districtId);
+            const response = await fetch('https://clause-headline-mild-bizrate.trycloudflare.com/public/wards?district_id=' + districtId);
             const data = await response.json();
 
             for (const ward of data.data) {
@@ -1117,7 +1117,7 @@
             };
 
             try {
-                const response = await fetch('http://localhost:8080/public/transportationFee', {
+                const response = await fetch('https://clause-headline-mild-bizrate.trycloudflare.com/public/transportationFee', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -1228,7 +1228,7 @@
         var currentPrice = parseFloat(${tongTien});
 
         async function loadProvinces() {
-            const response = await fetch(`http://localhost:8080/public/provinces`);
+            const response = await fetch(`https://clause-headline-mild-bizrate.trycloudflare.com/public/provinces`);
             const data = await response.json();
 
             const provinceSelect = document.getElementById("province");
@@ -1250,7 +1250,7 @@
                 return;
             }
 
-            const response = await fetch('http://localhost:8080/public/districts?province_id=' + provinceId);
+            const response = await fetch('https://clause-headline-mild-bizrate.trycloudflare.com/public/districts?province_id=' + provinceId);
             const data = await response.json();
 
             const districtSelect = document.getElementById("district");
@@ -1275,7 +1275,7 @@
                 return;
             }
 
-            const response = await fetch('http://localhost:8080/public/wards?district_id=' + districtId);
+            const response = await fetch('https://clause-headline-mild-bizrate.trycloudflare.com/public/wards?district_id=' + districtId);
             const data = await response.json();
 
             const wardSelect = document.getElementById("ward");
@@ -1343,7 +1343,7 @@
             };
 
             try {
-                const response = await fetch('http://localhost:8080/public/transportationFee', {
+                const response = await fetch('https://clause-headline-mild-bizrate.trycloudflare.com/public/transportationFee', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

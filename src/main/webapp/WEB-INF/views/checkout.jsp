@@ -37,7 +37,7 @@
                            <c:set var="ghct" value="${item['gioHangChiTiet']}" />
                            <c:set var="giamGia" value="${item['giaGiam']}" />
                            <div class="item" data-maghct="${ghct.magiohangchitiet}">
-                              <img src="http://localhost:8080/img/${ghct.chiTietSanPham.hinhAnhURL}"
+                              <img src="../../../img/${ghct.chiTietSanPham.hinhAnhURL}"
                                  alt="${ghct.chiTietSanPham.sanPham.tenSanPham}" loading="lazy" class="item__img">
                               <div class="item__info">
                                  <p class="item__name">
@@ -82,7 +82,7 @@
                      </div>
                      <!---->
                   </div>
-                  <form id="myForm" action="/cart/submit-order" method="post">
+                  <form id="myForm" action="/cart/buy-now" method="post">
                      <div class="block-customer">
                         <p>Thông tin khách hàng</p>
                         <div class="block-customer__wrapper">
@@ -100,12 +100,16 @@
                               <div class="customer-input__2">
                                  <div class="box-input">
                                     <input type="email" placeholder="Email" maxlength="100" autocomplete="off"
-                                       class="box-input__main" fdprocessedid="ixye7u" name="email"> <label>EMAIL</label>
+                                       class="box-input__main" fdprocessedid="ixye7u" id="email" name="email"> 
+                                       <label>EMAIL</label>
                                     <div class="box-input__line"></div>
                                     <!---->
                                  </div>
+                                 <div id="emailError" style="display:none;color: #e43f1e;font-size: 12px;align-items: center;"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="cpsui:shrink-0" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"></path></svg>
+                                 <font style="margin-left:5px">Email không hợp lệ</font></div>
                                  <!----><br> <span>(*) Hóa đơn VAT sẽ được gửi qua email này</span>
                               </div>
+                              
                            </div>
                            <div class="block-customer__bottom">
                               <div class="bottom__item"><input type="checkbox" name="emailPromo" id="emailPromo"> <label
@@ -136,15 +140,15 @@
                                     <div class="field-group">
                                        <div class="box-input">
                                           <input type="text" placeholder="Họ tên người nhận" maxlength="1000"
-                                             autocomplete="off" class="box-input__main" fdprocessedid="ylt7jb"
-                                             name="nguoiNhan"> <label>TÊN NGƯỜI NHẬN</label>
+                                             autocomplete="off" class="box-input__main" fdprocessedid="ylt7jb" id="nguoiNhan"
+                                             name="nguoiNhan"> <label for="nguoiNhan">TÊN NGƯỜI NHẬN</label>
                                           <div class="box-input__line"></div>
                                           <!---->
                                        </div>
                                        <div class="box-input">
                                           <input type="text" placeholder="Số điện thoại người nhận" maxlength="10"
                                              autocomplete="off" class="box-input__main" fdprocessedid="rv67n"
-                                             name="sdt"> <label>SĐT NGƯỜI NHẬN</label>
+                                             name="sdt" id="sdtNguoiNhan" > <label>SĐT NGƯỜI NHẬN</label>
                                           <div class="box-input__line"></div>
                                           <!---->
                                        </div>
@@ -170,9 +174,9 @@
                                        </div>
                                     </div>
                                     <div class="box-input">
-                                       <input type="text"
+                                       <input type="text"id="diaChiInput"
                                           placeholder="Số nhà, tên đường (Vui lòng chọn quận/huyện và phường/xã trước)"
-                                          autocomplete="off" class="box-input__main" fdprocessedid="8hropf"
+                                          autocomplete="off" class="box-input__main"
                                           name="diaChi">
                                        <label d class="estimated-delivery-time">Giao từ 1-2 ngày</label>
                                        <div class="box-input__line"></div>
@@ -262,42 +266,5 @@
             </script>
             <% } %>
                <script>
-                  document.getElementById('submitBtn').addEventListener('click', function () {
-                     const maGHCTs = getMaGHCTs(); // "1,2,3"
-
-                     if (!maGHCTs) {
-                        alert("Không có sản phẩm để thanh toán");
-                        return;
-                     }
-
-                     // Kiểm tra phương thức thanh toán được chọn
-                     const paymentMethod = document.querySelector('input[name="delivery"]:checked').value;
-                     const form = document.getElementById('myForm');
-
-                     document.getElementById('maGHCTsInput').value = maGHCTs;
-
-                     // Nếu chọn thanh toán trực tuyến (pickup) -> chuyển đến VNPay
-                     if (paymentMethod === 'pickup') {
-                        form.action = '/cart/submit-order-vnpay';
-                     } else {
-                        // Thanh toán khi nhận hàng (shipping) -> xử lý trực tiếp
-                        form.action = '/cart/submit-order';
-                     }
-
-                     form.submit();
-                  });
-
-                  function getMaGHCTs() {
-                     const items = document.querySelectorAll(".item[data-maghct]");
-                     const ids = [];
-
-                     items.forEach(item => {
-                        const id = item.getAttribute("data-maghct");
-                        if (id) {
-                           ids.push(id);
-                        }
-                     });
-
-                     return ids.join(",");
-                  }
+                 
                </script>

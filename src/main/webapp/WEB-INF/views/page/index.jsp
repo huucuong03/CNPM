@@ -3,6 +3,7 @@
 <% 
    com.example.demo.Entity.KhachHang kh = (com.example.demo.Entity.KhachHang) session.getAttribute("khachHang"); 
    %>
+
 <div class="container" style="margin-top: 15px;">
    <div class="row">
       <div class="col large-3 hide-for-medium box_left">
@@ -13,83 +14,84 @@
                      <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-has-children menu-item-27 menu-item-design-default has-dropdown has-icon-left has-child" aria-expanded="false">
                      <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-has-children menu-item-1289 nav-dropdown-col has-child" aria-expanded="false">
                         <a href="/apple">Apple</a>
-                        <svg stroke="currentColor" style="margin-right: 9px;" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="ml-auto size-5 text-neutral-400" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="m184 112 144 144-144 144"></path></svg>
+                        <svg stroke="currentColor" style="margin-right: 9px;" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="ml-auto size-5 text-neutral-400" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                           <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="m184 112 144 144-144 144"></path>
+                        </svg>
                         <button class="toggle" aria-label="Chuyển đổi"><i class="icon-angle-down" aria-hidden="true"></i></button>
                         <ul class="sub-menu nav-column">
                            <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1290">
-                              <a href="http://localhost:8080/apple/iPhone-X">iPhone X </a>
-                              
+                              <a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iPhone-X">iPhone X </a>
                               <ul class="sub-menu nav-column">
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-bluetooth">iPhone X</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-keo">iPhone XS</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh">iPhone XR</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-tivi-soundbar">iPhone X pro</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh">iPhone X pro max</a></li>
-                              </ul>                    
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iPhone-X">iPhone X</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iPhone-XS">iPhone XS</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iPhone-XR">iPhone XR</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iPhone-X-Pro">iPhone X pro</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iPhone-X-Pro-Max">iPhone X pro max</a></li>
+                              </ul>
                            </li>
-                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1292"><a href="http://localhost:8080/apple/iphone-se/">iPhone SE</a>
+                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1292"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-se/">iPhone SE</a>
                            </li>
                            <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1291">
-                              <a href="http://localhost:8080/apple/iphone-11-series/">iPhone 11 Series</a>
+                              <a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-11">iPhone 11 Series</a>
                               <ul class="sub-menu nav-column">
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-bluetooth">iPhone 11</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-keo">iPhone 11 Mini</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-tivi-soundbar">iPhone 11 pro</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh">iPhone 11 Pro Max</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-11">iPhone 11</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-11-Mini">iPhone 11 Mini</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-11-Pro">iPhone 11 pro</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-11-Pro-Max">iPhone 11 Pro Max</a></li>
                               </ul>
                            </li>
                            <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1291">
-                              <a href="http://localhost:8080/apple/iphone-12-series/">iPhone 12 Series</a>
+                              <a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-12">iPhone 12 Series</a>
                               <ul class="sub-menu nav-column">
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-bluetooth">iPhone 12</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-keo">iPhone 12 Mini</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-tivi-soundbar">iPhone 12 pro</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh">iPhone 12 Pro Max</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-12">iPhone 12</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-12-Mini">iPhone 12 Mini</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-12-Pro">iPhone 12 pro</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-12-Pro-Max">iPhone 12 Pro Max</a></li>
                               </ul>
                            </li>
                            <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1293">
-                              <a href="http://localhost:8080/apple/iphone-13-series/">iPhone 13 Series</a>
+                              <a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-13">iPhone 13 Series</a>
                               <ul class="sub-menu nav-column">
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-bluetooth">iPhone 13</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-keo">iPhone 13 Mini</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-tivi-soundbar">iPhone 13 pro</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh">iPhone 13 Pro Max</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/iphone-13">iPhone 13</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-13-Mini">iPhone 13 Mini</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-13-Pro">iPhone 13 pro</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-13-Pro-Max">iPhone 13 Pro Max</a></li>
                               </ul>
                            </li>
                            <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1292">
-                              <a href="http://localhost:8080/apple/iphone-se/">iPhone 14 Series</a>
+                              <a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-14">iPhone 14 Series</a>
                               <ul class="sub-menu nav-column">
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-bluetooth">iPhone 14</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-keo">iPhone 14 Mini</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-tivi-soundbar">iPhone 14 pro</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh">iPhone 14 Pro Max</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-14">iPhone 14</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-14-Mini">iPhone 14 Mini</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-14-Pro">iPhone 14 pro</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-14-Pro-Max">iPhone 14 Pro Max</a></li>
                               </ul>
                            </li>
                            <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1292">
-                              <a href="http://localhost:8080/apple/iphone-se/">iPhone 15 Series</a>
+                              <a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-15">iPhone 15 Series</a>
                               <ul class="sub-menu nav-column">
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-bluetooth/">iPhone 15</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-keo/">iPhone 15 Mini</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-tivi-soundbar/">iPhone 15 pro</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh/">iPhone 15 Pro Max</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-15">iPhone 15</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-15-Mini">iPhone 15 Mini</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-15-Pro">iPhone 15 pro</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-15-Pro-Max">iPhone 15 Pro Max</a></li>
                               </ul>
                            </li>
                            <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1292">
-                              <a href="http://localhost:8080/apple/iphone-se/">iPhone 16 Series</a>
+                              <a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-16">iPhone 16 Series</a>
                               <ul class="sub-menu nav-column">
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-bluetooth/">iPhone 16</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-keo/">iPhone 16 Mini</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-tivi-soundbar/">iPhone 16 pro</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh/">iPhone 16 Pro Max</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-16">iPhone 16</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-16-Mini">iPhone 16 Mini</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-16-Pro">iPhone 16 pro</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-16-Pro-Max">iPhone 16 Pro Max</a></li>
                               </ul>
                            </li>
                            <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1292">
-                              <a href="http://localhost:8080/apple/iphone-se/">iPhone 17 Series</a>
+                              <a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-17">iPhone 17 Series</a>
                               <ul class="sub-menu nav-column">
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-bluetooth">iPhone 17</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-keo">iPhone 17 Mini</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-tivi-soundbar">iPhone 17 pro</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh">iPhone 17 Pro Max</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-17">iPhone 17</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-17-Mini">iPhone 17 Mini</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-17-Pro">iPhone 17 pro</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/apple/danh-muc/san-pham/iphone-17-Pro-Max">iPhone 17 Pro Max</a></li>
                               </ul>
                            </li>
                         </ul>
@@ -97,150 +99,147 @@
                      </li>
                      <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-has-children menu-item-27 menu-item-design-default has-dropdown has-icon-left has-child" aria-expanded="false">
                      <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-36">
-                        <a style="width:88%" href="http://localhost:8080/samsung">Samsung</a>
-                        <svg stroke="currentColor" style="margin-right: 9px;" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="ml-auto size-5 text-neutral-400" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="m184 112 144 144-144 144"></path></svg>
+                        <a style="width:88%" href="https://clause-headline-mild-bizrate.trycloudflare.com/samsung">Samsung</a>
+                        <svg stroke="currentColor" style="margin-right: 9px;" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="ml-auto size-5 text-neutral-400" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                           <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="m184 112 144 144-144 144"></path>
+                        </svg>
                         <button class="toggle" aria-label="Chuyển đổi"><i class="icon-angle-down" aria-hidden="true"></i></button>
                         <ul class="sub-menu nav-column">
                            <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1290">
-                              <a href="http://localhost:8080/apple/iphone-11-series">Galaxy S</a>
+                              <a href="https://clause-headline-mild-bizrate.trycloudflare.com/Samsung/danh-muc/san-pham/Galaxy">Galaxy S</a>
                               <ul class="sub-menu nav-column">
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-bluetooth">Galaxy S20</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-keo/">Galaxy S21</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-tivi-soundbar/">Galaxy S22</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh/">Galaxy S23</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh/">Galaxy S24</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/Samsung/danh-muc/san-pham/Galaxy-S20">Galaxy S20</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/Samsung/danh-muc/san-pham/Galaxy-S21">Galaxy S21</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/Samsung/danh-muc/san-pham/Galaxy-S21">Galaxy S22</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/Samsung/danh-muc/san-pham/Galaxy-S23">Galaxy S23</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/Samsung/danh-muc/san-pham/Galaxy-S24">Galaxy S24</a></li>
                               </ul>
                            </li>
                            <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1291">
-                              <a href="http://localhost:8080/apple/iphone-12-series">Galaxy Note</a>
+                              <a href="https://clause-headline-mild-bizrate.trycloudflare.com/Samsung/Galaxy Note">Galaxy Note</a>
                               <ul class="sub-menu nav-column">
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-bluetooth/">Galaxy Note 15</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-keo/">Galaxy Note 16</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-tivi-soundbar/">Galaxy Note 17</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh/">Galaxy Note 18</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh/">Galaxy Note 19</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh/">Galaxy Note 20</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/Samsung/danh-muc/san-pham/Galaxy-Note-15">Galaxy Note 15</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/Samsung/danh-muc/san-pham/Galaxy-Note-16">Galaxy Note 16</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/Samsung/danh-muc/san-pham/Galaxy-Note-17">Galaxy Note 17</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/Samsung/danh-muc/san-pham/Galaxy-Note-18">Galaxy Note 18</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/Samsung/danh-muc/san-pham/Galaxy-Note-19">Galaxy Note 19</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/Samsung/danh-muc/san-pham/Galaxy-Note-20">Galaxy Note 20</a></li>
                               </ul>
-                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1292"><a href="http://localhost:8080/apple/iphone-se/">Galaxy A</a></li>
-                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1293"><a href="http://localhost:8080/apple/iphone-13-series/">Galaxy M</a></li>
-                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1293"><a href="http://localhost:8080/apple/iphone-13-series/">Galaxy Z Fold</a></li>
+                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1292"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/Samsung/danh-muc/san-pham/Galaxy-A">Galaxy A</a></li>
+                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1293"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/Samsung/danh-muc/san-pham/Galaxy-M">Galaxy M</a></li>
+                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1293"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/Samsung/danh-muc/san-pham/Galaxy-Z-Fold">Galaxy Z Fold</a></li>
                         </ul>
                      </li>
                      <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-has-children menu-item-27 menu-item-design-default has-dropdown has-icon-left has-child" aria-expanded="false">
-<li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat">
-    <a style="width:88%" href="http://localhost:8080/xiaomi">Xiaomi</a>
-                        <svg stroke="currentColor" style="margin-right: 9px;" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="ml-auto size-5 text-neutral-400" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="m184 112 144 144-144 144"></path></svg>
-    <button class="toggle" aria-label="Chuyển đổi"><i class="icon-angle-down" aria-hidden="true"></i></button>
-    <ul class="sub-menu nav-column">
-        
-        <li class="menu-item menu-item-has-children">
-            <a href="http://localhost:8080/xiaomi/xiaomi-series">Xiaomi Series (Flagship)</a>
-            <ul class="sub-menu">
-                <li><a href="http://localhost:8080/xiaomi/xiaomi-14-ultra">Xiaomi 14 Ultra</a></li>
-                <li><a href="http://localhost:8080/xiaomi/xiaomi-14">Xiaomi 14</a></li>
-                <li><a href="http://localhost:8080/xiaomi/xiaomi-13-series">Xiaomi 13 Series</a></li>
-            </ul>
-        </li>
-
-        <li class="menu-item menu-item-has-children">
-            <a  href="http://localhost:8080/xiaomi/redmi-note-series/">Redmi Note Series</a>
-            <ul class="sub-menu">
-                <li><a href="http://localhost:8080/xiaomi/redmi-note-13-pro-plus">Redmi Note 13 Pro+</a></li>
-                <li><a href="http://localhost:8080/xiaomi/redmi-note-13">Redmi Note 13</a></li>
-                <li><a href="http://localhost:8080/xiaomi/redmi-note-12-series">Redmi Note 12 Series</a></li>
-            </ul>
-        </li>
-
-        <li class="menu-item">
-            <a href="http://localhost:8080/xiaomi/redmi-series/">Redmi (Dòng phổ thông)</a>
-        </li>
-
-        <li class="menu-item">
-            <a href="http://localhost:8080/xiaomi/poco-series/">POCO Series</a>
-        </li>
-
-    </ul>
-</li>
+                     <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat">
+                        <a style="width:88%" href="https://clause-headline-mild-bizrate.trycloudflare.com/xiaomi">Xiaomi</a>
+                        <svg stroke="currentColor" style="margin-right: 9px;" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="ml-auto size-5 text-neutral-400" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                           <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="m184 112 144 144-144 144"></path>
+                        </svg>
+                        <button class="toggle" aria-label="Chuyển đổi"><i class="icon-angle-down" aria-hidden="true"></i></button>
+                        <ul class="sub-menu nav-column">
+                           <li class="menu-item menu-item-has-children">
+                              <a href="https://clause-headline-mild-bizrate.trycloudflare.com/xiaomi/danh-muc/san-pham/xiaomi">Xiaomi Series (Flagship)</a>
+                              <ul class="sub-menu">
+                                 <li><a href="https://clause-headline-mild-bizrate.trycloudflare.com/xiaomi/danh-muc/san-pham/xiaomi-14-ultra">Xiaomi 14 Ultra</a></li>
+                                 <li><a href="https://clause-headline-mild-bizrate.trycloudflare.com/xiaomi/danh-muc/san-pham/xiaomi-14">Xiaomi 14</a></li>
+                                 <li><a href="https://clause-headline-mild-bizrate.trycloudflare.com/xiaomi/danh-muc/san-pham/xiaomi-13">Xiaomi 13 Series</a></li>
+                              </ul>
+                           </li>
+                           <li class="menu-item menu-item-has-children">
+                              <a  href="https://clause-headline-mild-bizrate.trycloudflare.com/xiaomi/danh-muc/san-pham/redmi-note">Redmi Note Series</a>
+                              <ul class="sub-menu">
+                                 <li><a href="https://clause-headline-mild-bizrate.trycloudflare.com/xiaomi/danh-muc/san-pham/redmi-note-13-pro">Redmi Note 13 Pro+</a></li>
+                                 <li><a href="https://clause-headline-mild-bizrate.trycloudflare.com/xiaomi/danh-muc/san-pham/redmi-note-13">Redmi Note 13</a></li>
+                                 <li><a href="https://clause-headline-mild-bizrate.trycloudflare.com/xiaomi/danh-muc/san-pham/redmi-note-12">Redmi Note 12 Series</a></li>
+                              </ul>
+                           </li>
+                           <li class="menu-item">
+                              <a href="https://clause-headline-mild-bizrate.trycloudflare.com/xiaomi/danh-muc/san-pham/redmi/">Redmi (Dòng phổ thông)</a>
+                           </li>
+                           <li class="menu-item">
+                              <a href="https://clause-headline-mild-bizrate.trycloudflare.com/xiaomi/danh-muc/san-pham/poco/">POCO Series</a>
+                           </li>
+                        </ul>
+                     </li>
                      </li>
                      <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-has-children menu-item-27 menu-item-design-default has-dropdown has-icon-left has-child" aria-expanded="false">
                      <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat">
-    <a style="width:88%" href="http://localhost:8080/oppo">OPPO</a>
-   <svg stroke="currentColor" style="margin-right: 9px;" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="ml-auto size-5 text-neutral-400" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="m184 112 144 144-144 144"></path></svg>
-
-    <button class="toggle" aria-label="Chuyển đổi"><i class="icon-angle-down" aria-hidden="true"></i></button>
-    <ul class="sub-menu nav-column">
-        
-        <li class="menu-item menu-item-has-children">
-            <a href="http://localhost:8080/oppo/find-series">Find Series (Cao cấp)</a>
-            <ul class="sub-menu">
-                <li><a href="http://localhost:8080/oppo/find-n3-series">Find N3 | N3 Flip</a></li>
-                <li><a href="http://localhost:8080/oppo/find-x7-series">Find X7 Series</a></li>
-            </ul>
-        </li>
-
-        <li class="menu-item menu-item-has-children">
-            <a style="width:88%" href="http://localhost:8080/oppo/reno-series">Reno Series</a>
-            <ul class="sub-menu">
-                <li><a href="http://localhost:8080/oppo/reno12-series">OPPO Reno12 Series</a></li>
-                <li><a href="http://localhost:8080/oppo/reno11-series">OPPO Reno11 Series</a></li>
-                <li><a href="http://localhost:8080/oppo/reno10-series">OPPO Reno10 Series</a></li>
-            </ul>
-        </li>
-
-        <li class="menu-item menu-item-has-children">
-            <a href="http://localhost:8080/oppo/a-series">A Series (Giá rẻ)</a>
-            <ul class="sub-menu">
-                <li><a href="http://localhost:8080/oppo/oppo-a98/">OPPO A98</a></li>
-                <li><a href="http://localhost:8080/oppo/oppo-a78/">OPPO A78</a></li>
-                <li><a href="http://localhost:8080/oppo/oppo-a58/">OPPO A58</a></li>
-                <li><a href="http://localhost:8080/oppo/oppo-a18/">OPPO A18</a></li>
-            </ul>
-        </li>
-
-    </ul>
-</li>
-                    <li class="menu-item menu-item-has-children has-dropdown">
-    <a style="width:88%" href="http://localhost:8080/realme">Realme</a>
-    <svg stroke="currentColor" style="margin-right: 9px;" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="ml-auto size-5 text-neutral-400" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="m184 112 144 144-144 144"></path></svg>
-    <ul class="sub-menu">
-        <li><a href="http://localhost:8080/realme/gt-series/">Realme GT Series</a></li>
-        <li><a href="http://localhost:8080/realme/number-series/">Realme Number Series</a></li>
-        <li><a href="http://localhost:8080/realme/c-series/">Realme C Series</a></li>
-    </ul>
-</li>
-
-<li class="menu-item menu-item-has-children has-dropdown">
-    <a style="width:88%" href="http://localhost:8080/vivo">Vivo</a>
-    <svg stroke="currentColor" style="margin-right: 9px;" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="ml-auto size-5 text-neutral-400" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="m184 112 144 144-144 144"></path></svg>
-    <ul class="sub-menu">
-        <li><a href="http://localhost:8080/vivo/x-series/">Vivo X Series</a></li>
-        <li><a href="http://localhost:8080/vivo/v-series/">Vivo V Series</a></li>
-        <li><a href="http://localhost:8080/vivo/y-series/">Vivo Y Series</a></li>
-    </ul>
-</li>
-
-<li class="menu-item menu-item-has-children has-dropdown">
-    <a style="width:88%" href="http://localhost:8080/asus">ASUS</a>
-     <svg stroke="currentColor" style="margin-right: 9px;" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="ml-auto size-5 text-neutral-400" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="m184 112 144 144-144 144"></path></svg>
-    <ul class="sub-menu">
-        <li><a href="http://localhost:8080/asus/rog-phone/">ROG Phone</a></li>
-        <li><a href="http://localhost:8080/asus/zenfone/">Zenfone</a></li>
-    </ul>
-</li>
-
-<li class="menu-item">
-    <a style="width:88%" href="http://localhost:8080/nokia">Nokia</a>
-</li>
-
-<li class="menu-item">
-    <a style="width:88%" href="http://localhost:8080/oneplus">OnePlus</a>
-</li>
-
-<li class="menu-item">
-    <a style="width:88%" href="http://localhost:8080/vsmart">Vsmart</a>
-</li>
+                        <a style="width:88%" href="https://clause-headline-mild-bizrate.trycloudflare.com/oppo">OPPO</a>
+                        <svg stroke="currentColor" style="margin-right: 9px;" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="ml-auto size-5 text-neutral-400" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                           <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="m184 112 144 144-144 144"></path>
+                        </svg>
+                        <button class="toggle" aria-label="Chuyển đổi"><i class="icon-angle-down" aria-hidden="true"></i></button>
+                        <ul class="sub-menu nav-column">
+                           <li class="menu-item menu-item-has-children">
+                              <a href="https://clause-headline-mild-bizrate.trycloudflare.com/oppo/danh-muc/san-pham/find">Find Series (Cao cấp)</a>
+                              <ul class="sub-menu">
+                                 <li><a href="https://clause-headline-mild-bizrate.trycloudflare.com/oppo/danh-muc/san-pham/find-n3">Find N3 | N3 Flip</a></li>
+                                 <li><a href="https://clause-headline-mild-bizrate.trycloudflare.com/oppo/danh-muc/san-pham/find-x7">Find X7 Series</a></li>
+                              </ul>
+                           </li>
+                           <li class="menu-item menu-item-has-children">
+                              <a style="width:88%" href="https://clause-headline-mild-bizrate.trycloudflare.com/oppo/danh-muc/san-pham/reno">Reno Series</a>
+                              <ul class="sub-menu">
+                                 <li><a href="https://clause-headline-mild-bizrate.trycloudflare.com/oppo/danh-muc/san-pham/reno12">OPPO Reno12 Series</a></li>
+                                 <li><a href="https://clause-headline-mild-bizrate.trycloudflare.com/oppo/danh-muc/san-pham/reno11">OPPO Reno11 Series</a></li>
+                                 <li><a href="https://clause-headline-mild-bizrate.trycloudflare.com/oppo/danh-muc/san-pham/reno10">OPPO Reno10 Series</a></li>
+                              </ul>
+                           </li>
+                           <li class="menu-item menu-item-has-children">
+                              <a href="https://clause-headline-mild-bizrate.trycloudflare.com/oppo/danh-muc/san-pham/a">A Series (Giá rẻ)</a>
+                              <ul class="sub-menu">
+                                 <li><a href="https://clause-headline-mild-bizrate.trycloudflare.com/oppo/danh-muc/san-pham/oppo-a98">OPPO A98</a></li>
+                                 <li><a href="https://clause-headline-mild-bizrate.trycloudflare.com/oppo/danh-muc/san-pham/oppo-a78">OPPO A78</a></li>
+                                 <li><a href="https://clause-headline-mild-bizrate.trycloudflare.com/oppo/danh-muc/san-pham/oppo-a58">OPPO A58</a></li>
+                                 <li><a href="https://clause-headline-mild-bizrate.trycloudflare.com/oppo/danh-muc/san-pham/oppo-a18">OPPO A18</a></li>
+                              </ul>
+                           </li>
+                        </ul>
+                     </li>
+                     <li class="menu-item menu-item-has-children has-dropdown">
+                        <a style="width:88%" href="https://clause-headline-mild-bizrate.trycloudflare.com/realme">Realme</a>
+                        <svg stroke="currentColor" style="margin-right: 9px;" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="ml-auto size-5 text-neutral-400" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                           <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="m184 112 144 144-144 144"></path>
+                        </svg>
+                        <ul class="sub-menu">
+                           <li><a href="https://clause-headline-mild-bizrate.trycloudflare.com/realme/danh-muc/san-pham/gt">Realme GT Series</a></li>
+                           <li><a href="https://clause-headline-mild-bizrate.trycloudflare.com/realme/danh-muc/san-pham/number">Realme Number Series</a></li>
+                           <li><a href="https://clause-headline-mild-bizrate.trycloudflare.com/realme/danh-muc/san-pham/c">Realme C Series</a></li>
+                        </ul>
+                     </li>
+                     <li class="menu-item menu-item-has-children has-dropdown">
+                        <a style="width:88%" href="https://clause-headline-mild-bizrate.trycloudflare.com/vivo">Vivo</a>
+                        <svg stroke="currentColor" style="margin-right: 9px;" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="ml-auto size-5 text-neutral-400" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                           <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="m184 112 144 144-144 144"></path>
+                        </svg>
+                        <ul class="sub-menu">
+                           <li><a href="https://clause-headline-mild-bizrate.trycloudflare.com/vivo/danh-muc/san-pham/x">Vivo X Series</a></li>
+                           <li><a href="https://clause-headline-mild-bizrate.trycloudflare.com/vivo/danh-muc/san-pham/v">Vivo V Series</a></li>
+                           <li><a href="https://clause-headline-mild-bizrate.trycloudflare.com/vivo/danh-muc/san-pham/y">Vivo Y Series</a></li>
+                        </ul>
+                     </li>
+                     <li class="menu-item menu-item-has-children has-dropdown">
+                        <a style="width:88%" href="https://clause-headline-mild-bizrate.trycloudflare.com/asus">ASUS</a>
+                        <svg stroke="currentColor" style="margin-right: 9px;" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="ml-auto size-5 text-neutral-400" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                           <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="m184 112 144 144-144 144"></path>
+                        </svg>
+                        <ul class="sub-menu">
+                           <li><a href="https://clause-headline-mild-bizrate.trycloudflare.com/asus/rog-phone">ROG Phone</a></li>
+                           <li><a href="https://clause-headline-mild-bizrate.trycloudflare.com/asus/zenfone">Zenfone</a></li>
+                        </ul>
+                     </li>
+                     <li class="menu-item">
+                        <a style="width:88%" href="https://clause-headline-mild-bizrate.trycloudflare.com/nokia">Nokia</a>
+                     </li>
+                     <li class="menu-item">
+                        <a style="width:88%" href="https://clause-headline-mild-bizrate.trycloudflare.com/oneplus">OnePlus</a>
+                     </li>
+                     <li class="menu-item">
+                        <a style="width:88%" href="https://clause-headline-mild-bizrate.trycloudflare.com/vsmart">Vsmart</a>
+                     </li>
                      <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-has-children menu-item-27 menu-item-design-default has-dropdown has-icon-left has-child" aria-expanded="false">
-                     <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1284"><a href="http://localhost:8080/oneplus/">Điện thoại phổ thông</a></li>
+                     <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1284"><a href="https://clause-headline-mild-bizrate.trycloudflare.com/oneplus/">Điện thoại phổ thông</a></li>
                      </li>
                   </ul>
                </div>
@@ -251,12 +250,12 @@
          <div class="swiper-container">
             <div class="mySwiper2 swiper-initialized swiper-horizontal swiper-backface-hidden">
                <div class="swiper-wrapper" id="swiper-wrapper-b8945dddd39e32a4" aria-live="off" style="transition-duration: 0ms; transform: translate3d(-3700px, 0px, 0px); transition-delay: 0ms;">
-                  <div class="swiper-slide swiper-slide-next" style="width: 740px;" role="group" aria-label="3 / 6" data-swiper-slide-index="2"><a href=""><img src="http://localhost:8080/assets/img/banner/samsung_mua_nhi_u.png"></a></div>
-                  <div class="swiper-slide" style="width: 740px;" role="group" aria-label="4 / 6" data-swiper-slide-index="3"><a href=""><img src="http://localhost:8080/assets/img/banner/T3300-new.png"></a></div>
-                  <div class="swiper-slide" style="width: 740px;" role="group" aria-label="5 / 6" data-swiper-slide-index="4"><a href=""><img src="http://localhost:8080/assets/img/banner/TV.png"></a></div>
-                  <div class="swiper-slide" role="group" aria-label="6 / 6" data-swiper-slide-index="5" style="width: 740px;"><a href=""><img src="http://localhost:8080/assets/img/banner/13ACL6.png"></a></div>
-                  <div class="swiper-slide swiper-slide-prev" style="width: 740px;" role="group" aria-label="1 / 6" data-swiper-slide-index="0"><a href=""><img src="http://localhost:8080/assets/img/banner/A73.png"></a></div>
-                  <div class="swiper-slide swiper-slide-active" style="width: 740px;" role="group" aria-label="2 / 6" data-swiper-slide-index="1"><a href=""><img src="http://localhost:8080/assets/img/banner/iPhone_11-new.png"></a></div>
+                  <div class="swiper-slide swiper-slide-next" style="width: 740px;" role="group" aria-label="3 / 6" data-swiper-slide-index="2"><a href=""><img src="https://clause-headline-mild-bizrate.trycloudflare.com/assets/img/banner/samsung_mua_nhi_u.png"></a></div>
+                  <div class="swiper-slide" style="width: 740px;" role="group" aria-label="4 / 6" data-swiper-slide-index="3"><a href=""><img src="https://clause-headline-mild-bizrate.trycloudflare.com/assets/img/banner/T3300-new.png"></a></div>
+                  <div class="swiper-slide" style="width: 740px;" role="group" aria-label="5 / 6" data-swiper-slide-index="4"><a href=""><img src="https://clause-headline-mild-bizrate.trycloudflare.com/assets/img/banner/TV.png"></a></div>
+                  <div class="swiper-slide" role="group" aria-label="6 / 6" data-swiper-slide-index="5" style="width: 740px;"><a href=""><img src="https://clause-headline-mild-bizrate.trycloudflare.com/assets/img/banner/13ACL6.png"></a></div>
+                  <div class="swiper-slide swiper-slide-prev" style="width: 740px;" role="group" aria-label="1 / 6" data-swiper-slide-index="0"><a href=""><img src="https://clause-headline-mild-bizrate.trycloudflare.com/assets/img/banner/A73.png"></a></div>
+                  <div class="swiper-slide swiper-slide-active" style="width: 740px;" role="group" aria-label="2 / 6" data-swiper-slide-index="1"><a href=""><img src="https://clause-headline-mild-bizrate.trycloudflare.com/assets/img/banner/iPhone_11-new.png"></a></div>
                </div>
                <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-b8945dddd39e32a4">
                   <svg class="swiper-navigation-icon" width="11" height="20" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -439,7 +438,7 @@
                   <div class="img has-hover hide-for-medium x md-x lg-x y md-y lg-y" id="image_938452842">
                      <a class="" href="#">
                         <div class="img-inner dark">
-                           <img fetchpriority="high" decoding="async" width="1200" height="75" src="http://localhost:8080/assets/img/banner/km-o-Special_Banner_1200x75_6.jpg" class="attachment-original size-original" alt="">						
+                           <img fetchpriority="high" decoding="async" width="1200" height="75" src="https://clause-headline-mild-bizrate.trycloudflare.com/assets/img/banner/km-o-Special_Banner_1200x75_6.jpg" class="attachment-original size-original" alt="">						
                         </div>
                      </a>
                      <style>
@@ -450,7 +449,7 @@
                   </div>
                   <div class="img has-hover show-for-medium x md-x lg-x y md-y lg-y" id="image_975644744">
                      <div class="img-inner dark" style="margin:0px 0px 10px 0px;">
-                        <img decoding="async" width="800" height="150" src="http://localhost:8080/wp-content/uploads/2021/08/banner-ads-mobile.png" class="attachment-original size-original" alt="">						
+                        <img decoding="async" width="800" height="150" src="https://clause-headline-mild-bizrate.trycloudflare.com/wp-content/uploads/2021/08/banner-ads-mobile.png" class="attachment-original size-original" alt="">						
                      </div>
                      <style>
                         #image_975644744 {
@@ -490,12 +489,13 @@
             <div id="col-68942984" class="col brand-items medium-12 small-12 large-9">
                <div class="col-inner text-left">
                   <div class="list-brand-items2">
-                     <a title="Apple" href="/apple">Apple</a>
-                     <a title="Samsung" href="/samsung">Samsung</a>
-                     <a title="Xiaomi" href="/xiaomi">Xiaomi</a>
-                     <a title="OPPO" href="/oppo">OPPO</a>
-                     <a title="Realme" href="/realme">Realme</a>
-                     <a title="Xem tất cả" href="/">Xem tất cả</a>
+
+    <c:forEach items="${nsx}" var="item">
+        <a title="${item.tenNSX}" style=" text-transform: capitalize;" href="/${item.tenNSX.toLowerCase()}">
+            ${item.tenNSX}
+        </a>
+    </c:forEach>
+
                   </div>
                </div>
             </div>
@@ -513,7 +513,7 @@
                                  <div class="box-image">
                                     <div class="image-none">
                                        <a href="/san-pham/${sp.tenSanPham}" aria-label="${sp.tenSanPham}">
-                                       <img loading="lazy" decoding="async" width="470" height="488" src="http://localhost:8080/img/${sp.anh}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="">				</a>
+                                       <img loading="lazy" decoding="async" width="470" height="488" src="../../../img/${sp.anh}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="">				</a>
                                        <div class="item-hotsale"></div>
                                     </div>
                                     <div class="image-tools is-small top right show-on-hover">
@@ -525,13 +525,25 @@
                                  </div>
                                  <div class="box-text box-text-products">
                                     <div class="title-wrapper">
-                                       <p class="name product-title woocommerce-loop-product__title"><a href="/san-pham/${sp.tenSanPham}" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">${sp.tenSanPham}</a></p>
+                                       <p class="name product-title woocommerce-loop-product__title">
+                                          <a href="/san-pham/${sp.tenSanPham}" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">${sp.tenSanPham}</a>
+                                       </p>
                                     </div>
                                     <div class="price-wrapper">
-                                       <div class="star-rating" title="Rated 5 out of 5">
-                                          <span style="width:100%">
-                                          <strong class="rating">5</strong> out of 5</span>
-                                       </div>
+                                       <c:choose>
+                                          <c:when test="${sp.tongBinhLuan > 0}">
+                                             <div class="star-rating" title="Rated 5 out of 5">
+                                                <span style="width:${sp.diemTrungBinh * 20}%">
+                                                <strong class="rating">5</strong> out of 5</span>
+                                             </div>
+                                          </c:when>
+                                          <c:otherwise>
+                                             <div class="star-rating" style="opacity: 0;" title="Rated 5 out of 5">
+                                                <span style="display:none">
+                                                <strong class="rating">5</strong> out of 5</span>
+                                             </div>
+                                          </c:otherwise>
+                                       </c:choose>
                                        <span class="price">
                                           <%-- Nếu có giá khuyến mãi và nhỏ hơn giá gốc --%>
                                           <c:choose>
@@ -565,7 +577,14 @@
                                           </c:choose>
                                        </span>
                                        <div class="promotion">Thu cũ lên đời - Trợ giá 1 triệu</div>
-                                       <span class="text-count-review">2 đánh giá</span>
+                                       <c:choose>
+                                          <c:when test="${sp.tongBinhLuan > 0}">
+                                             <span class="text-count-review">  ${sp.tongBinhLuan} đánh giá</span>
+                                          </c:when>
+                                          <c:otherwise>
+                                             <span class="text-count-review">Chưa có đánh giá</span>
+                                          </c:otherwise>
+                                       </c:choose>
                                     </div>
                                  </div>
                               </div>
@@ -585,306 +604,306 @@
       </style>
    </section>
    <section class="section pk-home" id="section_512847781">
-      <div class="section-bg fill">
-      </div>
-      <div class="section-content relative">
-         <div class="row align-middle pdb-0" id="row-94458386">
-            <div id="col-1368762419" class="col medium-12 small-12 large-3">
-               <div class="col-inner">
-                  <h3>DANH MỤC PHỤ KIỆN</h3>
-                  <a href="/danh-muc-san-pham/phu-kien/" class="button primary is-link btn-read-more show-for-medium">
-                  <span>Xem tất cả</span>
-                  </a>
+      <%-- <div class="section-bg fill">
+         </div>
+         <div class="section-content relative">
+            <div class="row align-middle pdb-0" id="row-94458386">
+               <div id="col-1368762419" class="col medium-12 small-12 large-3">
+                  <div class="col-inner">
+                     <h3>DANH MỤC PHỤ KIỆN</h3>
+                     <a href="/phu-kien/" class="button primary is-link btn-read-more show-for-medium">
+                     <span>Xem tất cả</span>
+                     </a>
+                  </div>
                </div>
             </div>
-         </div>
-         <div class="row" id="row-2134507371">
-            <div id="col-139258056" class="col phu-kien small-12 large-12">
-               <div class="col-inner">
-                  <a class="plain" href="http://danh-muc-san-pham/phu-kien/phu-kien-apple/">
-                     <div class="icon-box featured-box icon-box-center text-center">
-                        <div class="icon-box-img" style="width: 110px">
-                           <div class="icon">
-                              <div class="icon-inner">
-                                 <img loading="lazy" decoding="async" width="262" height="300" src="http://localhost:8080/wp-content/uploads/2022/04/phu-kien-apple.png" class="attachment-medium size-medium" alt="">					
+            <div class="row" id="row-2134507371">
+               <div id="col-139258056" class="col phu-kien small-12 large-12">
+                  <div class="col-inner">
+                     <a class="plain" href="http://phu-kien/phu-kien-apple/">
+                        <div class="icon-box featured-box icon-box-center text-center">
+                           <div class="icon-box-img" style="width: 110px">
+                              <div class="icon">
+                                 <div class="icon-inner">
+                                    <img loading="lazy" decoding="async" width="262" height="300" src="https://clause-headline-mild-bizrate.trycloudflare.com/wp-content/uploads/2022/04/phu-kien-apple.png" class="attachment-medium size-medium" alt="">					
+                                 </div>
                               </div>
                            </div>
-                        </div>
-                        <div class="icon-box-text last-reset">
-                           <p>Phụ kiện Apple</p>
-                        </div>
-                     </div>
-                  </a>
-                  <a class="plain" href="/danh-muc-san-pham/phu-kien/pin-du-phong/">
-                     <div class="icon-box featured-box icon-box-center text-center">
-                        <div class="icon-box-img" style="width: 110px">
-                           <div class="icon">
-                              <div class="icon-inner">
-                                 <img loading="lazy" decoding="async" width="262" height="300" src="http://localhost:8080/wp-content/uploads/2022/04/pin-du-phong.png" class="attachment-medium size-medium" alt="">					
-                              </div>
+                           <div class="icon-box-text last-reset">
+                              <p>Phụ kiện Apple</p>
                            </div>
                         </div>
-                        <div class="icon-box-text last-reset">
-                           <p>Pin dự phòng</p>
-                        </div>
-                     </div>
-                  </a>
-                  <a class="plain" href="/danh-muc-san-pham/phu-kien/dan-dien-thoai-laptop/">
-                     <div class="icon-box featured-box icon-box-center text-center">
-                        <div class="icon-box-img" style="width: 110px">
-                           <div class="icon">
-                              <div class="icon-inner">
-                                 <img loading="lazy" decoding="async" width="262" height="300" src="http://localhost:8080/wp-content/uploads/2022/04/dan-man-hinh.png" class="attachment-medium size-medium" alt="">					
+                     </a>
+                     <a class="plain" href="/phu-kien/pin-du-phong/">
+                        <div class="icon-box featured-box icon-box-center text-center">
+                           <div class="icon-box-img" style="width: 110px">
+                              <div class="icon">
+                                 <div class="icon-inner">
+                                    <img loading="lazy" decoding="async" width="262" height="300" src="https://clause-headline-mild-bizrate.trycloudflare.com/wp-content/uploads/2022/04/pin-du-phong.png" class="attachment-medium size-medium" alt="">					
+                                 </div>
                               </div>
                            </div>
-                        </div>
-                        <div class="icon-box-text last-reset">
-                           <p>Dán màn hình</p>
-                        </div>
-                     </div>
-                  </a>
-                  <a class="plain" href="/danh-muc-san-pham/phu-kien/day-deo-dong-ho/">
-                     <div class="icon-box featured-box icon-box-center text-center">
-                        <div class="icon-box-img" style="width: 110px">
-                           <div class="icon">
-                              <div class="icon-inner">
-                                 <img loading="lazy" decoding="async" width="262" height="300" src="http://localhost:8080/wp-content/uploads/2022/04/day-deo-dong-ho.png" class="attachment-medium size-medium" alt="">					
-                              </div>
+                           <div class="icon-box-text last-reset">
+                              <p>Pin dự phòng</p>
                            </div>
                         </div>
-                        <div class="icon-box-text last-reset">
-                           <p>Dây đồng hồ</p>
-                        </div>
-                     </div>
-                  </a>
-                  <a class="plain" href="/danh-muc-san-pham/phu-kien/the-nho-usb/">
-                     <div class="icon-box featured-box icon-box-center text-center">
-                        <div class="icon-box-img" style="width: 110px">
-                           <div class="icon">
-                              <div class="icon-inner">
-                                 <img loading="lazy" decoding="async" width="262" height="300" src="http://localhost:8080/wp-content/uploads/2022/04/the-nho-usb.png" class="attachment-medium size-medium" alt="">					
+                     </a>
+                     <a class="plain" href="/phu-kien/dan-dien-thoai-laptop/">
+                        <div class="icon-box featured-box icon-box-center text-center">
+                           <div class="icon-box-img" style="width: 110px">
+                              <div class="icon">
+                                 <div class="icon-inner">
+                                    <img loading="lazy" decoding="async" width="262" height="300" src="https://clause-headline-mild-bizrate.trycloudflare.com/wp-content/uploads/2022/04/dan-man-hinh.png" class="attachment-medium size-medium" alt="">					
+                                 </div>
                               </div>
                            </div>
-                        </div>
-                        <div class="icon-box-text last-reset">
-                           <p>Thẻ nhớ</p>
-                        </div>
-                     </div>
-                  </a>
-                  <a class="plain" href="/danh-muc-san-pham/phu-kien/camera/">
-                     <div class="icon-box featured-box icon-box-center text-center">
-                        <div class="icon-box-img" style="width: 110px">
-                           <div class="icon">
-                              <div class="icon-inner">
-                                 <img loading="lazy" decoding="async" width="262" height="300" src="http://localhost:8080/wp-content/uploads/2022/04/camera.png" class="attachment-medium size-medium" alt="">					
-                              </div>
+                           <div class="icon-box-text last-reset">
+                              <p>Dán màn hình</p>
                            </div>
                         </div>
-                        <div class="icon-box-text last-reset">
-                           <p>Camera</p>
-                        </div>
-                     </div>
-                  </a>
-                  <a class="plain" href="/danh-muc-san-pham/phu-kien/thiet-bi-mang/">
-                     <div class="icon-box featured-box icon-box-center text-center">
-                        <div class="icon-box-img" style="width: 110px">
-                           <div class="icon">
-                              <div class="icon-inner">
-                                 <img loading="lazy" decoding="async" width="262" height="300" src="http://localhost:8080/wp-content/uploads/2022/04/thiet-bi-mang.png" class="attachment-medium size-medium" alt="">					
+                     </a>
+                     <a class="plain" href="/phu-kien/day-deo-dong-ho/">
+                        <div class="icon-box featured-box icon-box-center text-center">
+                           <div class="icon-box-img" style="width: 110px">
+                              <div class="icon">
+                                 <div class="icon-inner">
+                                    <img loading="lazy" decoding="async" width="262" height="300" src="https://clause-headline-mild-bizrate.trycloudflare.com/wp-content/uploads/2022/04/day-deo-dong-ho.png" class="attachment-medium size-medium" alt="">					
+                                 </div>
                               </div>
                            </div>
-                        </div>
-                        <div class="icon-box-text last-reset">
-                           <p>Thiết bị mạng</p>
-                        </div>
-                     </div>
-                  </a>
-                  <a class="plain" href="#">
-                     <div class="icon-box featured-box icon-box-center text-center">
-                        <div class="icon-box-img" style="width: 110px">
-                           <div class="icon">
-                              <div class="icon-inner">
-                                 <img loading="lazy" decoding="async" width="262" height="300" src="http://localhost:8080/wp-content/uploads/2022/04/balo.png" class="attachment-medium size-medium" alt="">					
-                              </div>
+                           <div class="icon-box-text last-reset">
+                              <p>Dây đồng hồ</p>
                            </div>
                         </div>
-                        <div class="icon-box-text last-reset">
-                           <p>Balo, Túi xách</p>
-                        </div>
-                     </div>
-                  </a>
-                  <a class="plain" href="/danh-muc-san-pham/phu-kien/cap-sac/">
-                     <div class="icon-box featured-box icon-box-center text-center">
-                        <div class="icon-box-img" style="width: 110px">
-                           <div class="icon">
-                              <div class="icon-inner">
-                                 <img loading="lazy" decoding="async" width="262" height="300" src="http://localhost:8080/wp-content/uploads/2022/04/cap-sac.png" class="attachment-medium size-medium" alt="">					
+                     </a>
+                     <a class="plain" href="/phu-kien/the-nho-usb/">
+                        <div class="icon-box featured-box icon-box-center text-center">
+                           <div class="icon-box-img" style="width: 110px">
+                              <div class="icon">
+                                 <div class="icon-inner">
+                                    <img loading="lazy" decoding="async" width="262" height="300" src="https://clause-headline-mild-bizrate.trycloudflare.com/wp-content/uploads/2022/04/the-nho-usb.png" class="attachment-medium size-medium" alt="">					
+                                 </div>
                               </div>
                            </div>
-                        </div>
-                        <div class="icon-box-text last-reset">
-                           <p>Cáp sạc</p>
-                        </div>
-                     </div>
-                  </a>
-                  <a class="plain" href="/danh-muc-san-pham/phu-kien/op-lung-bao-da-op-airpods/">
-                     <div class="icon-box featured-box icon-box-center text-center">
-                        <div class="icon-box-img" style="width: 110px">
-                           <div class="icon">
-                              <div class="icon-inner">
-                                 <img loading="lazy" decoding="async" width="262" height="300" src="http://localhost:8080/wp-content/uploads/2022/04/bao-da-op-lung.png" class="attachment-medium size-medium" alt="">					
-                              </div>
+                           <div class="icon-box-text last-reset">
+                              <p>Thẻ nhớ</p>
                            </div>
                         </div>
-                        <div class="icon-box-text last-reset">
-                           <p>Ốp bao da</p>
-                        </div>
-                     </div>
-                  </a>
-                  <a class="plain" href="#">
-                     <div class="icon-box featured-box icon-box-center text-center">
-                        <div class="icon-box-img" style="width: 110px">
-                           <div class="icon">
-                              <div class="icon-inner">
-                                 <img loading="lazy" decoding="async" width="262" height="300" src="http://localhost:8080/wp-content/uploads/2022/04/o-cung.png" class="attachment-medium size-medium" alt="">					
+                     </a>
+                     <a class="plain" href="/phu-kien/camera/">
+                        <div class="icon-box featured-box icon-box-center text-center">
+                           <div class="icon-box-img" style="width: 110px">
+                              <div class="icon">
+                                 <div class="icon-inner">
+                                    <img loading="lazy" decoding="async" width="262" height="300" src="https://clause-headline-mild-bizrate.trycloudflare.com/wp-content/uploads/2022/04/camera.png" class="attachment-medium size-medium" alt="">					
+                                 </div>
                               </div>
                            </div>
-                        </div>
-                        <div class="icon-box-text last-reset">
-                           <p>Ổ cứng</p>
-                        </div>
-                     </div>
-                  </a>
-                  <a class="plain" href="#">
-                     <div class="icon-box featured-box icon-box-center text-center">
-                        <div class="icon-box-img" style="width: 110px">
-                           <div class="icon">
-                              <div class="icon-inner">
-                                 <img loading="lazy" decoding="async" width="262" height="300" src="http://localhost:8080/wp-content/uploads/2022/04/chuot-ban-phim.png" class="attachment-medium size-medium" alt="">					
-                              </div>
+                           <div class="icon-box-text last-reset">
+                              <p>Camera</p>
                            </div>
                         </div>
-                        <div class="icon-box-text last-reset">
-                           <p>Chuột, bàn phím</p>
-                        </div>
-                     </div>
-                  </a>
-                  <a class="plain" href="#">
-                     <div class="icon-box featured-box icon-box-center text-center">
-                        <div class="icon-box-img" style="width: 110px">
-                           <div class="icon">
-                              <div class="icon-inner">
-                                 <img loading="lazy" decoding="async" width="262" height="300" src="http://localhost:8080/wp-content/uploads/2022/04/gaming-gear.png" class="attachment-medium size-medium" alt="">					
+                     </a>
+                     <a class="plain" href="/phu-kien/thiet-bi-mang/">
+                        <div class="icon-box featured-box icon-box-center text-center">
+                           <div class="icon-box-img" style="width: 110px">
+                              <div class="icon">
+                                 <div class="icon-inner">
+                                    <img loading="lazy" decoding="async" width="262" height="300" src="https://clause-headline-mild-bizrate.trycloudflare.com/wp-content/uploads/2022/04/thiet-bi-mang.png" class="attachment-medium size-medium" alt="">					
+                                 </div>
                               </div>
                            </div>
-                        </div>
-                        <div class="icon-box-text last-reset">
-                           <p>Gaming Gear</p>
-                        </div>
-                     </div>
-                  </a>
-                  <a class="plain" href="#">
-                     <div class="icon-box featured-box icon-box-center text-center">
-                        <div class="icon-box-img" style="width: 110px">
-                           <div class="icon">
-                              <div class="icon-inner">
-                                 <img loading="lazy" decoding="async" width="262" height="300" src="http://localhost:8080/wp-content/uploads/2022/04/quat-mini.png" class="attachment-medium size-medium" alt="">					
-                              </div>
+                           <div class="icon-box-text last-reset">
+                              <p>Thiết bị mạng</p>
                            </div>
                         </div>
-                        <div class="icon-box-text last-reset">
-                           <p>Quạt</p>
-                        </div>
-                     </div>
-                  </a>
-                  <a class="plain" href="#">
-                     <div class="icon-box featured-box icon-box-center text-center">
-                        <div class="icon-box-img" style="width: 110px">
-                           <div class="icon">
-                              <div class="icon-inner">
-                                 <img loading="lazy" decoding="async" width="262" height="300" src="http://localhost:8080/wp-content/uploads/2022/04/phu-kien-chup-anh.png" class="attachment-medium size-medium" alt="">					
+                     </a>
+                     <a class="plain" href="#">
+                        <div class="icon-box featured-box icon-box-center text-center">
+                           <div class="icon-box-img" style="width: 110px">
+                              <div class="icon">
+                                 <div class="icon-inner">
+                                    <img loading="lazy" decoding="async" width="262" height="300" src="https://clause-headline-mild-bizrate.trycloudflare.com/wp-content/uploads/2022/04/balo.png" class="attachment-medium size-medium" alt="">					
+                                 </div>
                               </div>
                            </div>
-                        </div>
-                        <div class="icon-box-text last-reset">
-                           <p>Phụ kiện chụp ảnh</p>
-                        </div>
-                     </div>
-                  </a>
-                  <a class="plain" href="/danh-muc-san-pham/phu-kien/phu-kien-may-tinh-laptop/">
-                     <div class="icon-box featured-box icon-box-center text-center">
-                        <div class="icon-box-img" style="width: 110px">
-                           <div class="icon">
-                              <div class="icon-inner">
-                                 <img loading="lazy" decoding="async" width="262" height="300" src="http://localhost:8080/wp-content/uploads/2022/04/phu-kien-laptop.png" class="attachment-medium size-medium" alt="">					
-                              </div>
+                           <div class="icon-box-text last-reset">
+                              <p>Balo, Túi xách</p>
                            </div>
                         </div>
-                        <div class="icon-box-text last-reset">
-                           <p>Phụ kiện laptop</p>
-                        </div>
-                     </div>
-                  </a>
-                  <a class="plain" href="#">
-                     <div class="icon-box featured-box icon-box-center text-center">
-                        <div class="icon-box-img" style="width: 110px">
-                           <div class="icon">
-                              <div class="icon-inner">
-                                 <img loading="lazy" decoding="async" width="262" height="300" src="http://localhost:8080/wp-content/uploads/2022/04/ram.png" class="attachment-medium size-medium" alt="">					
+                     </a>
+                     <a class="plain" href="/phu-kien/cap-sac/">
+                        <div class="icon-box featured-box icon-box-center text-center">
+                           <div class="icon-box-img" style="width: 110px">
+                              <div class="icon">
+                                 <div class="icon-inner">
+                                    <img loading="lazy" decoding="async" width="262" height="300" src="https://clause-headline-mild-bizrate.trycloudflare.com/wp-content/uploads/2022/04/cap-sac.png" class="attachment-medium size-medium" alt="">					
+                                 </div>
                               </div>
                            </div>
-                        </div>
-                        <div class="icon-box-text last-reset">
-                           <p>RAM</p>
-                        </div>
-                     </div>
-                  </a>
-                  <a class="plain" href="#">
-                     <div class="icon-box featured-box icon-box-center text-center">
-                        <div class="icon-box-img" style="width: 110px">
-                           <div class="icon">
-                              <div class="icon-inner">
-                                 <img loading="lazy" decoding="async" width="262" height="300" src="http://localhost:8080/wp-content/uploads/2022/04/cpu.png" class="attachment-medium size-medium" alt="">					
-                              </div>
+                           <div class="icon-box-text last-reset">
+                              <p>Cáp sạc</p>
                            </div>
                         </div>
-                        <div class="icon-box-text last-reset">
-                           <p>CPU</p>
-                        </div>
-                     </div>
-                  </a>
-                  <a class="plain" href="#">
-                     <div class="icon-box featured-box icon-box-center text-center">
-                        <div class="icon-box-img" style="width: 110px">
-                           <div class="icon">
-                              <div class="icon-inner">
-                                 <img loading="lazy" decoding="async" width="262" height="300" src="http://localhost:8080/wp-content/uploads/2022/04/card-man-hinh.png" class="attachment-medium size-medium" alt="">					
+                     </a>
+                     <a class="plain" href="/phu-kien/op-lung-bao-da-op-airpods/">
+                        <div class="icon-box featured-box icon-box-center text-center">
+                           <div class="icon-box-img" style="width: 110px">
+                              <div class="icon">
+                                 <div class="icon-inner">
+                                    <img loading="lazy" decoding="async" width="262" height="300" src="https://clause-headline-mild-bizrate.trycloudflare.com/wp-content/uploads/2022/04/bao-da-op-lung.png" class="attachment-medium size-medium" alt="">					
+                                 </div>
                               </div>
                            </div>
-                        </div>
-                        <div class="icon-box-text last-reset">
-                           <p>Card màn hình</p>
-                        </div>
-                     </div>
-                  </a>
-                  <a class="plain" href="#">
-                     <div class="icon-box featured-box icon-box-center text-center">
-                        <div class="icon-box-img" style="width: 110px">
-                           <div class="icon">
-                              <div class="icon-inner">
-                                 <img loading="lazy" decoding="async" width="262" height="300" src="http://localhost:8080/wp-content/uploads/2022/04/mainbroad.png" class="attachment-medium size-medium" alt="">					
-                              </div>
+                           <div class="icon-box-text last-reset">
+                              <p>Ốp bao da</p>
                            </div>
                         </div>
-                        <div class="icon-box-text last-reset">
-                           <p>Mainbroad</p>
+                     </a>
+                     <a class="plain" href="#">
+                        <div class="icon-box featured-box icon-box-center text-center">
+                           <div class="icon-box-img" style="width: 110px">
+                              <div class="icon">
+                                 <div class="icon-inner">
+                                    <img loading="lazy" decoding="async" width="262" height="300" src="https://clause-headline-mild-bizrate.trycloudflare.com/wp-content/uploads/2022/04/o-cung.png" class="attachment-medium size-medium" alt="">					
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="icon-box-text last-reset">
+                              <p>Ổ cứng</p>
+                           </div>
                         </div>
-                     </div>
-                  </a>
+                     </a>
+                     <a class="plain" href="#">
+                        <div class="icon-box featured-box icon-box-center text-center">
+                           <div class="icon-box-img" style="width: 110px">
+                              <div class="icon">
+                                 <div class="icon-inner">
+                                    <img loading="lazy" decoding="async" width="262" height="300" src="https://clause-headline-mild-bizrate.trycloudflare.com/wp-content/uploads/2022/04/chuot-ban-phim.png" class="attachment-medium size-medium" alt="">					
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="icon-box-text last-reset">
+                              <p>Chuột, bàn phím</p>
+                           </div>
+                        </div>
+                     </a>
+                     <a class="plain" href="#">
+                        <div class="icon-box featured-box icon-box-center text-center">
+                           <div class="icon-box-img" style="width: 110px">
+                              <div class="icon">
+                                 <div class="icon-inner">
+                                    <img loading="lazy" decoding="async" width="262" height="300" src="https://clause-headline-mild-bizrate.trycloudflare.com/wp-content/uploads/2022/04/gaming-gear.png" class="attachment-medium size-medium" alt="">					
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="icon-box-text last-reset">
+                              <p>Gaming Gear</p>
+                           </div>
+                        </div>
+                     </a>
+                     <a class="plain" href="#">
+                        <div class="icon-box featured-box icon-box-center text-center">
+                           <div class="icon-box-img" style="width: 110px">
+                              <div class="icon">
+                                 <div class="icon-inner">
+                                    <img loading="lazy" decoding="async" width="262" height="300" src="https://clause-headline-mild-bizrate.trycloudflare.com/wp-content/uploads/2022/04/quat-mini.png" class="attachment-medium size-medium" alt="">					
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="icon-box-text last-reset">
+                              <p>Quạt</p>
+                           </div>
+                        </div>
+                     </a>
+                     <a class="plain" href="#">
+                        <div class="icon-box featured-box icon-box-center text-center">
+                           <div class="icon-box-img" style="width: 110px">
+                              <div class="icon">
+                                 <div class="icon-inner">
+                                    <img loading="lazy" decoding="async" width="262" height="300" src="https://clause-headline-mild-bizrate.trycloudflare.com/wp-content/uploads/2022/04/phu-kien-chup-anh.png" class="attachment-medium size-medium" alt="">					
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="icon-box-text last-reset">
+                              <p>Phụ kiện chụp ảnh</p>
+                           </div>
+                        </div>
+                     </a>
+                     <a class="plain" href="/phu-kien/phu-kien-may-tinh-laptop/">
+                        <div class="icon-box featured-box icon-box-center text-center">
+                           <div class="icon-box-img" style="width: 110px">
+                              <div class="icon">
+                                 <div class="icon-inner">
+                                    <img loading="lazy" decoding="async" width="262" height="300" src="https://clause-headline-mild-bizrate.trycloudflare.com/wp-content/uploads/2022/04/phu-kien-laptop.png" class="attachment-medium size-medium" alt="">					
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="icon-box-text last-reset">
+                              <p>Phụ kiện laptop</p>
+                           </div>
+                        </div>
+                     </a>
+                     <a class="plain" href="#">
+                        <div class="icon-box featured-box icon-box-center text-center">
+                           <div class="icon-box-img" style="width: 110px">
+                              <div class="icon">
+                                 <div class="icon-inner">
+                                    <img loading="lazy" decoding="async" width="262" height="300" src="https://clause-headline-mild-bizrate.trycloudflare.com/wp-content/uploads/2022/04/ram.png" class="attachment-medium size-medium" alt="">					
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="icon-box-text last-reset">
+                              <p>RAM</p>
+                           </div>
+                        </div>
+                     </a>
+                     <a class="plain" href="#">
+                        <div class="icon-box featured-box icon-box-center text-center">
+                           <div class="icon-box-img" style="width: 110px">
+                              <div class="icon">
+                                 <div class="icon-inner">
+                                    <img loading="lazy" decoding="async" width="262" height="300" src="https://clause-headline-mild-bizrate.trycloudflare.com/wp-content/uploads/2022/04/cpu.png" class="attachment-medium size-medium" alt="">					
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="icon-box-text last-reset">
+                              <p>CPU</p>
+                           </div>
+                        </div>
+                     </a>
+                     <a class="plain" href="#">
+                        <div class="icon-box featured-box icon-box-center text-center">
+                           <div class="icon-box-img" style="width: 110px">
+                              <div class="icon">
+                                 <div class="icon-inner">
+                                    <img loading="lazy" decoding="async" width="262" height="300" src="https://clause-headline-mild-bizrate.trycloudflare.com/wp-content/uploads/2022/04/card-man-hinh.png" class="attachment-medium size-medium" alt="">					
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="icon-box-text last-reset">
+                              <p>Card màn hình</p>
+                           </div>
+                        </div>
+                     </a>
+                     <a class="plain" href="#">
+                        <div class="icon-box featured-box icon-box-center text-center">
+                           <div class="icon-box-img" style="width: 110px">
+                              <div class="icon">
+                                 <div class="icon-inner">
+                                    <img loading="lazy" decoding="async" width="262" height="300" src="https://clause-headline-mild-bizrate.trycloudflare.com/wp-content/uploads/2022/04/mainbroad.png" class="attachment-medium size-medium" alt="">					
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="icon-box-text last-reset">
+                              <p>Mainbroad</p>
+                           </div>
+                        </div>
+                     </a>
+                  </div>
                </div>
             </div>
-         </div>
-      </div>
+         </div> --%>
 </div>
 <style>
 #section_512847781 {

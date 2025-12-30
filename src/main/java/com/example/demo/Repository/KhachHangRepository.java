@@ -17,16 +17,16 @@ public interface KhachHangRepository extends JpaRepository<KhachHang, Long> {
 
     KhachHang findByEmailAndMatKhauIsNotNull(String mail);
 
+    KhachHang findBySdtAndMatKhauIsNotNull(String sdt);
 
     @Query("SELECT new com.example.demo.Dto.KhachHangDTO(kh.maKhachHang, kh.ten, kh.gioiTinh, " +
             "kh.cccd, kh.ngaySinh, kh.diaChi, kh.sdt, kh.email) FROM KhachHang kh " +
             "WHERE (:diaChi IS NULL OR UPPER(kh.diaChi) LIKE CONCAT('%', UPPER(:diaChi), '%')) " +
             "AND (:tenKhachHang IS NULL OR UPPER(kh.ten) LIKE CONCAT('%', UPPER(:tenKhachHang), '%')) ")
     List<KhachHangDTO> searchKhachHang(@Param("diaChi") String diaChi,
-                                       @Param("tenKhachHang") String tenKhachHang);
+            @Param("tenKhachHang") String tenKhachHang);
 
     @Query("SELECT CASE WHEN COUNT(kh) > 0 THEN true ELSE false END FROM KhachHang kh WHERE kh.email = :email and kh.matKhau is not NULL ")
     boolean existsByEmail(String email);
-
 
 }

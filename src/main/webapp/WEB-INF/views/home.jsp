@@ -81,7 +81,7 @@
                         <!--logo start-->
                         <div class="col-lg-3 col-md-3">
                             <div class="logo">
-                                <a href="/home"><img src="../../../assets/img/logo/AZURA.png" alt=""
+                                <a href="/index"><img src="../../../assets/img/logo/AZURA.png" alt=""
                                                      style="height: 80px;width: 90px"></a>
                             </div>
                         </div>

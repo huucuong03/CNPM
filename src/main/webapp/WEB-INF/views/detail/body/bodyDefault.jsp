@@ -33,7 +33,7 @@
                                                 <c:if test="${not empty maxCt}">
                                                    <div class="flex items-center gap-2 mt-2">
                                                         <div style=" width: 80px;height: 78px;overflow: hidden;border-radius: 8px;display: flex;justify-content: center;align-items: center;">
-                                                            <img src="http://localhost:8080/img/${maxCt.chiTietSanPham.hinhAnhURL}" style="width: 100%;height: 100%;object-fit: cover; "
+                                                            <img src="../../../img/${maxCt.chiTietSanPham.hinhAnhURL}" style="width: 100%;height: 100%;object-fit: cover; "
                                                          width="80" height="78" alt="${maxCt.chiTietSanPham.sanPham.tenSanPham}" />
                                                         </div>
                                                       <div style="margin-top: -25px;">

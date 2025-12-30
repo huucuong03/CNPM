@@ -283,21 +283,36 @@ SELECT new com.example.demo.Dto.SanPhamViewDTO(
     ctsp.hinhAnhURL,
     ctsp.giaBan,
     COALESCE(gg.giaSauKhiGiam, ctsp.giaBan),
-    COALESCE(ctsp.moTa, '')
+    COALESCE(ctsp.moTa, ''),
+    COUNT(dg.maDanhGia),
+    COALESCE(AVG(dg.soSao), 0)
 )
 FROM ChiTietSanPham ctsp
 JOIN ctsp.sanPham sp
-LEFT JOIN GiamGiaChiTietSanPham gg ON gg.chiTietSanPham = ctsp
+LEFT JOIN GiamGiaChiTietSanPham gg
+       ON gg.chiTietSanPham = ctsp
+LEFT JOIN DanhGia dg
+       ON dg.sanPham = sp
+       AND dg.trangThai = 1
 WHERE ctsp.trangThai = 1
   AND sp.trangThai = 1
   AND ctsp.maChiTietSanPham = (
       SELECT MAX(c2.maChiTietSanPham)
       FROM ChiTietSanPham c2
-      WHERE c2.sanPham.maSanPham = ctsp.sanPham.maSanPham
+      WHERE c2.sanPham = sp
   )
+GROUP BY
+    sp.maSanPham,
+    sp.tenSanPham,
+    ctsp.hinhAnhURL,
+    ctsp.giaBan,
+    gg.giaSauKhiGiam,
+    ctsp.moTa,
+    ctsp.maChiTietSanPham
 ORDER BY ctsp.maChiTietSanPham DESC
 """)
     List<SanPhamViewDTO> findTop20SanPhamMoiNhat(Pageable pageable);
+
 
     @Query("""
 SELECT new com.example.demo.Dto.SanPhamViewDTO(
@@ -444,6 +459,36 @@ WHERE ctsp.nsx.maNSX = :maNsx
 
     @Query("SELECT c.nsx FROM ChiTietSanPham c WHERE c.sanPham.maSanPham = :maSanPham")
     NSX findNSXByMaSanPham(@Param("maSanPham") Long maSanPham);
+
+
+    @Query("""
+SELECT new com.example.demo.Dto.SanPhamViewDTO(
+    sp.maSanPham,
+    sp.tenSanPham,
+    ctsp.hinhAnhURL,
+    ctsp.giaBan,
+    COALESCE(gg.giaSauKhiGiam, ctsp.giaBan),
+    COALESCE(ctsp.moTa, '')
+)
+FROM ChiTietSanPham ctsp
+JOIN ctsp.sanPham sp
+LEFT JOIN GiamGiaChiTietSanPham gg
+       ON gg.chiTietSanPham = ctsp
+WHERE ctsp.nsx.maNSX = :maNsx
+  AND LOWER(sp.tenSanPham) LIKE LOWER(CONCAT('%', :keyword, '%'))
+  AND ctsp.trangThai = 1
+  AND sp.trangThai = 1
+  AND ctsp.maChiTietSanPham = (
+      SELECT MAX(c2.maChiTietSanPham)
+      FROM ChiTietSanPham c2
+      WHERE c2.sanPham.maSanPham = ctsp.sanPham.maSanPham
+  )
+""")
+    Page<SanPhamViewDTO> findByNsxAndTenSanPhamLike(
+            @Param("maNsx") Long maNsx,
+            @Param("keyword") String keyword,
+            Pageable pageable
+    );
 
 
 }

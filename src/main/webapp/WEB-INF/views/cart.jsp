@@ -41,7 +41,7 @@
                 <div class="select-product-action custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" id="chk_${item.magiohangchitiet}">
                     <label class="custom-control-label"style="display: inline-block;margin-bottom: 0;position: relative;vertical-align: top;" for="chk_${item.magiohangchitiet}">
-                        <img src="http://localhost:8080/img/${item.chiTietSanPham.hinhAnhURL}" 
+                        <img src="../../../img/${item.chiTietSanPham.hinhAnhURL}" 
                              width="350" 
                              alt="${item.chiTietSanPham.sanPham.tenSanPham} | ${item.chiTietSanPham.mauSac.tenMauSac} | ${item.chiTietSanPham.dungLuong.tenDungLuong}" 
                              loading="lazy" 

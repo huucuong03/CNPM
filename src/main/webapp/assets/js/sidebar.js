@@ -24,7 +24,7 @@ $(document).ready(function () {
                   html += `
                        <a href="/san-pham/${item.tenSanPham}">
 <div class="autocomplete-suggestion" data-index="${item.maSanPham}">
-    <img class="search-image" src="http://localhost:8080/img/${item.hinhAnhURL}">
+    <img class="search-image" src="../../../img/${item.hinhAnhURL}">
     <div class="search-name">${item.tenSanPham}</div>
 
     <span class="search-price">
