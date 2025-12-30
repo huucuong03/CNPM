@@ -137,11 +137,11 @@
                 <div class="w-full px-1x-small tablet:px-0">
                   <div class="bg-pure-white w-full px-small py-small tablet:px-1x-large tablet:py-medium rounded-1x-large mb-small">
                      <div class="w-full grid grid-cols-4 gap-y-small tablet:flex gap-1x-small tablet:gap-2x-large desktop:gap-3x-large justify-start">
-                        <a class="flex flex-col tablet:flex-row items-center gap-1x-small" href="detailKh/promotion">
+                        <a class="flex flex-col tablet:flex-row items-center gap-1x-small" href="">
                            <div class="w-[40px] h-[40px] bg-neutral-50 rounded-full flex items-center justify-center"><img alt="Hạng thành viên" title="Hạng thành viên" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" class="w-[24px] h-[24px] object-contain" style="color:transparent" src="https://cdn-static.Smember.com.vn/_next/static/media/rank-icon.d0f44c06.svg"></div>
                            <div class="text-1x-small tablet:text-base font-medium text-center tablet:text-left">Hạng thành viên</div>
                         </a>
-                        <a class="flex flex-col tablet:flex-row items-center gap-1x-small" href="detailKh/promotion">
+                        <a class="flex flex-col tablet:flex-row items-center gap-1x-small" href="">
                            <div class="w-[40px] h-[40px] bg-neutral-50 rounded-full flex items-center justify-center"><img alt="Mã giảm giá" title="Mã giảm giá" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" class="w-[24px] h-[24px] object-contain" style="color:transparent" src="https://cdn-static.Smember.com.vn/_next/static/media/promotion-icon.99af272d.svg"></div>
                            <div class="text-1x-small tablet:text-base font-medium text-center tablet:text-left">Mã giảm giá</div>
                         </a>
