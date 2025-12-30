@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-
 public class VnpayConfigCDN {
     // Link payment VNPAY
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
@@ -26,7 +25,7 @@ public class VnpayConfigCDN {
     public static String vnp_TmnCode = "24Z64CYO";
 
     // Mật khẩu bí mật của merchant
-    public static String vnp_HashSecret = "WWTGQFDJYAFOMQKJAOOVNDNVQDKVBPRU";
+    public static String vnp_HashSecret = "WMTGQFDJ9YAFOMQKJAOOYNDNVQDKVBPRU";
     // Link API của VNPAY
     public static String vnp_apiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
 
@@ -66,7 +65,7 @@ public class VnpayConfigCDN {
         return digest;
     }
 
-    //Util for VNPAY
+    // Util for VNPAY
     public static String hashAllFields(Map fields) {
         List fieldNames = new ArrayList(fields.keySet());
         Collections.sort(fieldNames);
@@ -84,7 +83,7 @@ public class VnpayConfigCDN {
                 sb.append("&");
             }
         }
-        return hmacSHA512(vnp_HashSecret,sb.toString());
+        return hmacSHA512(vnp_HashSecret, sb.toString());
     }
 
     public static String hmacSHA512(final String key, final String data) {

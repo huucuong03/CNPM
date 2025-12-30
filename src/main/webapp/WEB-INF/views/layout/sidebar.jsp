@@ -29,7 +29,7 @@
                <!-- Logo -->
                <div class="logo">
                   <a href="/home">
-                  <img src="../../../assets/img/logo/AZURA.png" alt="" style="height: 80px;width: 90px">
+                  <img src="../../../assets/img/logo/logo.png" alt="" style="height: 80px;width: 90px">
                   </a>
                </div>
                <div class="flex-col hide-for-medium flex-right my-auto">

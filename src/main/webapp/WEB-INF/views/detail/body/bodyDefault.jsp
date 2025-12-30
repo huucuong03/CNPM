@@ -89,7 +89,7 @@
                         <div class="p-small tablet:p-medium bg-pure-white rounded-1x-large col-span-6 order-3 tablet:order-4 laptop:col-span-3 w1200:col-span-2 ">
                            <div class="w-full flex justify-between items-center">
                               <div class="text-medium font-bold">Ưu đãi của bạn</div>
-                              <a class="link-action flex shrink-0 items-center gap-2x-small font-regular text-small text-info-500" href="/promotion" style="display: none;">
+                              <a class="link-action flex shrink-0 items-center gap-2x-small font-regular text-small text-info-500" href="" style="display: none;">
                                  Xem tất cả
                                  <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M9 6l6 6l-6 6"></path>
@@ -100,7 +100,7 @@
                               <div class="flex flex-col gap-1x-small tablet:gap-small w-full mt-1x-small tablet:mt-small">
                                  <div class="w-full p-medium flex flex-col items-center tablet:justify-center gap-medium tablet:gap-small bg-pure-white rounded-base">
                                     <img alt="empty" title="empty" loading="lazy" width="420" height="312" decoding="async" data-nimg="1" class="w-[88px] h-[65px] tablet:w-[140px] tablet:h-[104px] object-contain" src="https://cdn-static.Smember.com.vn/_next/static/media/empty.f8088c4d.png" style="color: transparent;">
-                                    <div class="flex flex-wrap flex-col tablet:flex-row justify-center tablet:items-center text-small text-center font-regular tablet:text-center text-neutral-400"><span class="mr-1x-small">Bạn chưa có ưu đãi nào.</span><a class="text-primary-500 hover:underline shrink-0 " href="https://cellphones.com.vn">Xem sản phẩm</a></div>
+                                    <div class="flex flex-wrap flex-col tablet:flex-row justify-center tablet:items-center text-small text-center font-regular tablet:text-center text-neutral-400"><span class="mr-1x-small">Bạn chưa có ưu đãi nào.</span><a class="text-primary-500 hover:underline shrink-0 " href="">Xem sản phẩm</a></div>
                                  </div>
                               </div>
                            </div>
@@ -124,7 +124,8 @@
                                     <div style="min-width:100%;display:table">
                                        <div class="w-full p-medium flex flex-col items-center tablet:justify-center gap-medium tablet:gap-small bg-pure-white rounded-base w-full h-full">
                                           <img alt="empty" title="empty" loading="lazy" width="420" height="312" decoding="async" data-nimg="1" class="w-[88px] h-[65px] tablet:w-[140px] tablet:h-[104px] object-contain" src="https://cdn-static.Smember.com.vn/_next/static/media/empty.f8088c4d.png" style="color: transparent;">
-                                          <div class="flex flex-wrap flex-col tablet:flex-row justify-center tablet:items-center text-small text-center font-regular tablet:text-center text-neutral-400"><span class="mr-1x-small">Bạn chưa có sản phẩm nào yêu thích? Hãy bắt đầu mua sắm ngay nào!</span><a class="text-primary-500 hover:underline shrink-0 " href="https://cellphones.com.vn">Mua sắm ngay</a></div>
+                                          <div class="flex flex-wrap flex-col tablet:flex-row justify-center tablet:items-center text-small text-center font-regular tablet:text-center text-neutral-400"><span class="mr-1x-small">Bạn chưa có sản phẩm nào yêu thích? Hãy bắt đầu mua sắm ngay nào!</span><a class="text-primary-500 hover:underline shrink-0 " 
+                                          href="">Mua sắm ngay</a></div>
                                        </div>
                                     </div>
                                  </div>

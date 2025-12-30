@@ -11,31 +11,236 @@
                <div class="menu-main-menu-container">
                   <ul id="menu-main-menu-1" class="menu">
                      <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-has-children menu-item-27 menu-item-design-default has-dropdown has-icon-left has-child" aria-expanded="false">
-                        <a href="/apple" class="nav-top-link" aria-expanded="false" aria-haspopup="menu"><img class="ux-menu-icon" width="20" height="20" src="http://localhost:8080/wp-content/uploads/2021/08/menu-icon-1.png" alt="">Điện thoại</a>
+                     <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-has-children menu-item-1289 nav-dropdown-col has-child" aria-expanded="false">
+                        <a href="/apple">Apple</a>
+                        <svg stroke="currentColor" style="margin-right: 9px;" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="ml-auto size-5 text-neutral-400" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="m184 112 144 144-144 144"></path></svg>
                         <button class="toggle" aria-label="Chuyển đổi"><i class="icon-angle-down" aria-hidden="true"></i></button>
-                        <ul class="sub-menu">
-                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-has-children menu-item-1289 nav-dropdown-col has-child" aria-expanded="false">
-                              <a href="/apple">Apple</a>
-                              <button class="toggle" aria-label="Chuyển đổi"><i class="icon-angle-down" aria-hidden="true"></i></button>
+                        <ul class="sub-menu nav-column">
+                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1290">
+                              <a href="http://localhost:8080/apple/iPhone-X">iPhone X </a>
+                              
                               <ul class="sub-menu nav-column">
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1290"><a href="http://localhost:8080/apple/iphone-11-series/">iPhone 11 Series</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1291"><a href="http://localhost:8080/apple/iphone-12-series/">iPhone 12 Series</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1292"><a href="http://localhost:8080/apple/iphone-se/">iPhone SE</a></li>
-                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1293"><a href="http://localhost:8080/apple/iphone-13-series/">iPhone 13 Series</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-bluetooth">iPhone X</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-keo">iPhone XS</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh">iPhone XR</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-tivi-soundbar">iPhone X pro</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh">iPhone X pro max</a></li>
+                              </ul>                    
+                           </li>
+                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1292"><a href="http://localhost:8080/apple/iphone-se/">iPhone SE</a>
+                           </li>
+                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1291">
+                              <a href="http://localhost:8080/apple/iphone-11-series/">iPhone 11 Series</a>
+                              <ul class="sub-menu nav-column">
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-bluetooth">iPhone 11</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-keo">iPhone 11 Mini</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-tivi-soundbar">iPhone 11 pro</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh">iPhone 11 Pro Max</a></li>
                               </ul>
                            </li>
-                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-36"><a href="http://localhost:8080/samsung/">Samsung</a></li>
-                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-39"><a href="http://localhost:8080/xiaomi/">Xiaomi</a></li>
-                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-33"><a href="http://localhost:8080/oppo/">OPPO</a></li>
-                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1283"><a href="http://localhost:8080/nokia/">Nokia</a></li>
-                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1286"><a href="http://localhost:8080/realme/">Realme</a></li>
-                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1288"><a href="http://localhost:8080/vsmart/">Vsmart</a></li>
-                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-29"><a href="http://localhost:8080/asus/">ASUS</a></li>
-                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1287"><a href="http://localhost:8080/vivo/">Vivo</a></li>
-                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1284"><a href="http://localhost:8080/oneplus/">OnePlus</a></li>
-                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1285"><a href="http://localhost:8080/nubia/">Nubia</a></li>
-                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1294"><a href="http://localhost:8080/dien-thoai-pho-thong/">Điện thoại phổ thông</a></li>
+                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1291">
+                              <a href="http://localhost:8080/apple/iphone-12-series/">iPhone 12 Series</a>
+                              <ul class="sub-menu nav-column">
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-bluetooth">iPhone 12</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-keo">iPhone 12 Mini</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-tivi-soundbar">iPhone 12 pro</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh">iPhone 12 Pro Max</a></li>
+                              </ul>
+                           </li>
+                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1293">
+                              <a href="http://localhost:8080/apple/iphone-13-series/">iPhone 13 Series</a>
+                              <ul class="sub-menu nav-column">
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-bluetooth">iPhone 13</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-keo">iPhone 13 Mini</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-tivi-soundbar">iPhone 13 pro</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh">iPhone 13 Pro Max</a></li>
+                              </ul>
+                           </li>
+                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1292">
+                              <a href="http://localhost:8080/apple/iphone-se/">iPhone 14 Series</a>
+                              <ul class="sub-menu nav-column">
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-bluetooth">iPhone 14</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-keo">iPhone 14 Mini</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-tivi-soundbar">iPhone 14 pro</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh">iPhone 14 Pro Max</a></li>
+                              </ul>
+                           </li>
+                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1292">
+                              <a href="http://localhost:8080/apple/iphone-se/">iPhone 15 Series</a>
+                              <ul class="sub-menu nav-column">
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-bluetooth/">iPhone 15</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-keo/">iPhone 15 Mini</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-tivi-soundbar/">iPhone 15 pro</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh/">iPhone 15 Pro Max</a></li>
+                              </ul>
+                           </li>
+                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1292">
+                              <a href="http://localhost:8080/apple/iphone-se/">iPhone 16 Series</a>
+                              <ul class="sub-menu nav-column">
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-bluetooth/">iPhone 16</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-keo/">iPhone 16 Mini</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-tivi-soundbar/">iPhone 16 pro</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh/">iPhone 16 Pro Max</a></li>
+                              </ul>
+                           </li>
+                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1292">
+                              <a href="http://localhost:8080/apple/iphone-se/">iPhone 17 Series</a>
+                              <ul class="sub-menu nav-column">
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-bluetooth">iPhone 17</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-keo">iPhone 17 Mini</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-tivi-soundbar">iPhone 17 pro</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh">iPhone 17 Pro Max</a></li>
+                              </ul>
+                           </li>
                         </ul>
+                     </li>
+                     </li>
+                     <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-has-children menu-item-27 menu-item-design-default has-dropdown has-icon-left has-child" aria-expanded="false">
+                     <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-36">
+                        <a style="width:88%" href="http://localhost:8080/samsung">Samsung</a>
+                        <svg stroke="currentColor" style="margin-right: 9px;" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="ml-auto size-5 text-neutral-400" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="m184 112 144 144-144 144"></path></svg>
+                        <button class="toggle" aria-label="Chuyển đổi"><i class="icon-angle-down" aria-hidden="true"></i></button>
+                        <ul class="sub-menu nav-column">
+                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1290">
+                              <a href="http://localhost:8080/apple/iphone-11-series">Galaxy S</a>
+                              <ul class="sub-menu nav-column">
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-bluetooth">Galaxy S20</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-keo/">Galaxy S21</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-tivi-soundbar/">Galaxy S22</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh/">Galaxy S23</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh/">Galaxy S24</a></li>
+                              </ul>
+                           </li>
+                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1291">
+                              <a href="http://localhost:8080/apple/iphone-12-series">Galaxy Note</a>
+                              <ul class="sub-menu nav-column">
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1274"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-bluetooth/">Galaxy Note 15</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1275"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-keo/">Galaxy Note 16</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1276"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-tivi-soundbar/">Galaxy Note 17</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh/">Galaxy Note 18</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh/">Galaxy Note 19</a></li>
+                                 <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1277"><a href="http://localhost:8080/apple/danh-muc-san-pham/am-thanh/loa/loa-vi-tinh/">Galaxy Note 20</a></li>
+                              </ul>
+                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1292"><a href="http://localhost:8080/apple/iphone-se/">Galaxy A</a></li>
+                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1293"><a href="http://localhost:8080/apple/iphone-13-series/">Galaxy M</a></li>
+                           <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1293"><a href="http://localhost:8080/apple/iphone-13-series/">Galaxy Z Fold</a></li>
+                        </ul>
+                     </li>
+                     <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-has-children menu-item-27 menu-item-design-default has-dropdown has-icon-left has-child" aria-expanded="false">
+<li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat">
+    <a style="width:88%" href="http://localhost:8080/xiaomi">Xiaomi</a>
+                        <svg stroke="currentColor" style="margin-right: 9px;" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="ml-auto size-5 text-neutral-400" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="m184 112 144 144-144 144"></path></svg>
+    <button class="toggle" aria-label="Chuyển đổi"><i class="icon-angle-down" aria-hidden="true"></i></button>
+    <ul class="sub-menu nav-column">
+        
+        <li class="menu-item menu-item-has-children">
+            <a href="http://localhost:8080/xiaomi/xiaomi-series">Xiaomi Series (Flagship)</a>
+            <ul class="sub-menu">
+                <li><a href="http://localhost:8080/xiaomi/xiaomi-14-ultra">Xiaomi 14 Ultra</a></li>
+                <li><a href="http://localhost:8080/xiaomi/xiaomi-14">Xiaomi 14</a></li>
+                <li><a href="http://localhost:8080/xiaomi/xiaomi-13-series">Xiaomi 13 Series</a></li>
+            </ul>
+        </li>
+
+        <li class="menu-item menu-item-has-children">
+            <a  href="http://localhost:8080/xiaomi/redmi-note-series/">Redmi Note Series</a>
+            <ul class="sub-menu">
+                <li><a href="http://localhost:8080/xiaomi/redmi-note-13-pro-plus">Redmi Note 13 Pro+</a></li>
+                <li><a href="http://localhost:8080/xiaomi/redmi-note-13">Redmi Note 13</a></li>
+                <li><a href="http://localhost:8080/xiaomi/redmi-note-12-series">Redmi Note 12 Series</a></li>
+            </ul>
+        </li>
+
+        <li class="menu-item">
+            <a href="http://localhost:8080/xiaomi/redmi-series/">Redmi (Dòng phổ thông)</a>
+        </li>
+
+        <li class="menu-item">
+            <a href="http://localhost:8080/xiaomi/poco-series/">POCO Series</a>
+        </li>
+
+    </ul>
+</li>
+                     </li>
+                     <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-has-children menu-item-27 menu-item-design-default has-dropdown has-icon-left has-child" aria-expanded="false">
+                     <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat">
+    <a style="width:88%" href="http://localhost:8080/oppo">OPPO</a>
+   <svg stroke="currentColor" style="margin-right: 9px;" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="ml-auto size-5 text-neutral-400" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="m184 112 144 144-144 144"></path></svg>
+
+    <button class="toggle" aria-label="Chuyển đổi"><i class="icon-angle-down" aria-hidden="true"></i></button>
+    <ul class="sub-menu nav-column">
+        
+        <li class="menu-item menu-item-has-children">
+            <a href="http://localhost:8080/oppo/find-series">Find Series (Cao cấp)</a>
+            <ul class="sub-menu">
+                <li><a href="http://localhost:8080/oppo/find-n3-series">Find N3 | N3 Flip</a></li>
+                <li><a href="http://localhost:8080/oppo/find-x7-series">Find X7 Series</a></li>
+            </ul>
+        </li>
+
+        <li class="menu-item menu-item-has-children">
+            <a style="width:88%" href="http://localhost:8080/oppo/reno-series">Reno Series</a>
+            <ul class="sub-menu">
+                <li><a href="http://localhost:8080/oppo/reno12-series">OPPO Reno12 Series</a></li>
+                <li><a href="http://localhost:8080/oppo/reno11-series">OPPO Reno11 Series</a></li>
+                <li><a href="http://localhost:8080/oppo/reno10-series">OPPO Reno10 Series</a></li>
+            </ul>
+        </li>
+
+        <li class="menu-item menu-item-has-children">
+            <a href="http://localhost:8080/oppo/a-series">A Series (Giá rẻ)</a>
+            <ul class="sub-menu">
+                <li><a href="http://localhost:8080/oppo/oppo-a98/">OPPO A98</a></li>
+                <li><a href="http://localhost:8080/oppo/oppo-a78/">OPPO A78</a></li>
+                <li><a href="http://localhost:8080/oppo/oppo-a58/">OPPO A58</a></li>
+                <li><a href="http://localhost:8080/oppo/oppo-a18/">OPPO A18</a></li>
+            </ul>
+        </li>
+
+    </ul>
+</li>
+                    <li class="menu-item menu-item-has-children has-dropdown">
+    <a style="width:88%" href="http://localhost:8080/realme">Realme</a>
+    <svg stroke="currentColor" style="margin-right: 9px;" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="ml-auto size-5 text-neutral-400" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="m184 112 144 144-144 144"></path></svg>
+    <ul class="sub-menu">
+        <li><a href="http://localhost:8080/realme/gt-series/">Realme GT Series</a></li>
+        <li><a href="http://localhost:8080/realme/number-series/">Realme Number Series</a></li>
+        <li><a href="http://localhost:8080/realme/c-series/">Realme C Series</a></li>
+    </ul>
+</li>
+
+<li class="menu-item menu-item-has-children has-dropdown">
+    <a style="width:88%" href="http://localhost:8080/vivo">Vivo</a>
+    <svg stroke="currentColor" style="margin-right: 9px;" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="ml-auto size-5 text-neutral-400" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="m184 112 144 144-144 144"></path></svg>
+    <ul class="sub-menu">
+        <li><a href="http://localhost:8080/vivo/x-series/">Vivo X Series</a></li>
+        <li><a href="http://localhost:8080/vivo/v-series/">Vivo V Series</a></li>
+        <li><a href="http://localhost:8080/vivo/y-series/">Vivo Y Series</a></li>
+    </ul>
+</li>
+
+<li class="menu-item menu-item-has-children has-dropdown">
+    <a style="width:88%" href="http://localhost:8080/asus">ASUS</a>
+     <svg stroke="currentColor" style="margin-right: 9px;" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="ml-auto size-5 text-neutral-400" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="m184 112 144 144-144 144"></path></svg>
+    <ul class="sub-menu">
+        <li><a href="http://localhost:8080/asus/rog-phone/">ROG Phone</a></li>
+        <li><a href="http://localhost:8080/asus/zenfone/">Zenfone</a></li>
+    </ul>
+</li>
+
+<li class="menu-item">
+    <a style="width:88%" href="http://localhost:8080/nokia">Nokia</a>
+</li>
+
+<li class="menu-item">
+    <a style="width:88%" href="http://localhost:8080/oneplus">OnePlus</a>
+</li>
+
+<li class="menu-item">
+    <a style="width:88%" href="http://localhost:8080/vsmart">Vsmart</a>
+</li>
+                     <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-has-children menu-item-27 menu-item-design-default has-dropdown has-icon-left has-child" aria-expanded="false">
+                     <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1284"><a href="http://localhost:8080/oneplus/">Điện thoại phổ thông</a></li>
                      </li>
                   </ul>
                </div>
