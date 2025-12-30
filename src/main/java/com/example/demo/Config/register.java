@@ -37,13 +37,21 @@ import org.docx4j.Docx4J;
 import org.docx4j.convert.out.HTMLSettings;
 import org.springframework.core.io.Resource;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+
 //@RestController
 @Controller
-//@RequestMapping("/dang-ky")
+// @RequestMapping("/dang-ky")
 public class register {
+
+    @Autowired
+    private jakarta.servlet.ServletContext servletContext;
 
     @Autowired
     private KhachHangService khachHangService;
@@ -88,8 +96,7 @@ public class register {
     private DiaChiService diaChiService;
 
     @PostMapping("/them")
-    public ResponseEntity<?> them(@RequestBody
-                                          KhachHangRequest khachHangRequest) {
+    public ResponseEntity<?> them(@RequestBody KhachHangRequest khachHangRequest) {
         return khachHangService.them(khachHangRequest);
     }
 
@@ -152,68 +159,69 @@ public class register {
         return "redirect:/index";
     }
 
-
     @GetMapping("/detailKh")
     public String detailKhSession(Model model, HttpSession session) {
-    KhachHang khachHang = (KhachHang) session.getAttribute("khachHang");
+        KhachHang khachHang = (KhachHang) session.getAttribute("khachHang");
 
-    if (khachHang == null) {
-        return "redirect:/loginView";
-    }
-
-    model.addAttribute("kh", khachHang);
-    model.addAttribute("ngaySinh", khachHang.getNgaySinh());
-
-    List<HoaDon> listHD = hoaDonService.getAllBykhachHang(khachHang);
-    model.addAttribute("listHD", listHD);
-
-    Map<Integer, List<HoaDon>> hoaDonTheoTrangThai = new HashMap<>();
-    for (int trangThai = 0; trangThai <= 3; trangThai++) {
-        List<HoaDon> ds = hoaDonService.findByKhachHangAndTrangThai(khachHang.getMaKhachHang(), trangThai);
-        hoaDonTheoTrangThai.put(trangThai, ds);
-    }
-    model.addAttribute("hoaDonTheoTrangThai", hoaDonTheoTrangThai);
-
-    // Lấy chi tiết sản phẩm đắt nhất của từng hóa đơn
-     Map<Long, HoaDonChiTiet> sanPhamDacNhat = new HashMap<>();
-     for (HoaDon hd : listHD) {
-         List<HoaDonChiTiet> chiTiets = hoaDonChiTietService.getByHoaDon(hd);
-         HoaDonChiTiet maxCt = chiTiets.stream()
-                 .max(Comparator.comparing(HoaDonChiTiet::getGiaTien))
-                 .orElse(null);
-         sanPhamDacNhat.put(hd.getMaHoaDon(), maxCt);
-     }
-     model.addAttribute("sanPhamDacNhat", sanPhamDacNhat);
-    // Lấy chi tiết tất cả sản phẩm (nếu cần)
-    Map<Long, Integer> DSSP = new HashMap<>();
-    List<SanPham> listSanPham = new ArrayList<>();
-    for (HoaDon hd : listHD) {
-        List<HoaDonChiTiet> chiTiets = hoaDonChiTietService.getByHoaDon(hd);
-        for (HoaDonChiTiet ct : chiTiets) {
-            listSanPham.add(ct.getChiTietSanPham().getSanPham());
-            DSSP.put(ct.getChiTietSanPham().getMaChiTietSanPham(), ct.getSoLuongMua());
+        if (khachHang == null) {
+            return "redirect:/loginView";
         }
+
+        model.addAttribute("kh", khachHang);
+        model.addAttribute("ngaySinh", khachHang.getNgaySinh());
+
+        List<HoaDon> listHD = hoaDonService.getAllBykhachHang(khachHang);
+        model.addAttribute("listHD", listHD);
+
+        Map<Integer, List<HoaDon>> hoaDonTheoTrangThai = new HashMap<>();
+        for (int trangThai = 0; trangThai <= 3; trangThai++) {
+            List<HoaDon> ds = hoaDonService.findByKhachHangAndTrangThai(khachHang.getMaKhachHang(), trangThai);
+            hoaDonTheoTrangThai.put(trangThai, ds);
+        }
+        model.addAttribute("hoaDonTheoTrangThai", hoaDonTheoTrangThai);
+
+        // Lấy chi tiết sản phẩm đắt nhất của từng hóa đơn
+        Map<Long, HoaDonChiTiet> sanPhamDacNhat = new HashMap<>();
+        for (HoaDon hd : listHD) {
+            List<HoaDonChiTiet> chiTiets = hoaDonChiTietService.getByHoaDon(hd);
+            HoaDonChiTiet maxCt = chiTiets.stream()
+                    .max(Comparator.comparing(HoaDonChiTiet::getGiaTien))
+                    .orElse(null);
+            sanPhamDacNhat.put(hd.getMaHoaDon(), maxCt);
+        }
+        model.addAttribute("sanPhamDacNhat", sanPhamDacNhat);
+        // Lấy chi tiết tất cả sản phẩm (nếu cần)
+        Map<Long, Integer> DSSP = new HashMap<>();
+        List<SanPham> listSanPham = new ArrayList<>();
+        for (HoaDon hd : listHD) {
+            List<HoaDonChiTiet> chiTiets = hoaDonChiTietService.getByHoaDon(hd);
+            for (HoaDonChiTiet ct : chiTiets) {
+                listSanPham.add(ct.getChiTietSanPham().getSanPham());
+                DSSP.put(ct.getChiTietSanPham().getMaChiTietSanPham(), ct.getSoLuongMua());
+            }
+        }
+        model.addAttribute("listSanPhamHoaDon", listSanPham);
+        model.addAttribute("DSSP", DSSP);
+
+        ViShop viShop = viShopRepository.getByKhachHang(khachHang);
+        model.addAttribute("viShop", viShop);
+        if (viShop != null) {
+            model.addAttribute("gdVi", giaoDichViRepository.getByViShopAndTrangThai(viShop, 1));
+        }
+
+        String addThanhCong = (String) session.getAttribute("napThanhCong");
+        String addThatBai = (String) session.getAttribute("napThatBai");
+        if (addThanhCong != null)
+            model.addAttribute("themThanhCong", "2");
+        if (addThatBai != null)
+            model.addAttribute("themThatBai", "2");
+        session.removeAttribute("napThanhCong");
+        session.removeAttribute("napThatBai");
+
+        model.addAttribute("currentTab", "default");
+        model.addAttribute("bodyPage", "/WEB-INF/views/detail/body/bodyDefault.jsp");
+        return "detail/detailKH";
     }
-    model.addAttribute("listSanPhamHoaDon", listSanPham);
-    model.addAttribute("DSSP", DSSP);
-
-    ViShop viShop = viShopRepository.getByKhachHang(khachHang);
-    model.addAttribute("viShop", viShop);
-    if (viShop != null) {
-        model.addAttribute("gdVi", giaoDichViRepository.getByViShopAndTrangThai(viShop, 1));
-    }
-
-    String addThanhCong = (String) session.getAttribute("napThanhCong");
-    String addThatBai = (String) session.getAttribute("napThatBai");
-    if (addThanhCong != null) model.addAttribute("themThanhCong", "2");
-    if (addThatBai != null) model.addAttribute("themThatBai", "2");
-    session.removeAttribute("napThanhCong");
-    session.removeAttribute("napThatBai");
-
-    model.addAttribute("currentTab", "default");
-    model.addAttribute("bodyPage", "/WEB-INF/views/detail/body/bodyDefault.jsp");
-    return "detail/detailKH";
-}
 
     @GetMapping("/detailKh/order")
     public String detailKhOrder(
@@ -221,10 +229,10 @@ public class register {
             HttpSession session,
             @RequestParam(value = "trangThai", required = false, defaultValue = "4") int trangThai,
             @RequestParam(value = "startDate", required = false, defaultValue = "01/12/2020") String startDateStr,
-            @RequestParam(value = "endDate", required = false) String endDateStr
-    ) {
+            @RequestParam(value = "endDate", required = false) String endDateStr) {
         KhachHang khachHang = (KhachHang) session.getAttribute("khachHang");
-        if (khachHang == null) return "redirect:/loginView";
+        if (khachHang == null)
+            return "redirect:/loginView";
 
         // Set endDate = hôm nay nếu không truyền vào
         if (endDateStr == null || endDateStr.isEmpty()) {
@@ -281,28 +289,23 @@ public class register {
 
     @GetMapping("detailKh/warranty")
     public String hoTroSauMua(HttpSession session, Model model,
-                              @RequestParam(defaultValue = "0") int page,       // trang hiện tại
-                              @RequestParam(defaultValue = "15") int size ) {
+            @RequestParam(defaultValue = "0") int page, // trang hiện tại
+            @RequestParam(defaultValue = "15") int size) {
 
         KhachHang kh = (KhachHang) session.getAttribute("khachHang");
         if (kh == null) {
             return "redirect:/login";
         }
         Pageable pageable = PageRequest.of(0, 15, Sort.by("hoaDon.ngayTao").descending());
-        List<SupportOrderItemDTO> items = supportService.getHoTro(kh.getMaKhachHang(),pageable);
-
+        List<SupportOrderItemDTO> items = supportService.getHoTro(kh.getMaKhachHang(), pageable);
 
         for (SupportOrderItemDTO item : items) {
 
-            boolean daGuiDoiTra =
-                    warrantyRequestRepository.existsByMaHoaDonChiTietAndMaType(
-                            item.getMaHoaDonChiTiet(), 1L
-                    );
+            boolean daGuiDoiTra = warrantyRequestRepository.existsByMaHoaDonChiTietAndMaType(
+                    item.getMaHoaDonChiTiet(), 1L);
 
-            boolean daGuiBaoHanh =
-                    warrantyRequestRepository.existsByMaHoaDonChiTietAndMaType(
-                            item.getMaHoaDonChiTiet(), 2L
-                    );
+            boolean daGuiBaoHanh = warrantyRequestRepository.existsByMaHoaDonChiTietAndMaType(
+                    item.getMaHoaDonChiTiet(), 2L);
             WarrantyRequest doiTra = warrantyRequestRepository
                     .findByMaHoaDonChiTietAndMaType(item.getMaHoaDonChiTiet(), 1L)
                     .orElse(null);
@@ -324,7 +327,7 @@ public class register {
 
         model.addAttribute("mapHD", mapHD);
         model.addAttribute("currentTab", "warranty");
-        model.addAttribute("bodyPage","/WEB-INF/views/detail/body/bodyWarranty.jsp");
+        model.addAttribute("bodyPage", "/WEB-INF/views/detail/body/bodyWarranty.jsp");
 
         return "detail/detailKH";
     }
@@ -341,8 +344,7 @@ public class register {
             @RequestParam String reason,
             HttpSession session,
             RedirectAttributes redirectAttributes,
-            @RequestParam("images") MultipartFile[] images
-    ) {
+            @RequestParam("images") MultipartFile[] images) {
         boolean existed = warrantyRequestRepository
                 .existsByMaHoaDonChiTietAndMaType(maHoaDonChiTiet, type);
 
@@ -373,7 +375,8 @@ public class register {
 
         try {
             KhachHang kh = (KhachHang) session.getAttribute("khachHang");
-            WarrantyStatus status = warrantyStatusRepository.findById(1L).orElseThrow(() -> new RuntimeException("Không tìm thấy trạng thái với id 1"));
+            WarrantyStatus status = warrantyStatusRepository.findById(1L)
+                    .orElseThrow(() -> new RuntimeException("Không tìm thấy trạng thái với id 1"));
             // 1️⃣ Tạo đối tượng WarrantyRequest
             WarrantyRequest wr = new WarrantyRequest();
             wr.setMaHoaDonChiTiet(maHoaDonChiTiet);
@@ -389,28 +392,33 @@ public class register {
             WarrantyRequest savedWr = warrantyRequestRepository.save(wr);
             if (images != null && images.length > 0) {
                 for (MultipartFile file : images) {
-                    if (file.isEmpty()) continue;
+                    if (file.isEmpty())
+                        continue;
 
-                    // 1️⃣ Tạo tên file
+                    // Tạo tên file
                     String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
 
-                    // 2️⃣ Xác định thư mục lưu (theo type)
-                    String folder = (type == 1) ? "return" : "";
-                    Path uploadPath = Paths.get("uploads/warranty", folder);
+                    // Lưu vào thư mục static resources
+                    Path warrantyDir = Paths.get("src/main/resources/static/uploads/warranty");
 
-                    // 3️⃣ Tạo thư mục nếu chưa tồn tại
-                    if (!Files.exists(uploadPath)) {
-                        Files.createDirectories(uploadPath);
+                    if (!Files.exists(warrantyDir)) {
+                        Files.createDirectories(warrantyDir);
                     }
 
-                    // 4️⃣ Copy file vào thư mục
-                    Path filePath = uploadPath.resolve(fileName);
+                    Path filePath = warrantyDir.resolve(fileName);
                     Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-                    // 5️⃣ Tạo entity ảnh và lưu vào DB
+                    // Lưu đường dẫn tương đối vào database
+                    String relativePath = "uploads/warranty/" + fileName;
+
+                    System.out.println("=== Saved warranty image ===");
+                    System.out.println("File name: " + fileName);
+                    System.out.println("Full path: " + filePath);
+                    System.out.println("Relative path for DB: " + relativePath);
+
                     WarrantyImage img = new WarrantyImage();
-                    img.setDuongDan("src/main/webapp/img/uploads/warranty/" + (folder.isEmpty() ? "" : folder + "/") + fileName);
-                    img.setWarrantyRequest(wr); // wr là đối tượng WarrantyRequest
+                    img.setDuongDan(relativePath);
+                    img.setWarrantyRequest(savedWr);
                     warrantyImageRepository.save(img);
                 }
             }
@@ -419,11 +427,10 @@ public class register {
             log.setWarrantyRequest(savedWr); // savedWr là entity đã save
             log.setOldTrangThai(null); // lần đầu tạo
             log.setNewTrangThai(savedWr.getTrangThai()); // lấy từ WarrantyRequest
-            if(type==1){
+            if (type == 1) {
                 log.setGhiChu("Khách hàng tạo yêu cầu đổi trả");
                 redirectAttributes.addFlashAttribute("successMessage", "Tạo yêu cầu đổi trả thành công!");
-            }
-            else {
+            } else {
                 log.setGhiChu("Khách hàng tạo yêu cầu bảo hành");
                 redirectAttributes.addFlashAttribute("successMessage", "Tạo yêu cầu bảo hành thành công!");
             }
@@ -439,8 +446,6 @@ public class register {
         }
     }
 
-
-
     @GetMapping("/detailKh/hoadon/{maHoaDon}")
     public String chiTietHoaDon(@PathVariable("maHoaDon") Long maHoaDon, Model model) {
         HoaDonChiTietDTO hoaDonChiTiet = hoaDonService.detailHoaDon(maHoaDon);
@@ -449,11 +454,13 @@ public class register {
         model.addAttribute("bodyPage", "/WEB-INF/views/detail/body/bodyHoaDonChiTiet.jsp");
         return "detail/detailKH";
     }
+
     @GetMapping("/detailKh/userinfo")
-    public String chiTietKhachHang( Model model,
-                                    HttpSession session) {
+    public String chiTietKhachHang(Model model,
+            HttpSession session) {
         KhachHang khachHang = (KhachHang) session.getAttribute("khachHang");
-        if (khachHang == null) return "redirect:/loginView";
+        if (khachHang == null)
+            return "redirect:/loginView";
         List<DiaChi> listDiaChi = diaChiService.getAllByKhachHang(khachHang.getMaKhachHang());
         model.addAttribute("khanhHang", khachHang);
         model.addAttribute("listDiaChi", listDiaChi);
@@ -468,8 +475,7 @@ public class register {
             @RequestParam("gender") String gioiTinhStr,
             HttpSession session,
             Model model,
-            RedirectAttributes redirectAttributes
-    ) {
+            RedirectAttributes redirectAttributes) {
         KhachHang khachHang = (KhachHang) session.getAttribute("khachHang");
         if (khachHang == null) {
             return "redirect:/loginView";
@@ -492,8 +498,9 @@ public class register {
         redirectAttributes.addFlashAttribute("successMessage", "Cập nhật thông tin thành công!");
         return "redirect:/detailKh/userinfo";
     }
+
     @PostMapping("/detailKh/userinfo/change-password")
-    public String  changePassword(
+    public String changePassword(
             @RequestParam("oldPassword") String oldPassword,
             @RequestParam("newPassword") String newPassword,
             @RequestParam("confirmPassword") String confirmPassword,
@@ -530,6 +537,7 @@ public class register {
         session.setAttribute("khachHang", khachHang);
         return "redirect:/detailKh/userinfo";
     }
+
     @PostMapping("/detailKh/userinfo/diachi/add")
     public String themDiaChi(
             @RequestParam String tinh,
@@ -540,10 +548,10 @@ public class register {
             @RequestParam Boolean macDinh,
             HttpSession session,
             Model model,
-            RedirectAttributes redirectAttributes
-    ) {
+            RedirectAttributes redirectAttributes) {
         KhachHang kh = (KhachHang) session.getAttribute("khachHang");
-        if (kh == null) return "redirect:/loginView";
+        if (kh == null)
+            return "redirect:/loginView";
         DiaChi dc = new DiaChi();
         dc.setCreateDate(new Date());
         dc.setDiaChiNha(diaChiNha);
@@ -572,9 +580,11 @@ public class register {
         redirectAttributes.addFlashAttribute("successMessage", "Thêm địa chỉ thành công!");
         return "redirect:/detailKh/userinfo";
     }
+
     @PostMapping("/detailKh/userinfo/diachi/delete")
     @ResponseBody
-    public Map<String, Object> xoaDiaChi(@RequestParam Long maDiaChi, HttpSession session,RedirectAttributes redirectAttributes) {
+    public Map<String, Object> xoaDiaChi(@RequestParam Long maDiaChi, HttpSession session,
+            RedirectAttributes redirectAttributes) {
         Map<String, Object> result = new HashMap<>();
 
         // Lấy Khách hàng từ session
@@ -599,11 +609,12 @@ public class register {
     @GetMapping("/detailKh/userinfo/diachi/get")
     public ResponseEntity<DiaChi> getDiaChiById(@RequestParam Long maDiaChi) {
         DiaChi diaChi = diaChiService.findById(maDiaChi);
-        if(diaChi == null){
+        if (diaChi == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(diaChi);
     }
+
     @PostMapping("/detailKh/userinfo/diachi/edit/{maDiaChi}")
     public String suaDiaChi(
             @PathVariable("maDiaChi") Long maDiaChi,
@@ -615,10 +626,9 @@ public class register {
             @RequestParam Boolean macDinh,
             HttpSession session,
             Model model,
-            RedirectAttributes redirectAttributes
-    ) {
+            RedirectAttributes redirectAttributes) {
         DiaChi dc = diaChiService.findById(maDiaChi);
-        if(dc == null) {
+        if (dc == null) {
             return "redirect:/detailKh/userinfo/diachi?error=notfound";
         }
         KhachHang kh = (KhachHang) session.getAttribute("khachHang");
@@ -653,10 +663,10 @@ public class register {
     @ResponseBody
     public Map<String, Object> filterOrdersAjax(
             HttpSession session,
-            @RequestBody Map<String, String> params
-    ) {
+            @RequestBody Map<String, String> params) {
         KhachHang khachHang = (KhachHang) session.getAttribute("khachHang");
-        if (khachHang == null) return Map.of("error", "unauthorized");
+        if (khachHang == null)
+            return Map.of("error", "unauthorized");
 
         int trangThai = Integer.parseInt(params.get("trangThai"));
         String startDateStr = params.get("startDate");
@@ -699,14 +709,13 @@ public class register {
         // ⭐ Trả về cả hóa đơn và sản phẩm max của từng hóa đơn
         return Map.of(
                 "data", listHD,
-                "sanPhamMax", sanPhamDacNhat
-        );
+                "sanPhamMax", sanPhamDacNhat);
     }
+
     @GetMapping("/detailKh/support")
     public String support(
             @RequestParam(defaultValue = "4") int section,
-            Model model
-    ) {
+            Model model) {
         String view;
 
         switch (section) {
@@ -746,14 +755,14 @@ public class register {
         model.addAttribute("pageTitle", "Ho tro");
         return "/layout/layout";
     }
+
     private String loadWordHtml() throws Exception {
 
         Resource resource = new ClassPathResource("doc/Giaychungnhan.docx");
 
         File file = resource.getFile();
 
-        WordprocessingMLPackage wordMLPackage =
-                WordprocessingMLPackage.load(file);
+        WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage.load(file);
 
         HTMLSettings settings = Docx4J.createHTMLSettings();
         settings.setWmlPackage(wordMLPackage);
@@ -764,61 +773,63 @@ public class register {
         return out.toString(StandardCharsets.UTF_8);
     }
 
-//    @PostMapping("/order/buy-again")
-//    @ResponseBody
-//    public ResponseEntity<?> buyAgain(
-//            @RequestBody Map<String, Object> payload,
-//            HttpSession session
-//    ) {
-//        KhachHang kh = (KhachHang) session.getAttribute("khachHang");
-//        if (kh == null) {
-//            return ResponseEntity.status(401)
-//                    .body(Map.of("success", false, "message", "Vui lòng đăng nhập"));
-//        }
-//
-//        Long maDonHang = Long.valueOf(payload.get("maDonHang").toString());
-//
-//        HoaDon donHang = hoaDonService.getByMa(maDonHang);
-//        if (donHang == null || !donHang.getKhachHang().getMaKhachHang().equals(kh.getMaKhachHang())) {
-//            return ResponseEntity.badRequest()
-//                    .body(Map.of("success", false, "message", "Đơn hàng không hợp lệ"));
-//        }
-//
-//        GioHang gioHang = gioHangService.getByKhachHang(kh);
-//        List<Long> maGHCTs = new ArrayList<>();
-//
-//        for (HoaDonChiTiet dhct : donHang) {
-//
-//            ChiTietSanPham ctsp = dhct.getChiTietSanPham();
-//
-//            // ❗ check còn bán / còn tồn
-//            if (ctsp.getTrangThai() != 1) continue;
-//
-//            GioHangChiTiet ghct = gioHangChiTietRepository.getByChiTietSanPhamAndGioHang(ctsp, gioHang);
-//
-//            if (ghct == null) {
-//                ghct = new GioHangChiTiet();
-//                ghct.setChiTietSanPham(ctsp);
-//                ghct.setGioHang(gioHang);
-//                ghct.setSoLuong(dhct.getSoLuong());
-//                ghct.setTrangThai(1);
-//            } else {
-//                ghct.setSoLuong(ghct.getSoLuong() + dhct.getSoLuong());
-//            }
-//
-//            gioHangChiTietRepository.save(ghct);
-//            maGHCTs.add(ghct.getMaGHCT());
-//        }
-//
-//        return ResponseEntity.ok(Map.of(
-//                "success", true,
-//                "maGHCTs", maGHCTs
-//        ));
-//    }
-
+    // @PostMapping("/order/buy-again")
+    // @ResponseBody
+    // public ResponseEntity<?> buyAgain(
+    // @RequestBody Map<String, Object> payload,
+    // HttpSession session
+    // ) {
+    // KhachHang kh = (KhachHang) session.getAttribute("khachHang");
+    // if (kh == null) {
+    // return ResponseEntity.status(401)
+    // .body(Map.of("success", false, "message", "Vui lòng đăng nhập"));
+    // }
+    //
+    // Long maDonHang = Long.valueOf(payload.get("maDonHang").toString());
+    //
+    // HoaDon donHang = hoaDonService.getByMa(maDonHang);
+    // if (donHang == null ||
+    // !donHang.getKhachHang().getMaKhachHang().equals(kh.getMaKhachHang())) {
+    // return ResponseEntity.badRequest()
+    // .body(Map.of("success", false, "message", "Đơn hàng không hợp lệ"));
+    // }
+    //
+    // GioHang gioHang = gioHangService.getByKhachHang(kh);
+    // List<Long> maGHCTs = new ArrayList<>();
+    //
+    // for (HoaDonChiTiet dhct : donHang) {
+    //
+    // ChiTietSanPham ctsp = dhct.getChiTietSanPham();
+    //
+    // // ❗ check còn bán / còn tồn
+    // if (ctsp.getTrangThai() != 1) continue;
+    //
+    // GioHangChiTiet ghct =
+    // gioHangChiTietRepository.getByChiTietSanPhamAndGioHang(ctsp, gioHang);
+    //
+    // if (ghct == null) {
+    // ghct = new GioHangChiTiet();
+    // ghct.setChiTietSanPham(ctsp);
+    // ghct.setGioHang(gioHang);
+    // ghct.setSoLuong(dhct.getSoLuong());
+    // ghct.setTrangThai(1);
+    // } else {
+    // ghct.setSoLuong(ghct.getSoLuong() + dhct.getSoLuong());
+    // }
+    //
+    // gioHangChiTietRepository.save(ghct);
+    // maGHCTs.add(ghct.getMaGHCT());
+    // }
+    //
+    // return ResponseEntity.ok(Map.of(
+    // "success", true,
+    // "maGHCTs", maGHCTs
+    // ));
+    // }
 
     @PostMapping("/update/{maKhachHang}")
-    public String update(Model model, @PathVariable(name = "maKhachHang") Long maKhachHang, HttpServletRequest request) {
+    public String update(Model model, @PathVariable(name = "maKhachHang") Long maKhachHang,
+            HttpServletRequest request) {
         KhachHang khachHang = khachHangService.getByMa(maKhachHang);
         String ten = request.getParameter("nguoiNhan");
         String diaChi = request.getParameter("diaChi");
@@ -855,19 +866,18 @@ public class register {
     }
 
     @GetMapping("contact1/{maKhachHang}")
-    public String hienthiContentDN(Model model,@PathVariable(name = "maKhachHang") Long maKhachHang) {
+    public String hienthiContentDN(Model model, @PathVariable(name = "maKhachHang") Long maKhachHang) {
         KhachHang khachHang = khachHangService.getByMa(maKhachHang);
         model.addAttribute("kh", khachHang);
         return "contactDN";
     }
 
     @GetMapping("blog1/{maKhachHang}")
-    public String hienthiBlogDN(Model model,@PathVariable(name = "maKhachHang") Long maKhachHang) {
+    public String hienthiBlogDN(Model model, @PathVariable(name = "maKhachHang") Long maKhachHang) {
         KhachHang khachHang = khachHangService.getByMa(maKhachHang);
         model.addAttribute("kh", khachHang);
         return "blogDN";
     }
-
 
     @PostMapping("/check-email")
     public ResponseEntity<Map<String, Boolean>> checkEmail(@RequestBody Map<String, String> payload) {
@@ -882,6 +892,47 @@ public class register {
 
     @GetMapping("test")
     public String hienthiT() {
-        return "VNP/orderfail";
+        return "test";
+    }
+
+    // Serve warranty images
+    @GetMapping("/uploads/warranty/{filename:.+}")
+    @ResponseBody
+    public ResponseEntity<byte[]> getWarrantyImage(@PathVariable String filename) {
+        try {
+            Path imagePath = Paths.get("uploads/warranty", filename);
+
+            System.out.println("=== Loading warranty image ===");
+            System.out.println("Filename: " + filename);
+            System.out.println("Full path: " + imagePath.toAbsolutePath());
+            System.out.println("File exists: " + Files.exists(imagePath));
+
+            if (!Files.exists(imagePath)) {
+                System.out.println("File not found!");
+                return ResponseEntity.notFound().build();
+            }
+
+            byte[] imageBytes = Files.readAllBytes(imagePath);
+
+            String contentType = "image/jpeg";
+            if (filename.endsWith(".png")) {
+                contentType = "image/png";
+            } else if (filename.endsWith(".webp")) {
+                contentType = "image/webp";
+            }
+
+            System.out.println("Serving image: " + imageBytes.length + " bytes");
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.parseMediaType(contentType));
+            headers.setCacheControl("max-age=3600");
+
+            return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
+
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().build();
+        }
     }
 }
