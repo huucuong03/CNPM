@@ -7,15 +7,12 @@ import com.example.demo.Entity.HoaDonChiTiet;
 import com.example.demo.Repository.GiamGiaCTSPRepository;
 import com.example.demo.Repository.HoaDonChiTietRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.List;
 
 @Service
 public class SupportService {
@@ -28,13 +25,12 @@ public class SupportService {
     @Autowired
     private GiamGiaCTSPRepository giamGiaCTSPRepository;
 
-    public List<SupportOrderItemDTO> getHoTro(Long maKH,Pageable pageable) {
+    public org.springframework.data.domain.Page<SupportOrderItemDTO> getHoTro(Long maKH, Pageable pageable) {
 
-        Page<HoaDonChiTiet> pageHDCT = repo.findByKhachHangHoanTat(maKH, 2, pageable);
-        List<HoaDonChiTiet> list = pageHDCT.getContent();
+        org.springframework.data.domain.Page<HoaDonChiTiet> pageHDCT = repo.findByKhachHangHoanTat(maKH, 2, pageable);
         LocalDateTime now = LocalDateTime.now();
 
-        return list.stream().map(ct -> {
+        return pageHDCT.map(ct -> {
 
             HoaDon h = ct.getHoaDon();
             LocalDateTime ngayMua = h.getNgayTao()
@@ -44,8 +40,10 @@ public class SupportService {
 
             boolean conDoiTra = now.isBefore(ngayMua.plusDays(DOI_TRA_DAYS));
             boolean conBaoHanh = now.isBefore(ngayMua.plusMonths(BAO_HANH_MONTHS));
-            GiamGiaChiTietSanPham giamGiaChiTietSanPham = giamGiaCTSPRepository.fillGGCTSP(ct.getChiTietSanPham().getMaChiTietSanPham());
-            BigDecimal giaSauGiam = (giamGiaChiTietSanPham != null) ? giamGiaChiTietSanPham.getGiaSauKhiGiam() : BigDecimal.ZERO; // nếu null thì lấy giá gốc
+            GiamGiaChiTietSanPham giamGiaChiTietSanPham = giamGiaCTSPRepository
+                    .fillGGCTSP(ct.getChiTietSanPham().getMaChiTietSanPham());
+            BigDecimal giaSauGiam = (giamGiaChiTietSanPham != null) ? giamGiaChiTietSanPham.getGiaSauKhiGiam()
+                    : BigDecimal.ZERO; // nếu null thì lấy giá gốc
             return SupportOrderItemDTO.builder()
                     // Hóa đơn
                     .maHoaDon(h.getMaHoaDon())
@@ -72,6 +70,6 @@ public class SupportService {
                     .conBaoHanh(conBaoHanh)
                     .build();
 
-        }).toList();
+        });
     }
 }
